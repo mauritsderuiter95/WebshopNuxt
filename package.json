@@ -1,0 +1,35 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Webshop WRAutomaten",
+  "author": "Maurits de Ruiter <mauritsderuiter95@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --port 8081",
+    "build": "nuxt build --port 8081",
+    "start": "nuxt start --port 8081",
+    "generate": "nuxt generate --port 8081",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.4.1",
+    "@nuxtjs/style-resources": "^0.1.2",
+    "axios": "^0.18.0",
+    "js-cookie": "^2.2.0",
+    "node-sass": "^4.11.0",
+    "nuxt": "^2.5.1",
+    "sass": "^1.17.3",
+    "vue-cookie": "^1.1.4",
+    "vuex-persistedstate": "^2.5.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.2",
+    "eslint-config-google": "^0.12.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.2.2",
+    "sass-loader": "^7.1.0"
+  }
+}

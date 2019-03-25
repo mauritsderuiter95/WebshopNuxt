@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    &::after, &::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+@font-face {
+    font-family: Magneto;
+    src: url('../fonts/MAGNETOB.TTF');
+}
+
+html {
+    font-size: 62.5%;
+    font-family: 'Montserrat', sans-serif;
+    body {
+        font-size: 1.4rem;
+        .container {            
+            width: 100%;
+            max-width: 120rem;
+            margin: 0 auto;
+        }
+    }
+}
