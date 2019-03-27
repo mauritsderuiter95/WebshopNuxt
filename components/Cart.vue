@@ -1,6 +1,7 @@
 <template>
     <div>
-        <span>({{ products }})</span>
+        <span>({{ getProducts }})</span>
+        <button @click="emptyCart">Empty Cart</button>
     </div>
 </template>
 
@@ -10,17 +11,22 @@ import CartService from '~/services/cart.service.js';
 export default {
     components: {
     },
-    fetch ({ store}) {
-        store.dispatch("cart/cart/getCart");
+    data() {
+        return {
+            products: 0
+        };
     },
     computed: {
-        products() {
-            if(this.$store.state.cart.currentCart) {
-                if(this.$store.state.cart.currentCart.products) {
-                    return this.$store.state.cart.currentCart.products.length;
-                }
-            }
-            return 0;
+        getProducts() {
+            if(this.$store.getters['cart/currentCart'])
+                return this.$store.getters['cart/currentCart'].products.length;
+            else
+                return 0;
+        }
+    },
+    methods: {
+        emptyCart() {
+            this.$store.commit('cart/clearCart');
         }
     }
 }

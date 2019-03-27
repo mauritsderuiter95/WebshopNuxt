@@ -43,7 +43,6 @@ module.exports = {
     '@nuxtjs/style-resources'
   ],
   plugins: [
-    { src: '~/plugins/localStorage.js', ssr: false },
     '~plugins/vue-cookie.js',
     '~plugins/axios.js'
   ],
@@ -54,5 +53,9 @@ module.exports = {
     scss: [
       '@/assets/scss/_vars.scss'
       ]
+  },
+  layoutTransition: {
+    name: 'layout',
+    mode: 'out-in'
   }
 };

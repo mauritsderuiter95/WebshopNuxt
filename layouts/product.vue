@@ -9,7 +9,7 @@
 export default {
   components: {
   },
-  middleware: 'check-cart'
+  transition: 'productLayout'
 }
 </script>
 

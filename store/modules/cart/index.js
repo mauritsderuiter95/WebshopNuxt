@@ -3,7 +3,7 @@ import Cookie from 'js-cookie';
 const api = 'https://localhost:44337/api/carts';
 
 const state = () => ({
-    currentCart: null,
+    currentCart: {},
 });
 
 const mutations = ({
@@ -46,36 +46,22 @@ const actions = {
         this.$axios.$delete(`${api}/${cart.id}`)
         .then(Cookie.delete("Cart"))
         .then(commit("clearCart"));
-    },
-    getCart({commit}, req) {
-        if(!req)
-            return null;
-        let cartCookie;
-        if(req.headers.cookie) {
-            cartCookie = req.headers.cookie
-            .split(";")
-            .find(c => c.trim().startsWith("Cart="))
-            .split("=");
-        }
-        if(cartCookie) {
-            if(cartCookie[1] != 'undefined') {
-                let cartId = cartCookie[1];
-                this.$axios.get(`${api}/${cartId}`)
-                .then((response) => {
-                    let cart = JSON.parse('{"id":"-2","products":"[]"}');
-                    commit("setCart", cart);
-                });
-            }
-        }
-        else {
-            return null;
-        }
     }
 };
+
+const getters = {
+    currentCart(state) {
+        console.log('From getter:');
+        console.log(state.currentCart);
+        console.log('end getter');
+        return state.currentCart;
+    }
+  };
 
 export default {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 };

@@ -12,8 +12,7 @@ import Header from '~/components/Header.vue';
 export default {
   components: {
     Header
-  },
-  middleware: 'check-cart'
+  }
 }
 </script>
 

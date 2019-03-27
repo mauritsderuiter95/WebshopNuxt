@@ -17,6 +17,7 @@
 html {
     font-size: 62.5%;
     font-family: 'Montserrat', sans-serif;
+    overflow-y: scroll;
     body {
         font-size: 1.4rem;
         .container {            
@@ -24,5 +25,61 @@ html {
             max-width: 120rem;
             margin: 0 auto;
         }
+    }
+}
+
+.productLayout-enter {
+    transform: translateY(100vh);
+}
+.productLayout-enter-active {
+    animation: fromBottom 0.5s forwards;
+}
+.productLayout-leave-active {
+    animation: toBottom 0.5s forwards;
+}
+
+@keyframes fromBottom {
+    from {
+        transform: translateY(100vh);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes toBottom {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100vh) translateX(0);
+    }
+}
+
+.productPage-enter {
+    transform: translateY(100vh);
+}
+.productPage-enter-active {
+    animation: fromBottomPage 0.5s forwards;
+}
+.productPage-leave-active {
+    animation: toBottomPage 0.5s forwards;
+}
+
+@keyframes fromBottomPage {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes toBottomPage {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(0);
     }
 }

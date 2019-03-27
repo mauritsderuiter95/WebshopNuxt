@@ -2,18 +2,27 @@
     <div>
         <header>
             <div class="container">
-                <div class="left">
-                    <h1>WR Automaten</h1>
-                    <h2>Uw partner in service!</h2>
-                </div>
-                <div class="right">
-                    <div class="search">
-                        <form>
-                            <input type="text" name="search" id="search" placeholder="search" />
-                            <button class="btn btn-primary">Vind</button>
-                        </form>
-                        <Cart />
+                <div class="row">
+                    <div class="left">
+                        <nuxt-link to="/"><h1>WR Automaten</h1></nuxt-link>
+                        <h2>Uw partner in service!</h2>
                     </div>
+                    <div class="right">
+                        <div class="search">
+                            <form>
+                                <input type="text" name="search" id="search" placeholder="search" />
+                                <button class="btn btn-primary">Vind</button>
+                            </form>
+                            <Cart />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <nav class="navBar">
+                        <ul class="navList">
+                            <li class="navItem"><nuxt-link to="/products">Producten</nuxt-link></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </header>
@@ -40,17 +49,28 @@ export default {
             width: 100%;
             max-width: 120rem;
             display: flex;
-            justify-content: space-between;
             margin: 0 auto;
             padding: 5rem 0;
-            .left{
-                max-width: 50%;
-                h1 {
-                    font-family: Magneto;
+            flex-wrap: wrap;
+            .row {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .left{
+                    max-width: 50%;
+                    h1 {
+                        font-family: Magneto;
+                    }
                 }
-            }
-            .right {
-                max-width: 50%;
+                .right {
+                    max-width: 50%;
+                }
+                .navBar {
+                    .navList {
+                        display: flex;
+                        list-style-type: none;
+                    }
+                }
             }
         }
     }
