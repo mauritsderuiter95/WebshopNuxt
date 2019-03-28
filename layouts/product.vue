@@ -1,6 +1,8 @@
 <template>
   <div id="product">
-    <nuxt/>
+    <transition name="productLayout" mode="out-in">
+      <nuxt/>
+    </transition>
   </div>
 </template>
 
@@ -9,7 +11,6 @@
 export default {
   components: {
   },
-  transition: 'productLayout'
 }
 </script>
 

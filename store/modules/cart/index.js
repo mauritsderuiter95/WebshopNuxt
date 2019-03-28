@@ -51,9 +51,6 @@ const actions = {
 
 const getters = {
     currentCart(state) {
-        console.log('From getter:');
-        console.log(state.currentCart);
-        console.log('end getter');
         return state.currentCart;
     }
   };

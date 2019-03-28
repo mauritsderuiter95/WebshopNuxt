@@ -83,3 +83,19 @@ html {
         transform: translateY(0);
     }
 }
+
+// .layout-enter, .layout-leave {
+//     opacity: 0;
+// }
+
+// .layout-enter-active, .layout-leave-active {
+//     transition: opacity 1s;
+// }
+
+.page-enter, .page-leave {
+    opacity: 0;
+}
+
+.page-enter-active, .page-leave-active {
+    transition: opacity 1s;
+}

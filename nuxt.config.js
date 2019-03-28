@@ -53,9 +53,5 @@ module.exports = {
     scss: [
       '@/assets/scss/_vars.scss'
       ]
-  },
-  layoutTransition: {
-    name: 'layout',
-    mode: 'out-in'
   }
 };
