@@ -39,7 +39,7 @@ const actions = {
         .catch(e => reject(e));
       });
   },
-  initAuth({commit, dispatch}, req) {
+  async initAuth({commit, dispatch}, req) {
     let token;
     let expirationDate;
     if (req) { 
@@ -59,11 +59,10 @@ const actions = {
         .split("=")[1];
     }
     if (new Date().getTime() > + expirationDate || !token) {
-      console.log("No token or invalid token");
-      dispatch("logout");
+      await dispatch("logout");
       return;
     }
-    commit("setToken", token);
+    await commit("setToken", token);
   },
   logout({commit}) {
     commit("clearToken");
@@ -74,6 +73,7 @@ const actions = {
 
 const getters = {
   isAuthenticated(state) {
+    console.log(state.token)
     return state.token != null;
   }
 };

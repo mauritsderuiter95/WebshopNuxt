@@ -6,7 +6,8 @@ import UserModule from './modules/user';
 const api = 'https://localhost:44337/api/carts';
 
 const actions = {
-  async nuxtServerInit ({ commit }, { req }) {
+  async nuxtServerInit ({ commit, dispatch }, { req }) {
+    dispatch("user/initAuth", req);
     let cartCookie;
     // Check if there's a cookie available
     if(req.headers.cookie) {
