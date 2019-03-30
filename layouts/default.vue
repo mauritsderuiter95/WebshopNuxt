@@ -7,7 +7,7 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue';
-import Header from '~/components/Header.vue';
+import Header from '~/components/header/Header.vue';
 
 export default {
   components: {

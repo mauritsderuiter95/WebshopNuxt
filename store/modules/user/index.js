@@ -3,41 +3,41 @@ import Cookie from "js-cookie";
 import { Promise } from "q";
 
 const state = () => ({
-      token: null
+      user: null
 });
 
 const mutations = ({
-      setToken(state, token) {
-        state.token = token;
+      setUser(state, user) {
+        state.user = user;
       },
-      clearToken(state) {
-        state.token = null;
+      clearUser(state) {
+        state.user = null;
       }
 });
 
 const actions = {
   authenticateUser({commit}, authData){
-      return new Promise((resolve, reject) => {
-        let authUrl = "https://localhost:44337/api/users/authenticate";
-        if (!authData.isLogin) {
-            authUrl = "https://localhost:44337/api/users";
-        }
-        return this.$axios
-        .$post(authUrl, {
-            userName: authData.username,
-            password: authData.password
-        })
-        .then(result => {
-            commit("setToken", result.token);
-            Cookie.set("jwt", result.token);
-            Cookie.set(
-            "expirationDate",
-            result.expires
-            );
-            resolve();
-        })
-        .catch(e => reject(e));
-      });
+    return new Promise((resolve, reject) => {
+      let authUrl = "https://localhost:44337/api/users/authenticate";
+      if (!authData.isLogin) {
+          authUrl = "https://localhost:44337/api/users";
+      }
+      return this.$axios
+      .$post(authUrl, {
+          userName: authData.username,
+          password: authData.password
+      })
+      .then(result => {
+          commit("setUser", result);
+          Cookie.set("jwt", result.token);
+          Cookie.set(
+          "expirationDate",
+          result.expires
+          );
+          resolve();
+      })
+      .catch(e => reject(e));
+    });
   },
   async initAuth({commit, dispatch}, req) {
     let token;
@@ -62,10 +62,18 @@ const actions = {
       await dispatch("logout");
       return;
     }
-    await commit("setToken", token);
+    let userUrl = "https://localhost:44337/api/users/currentuser";
+    await this.$axios
+    .$post(userUrl)
+    .then(result => {
+      commit("setUser", result);
+    })
+    .catch(() => {
+      commit("clearUser");
+    });
   },
   logout({commit}) {
-    commit("clearToken");
+    commit("clearUser");
     Cookie.remove("jwt");
     Cookie.remove("expirationDate");
   }
@@ -73,8 +81,10 @@ const actions = {
 
 const getters = {
   isAuthenticated(state) {
-    console.log(state.token)
-    return state.token != null;
+    return state.user.token != null;
+  },
+  currentUser(state) {
+    return state.user;
   }
 };
 

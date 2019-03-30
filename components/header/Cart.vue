@@ -1,15 +1,16 @@
 <template>
     <div>
-        <span>({{ getProducts }})</span>
-        <button @click="emptyCart">Empty Cart</button>
+        <a-button type="primary"><a-icon type="shopping-cart" />{{ getProducts }} <span v-if="products.length === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></a-button>
     </div>
 </template>
 
 <script>
-import CartService from '~/services/cart.service.js';
+import { Button, Icon } from 'ant-design-vue';
 
 export default {
     components: {
+        'a-button': Button,
+        'a-icon': Icon
     },
     data() {
         return {
@@ -33,7 +34,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+button {
+    width: 100%;
+}
 </style>
 
 

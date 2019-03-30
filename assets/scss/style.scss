@@ -28,74 +28,22 @@ html {
     }
 }
 
-.productLayout-enter {
-    transform: translateY(100vh);
-}
-.productLayout-enter-active {
-    animation: fromBottom 0.5s forwards;
-}
-.productLayout-leave-active {
-    animation: toBottom 0.5s forwards;
+.layout-enter, .layout-leave-to {
+    opacity: 0;
 }
 
-@keyframes fromBottom {
-    from {
-        transform: translateY(100vh);
-    }
-    to {
-        transform: translateY(0);
-    }
+.layout-enter-active, .layout-leave-active {
+    transition: opacity .2s;
 }
 
-@keyframes toBottom {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(100vh) translateX(0);
-    }
-}
-
-.productPage-enter {
-    transform: translateY(100vh);
-}
-.productPage-enter-active {
-    animation: fromBottomPage 0.5s forwards;
-}
-.productPage-leave-active {
-    animation: toBottomPage 0.5s forwards;
-}
-
-@keyframes fromBottomPage {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes toBottomPage {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-// .layout-enter, .layout-leave {
-//     opacity: 0;
-// }
-
-// .layout-enter-active, .layout-leave-active {
-//     transition: opacity 1s;
-// }
-
-.page-enter, .page-leave {
+.page-enter, .page-leave-to {
     opacity: 0;
 }
 
 .page-enter-active, .page-leave-active {
-    transition: opacity 1s;
+    transition: opacity .2s;
+}
+
+.ant-card-actions {
+    margin-top: auto !important;
 }

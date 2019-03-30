@@ -33,6 +33,10 @@ module.exports = {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
+        }, {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /(node_modules)/
         });
       }
     }
@@ -53,5 +57,9 @@ module.exports = {
     scss: [
       '@/assets/scss/_vars.scss'
       ]
+  },
+  layoutTransition: {
+    name: 'layout',
+    mode: 'out-in'
   }
 };
