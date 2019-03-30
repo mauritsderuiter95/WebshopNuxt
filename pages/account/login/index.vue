@@ -65,7 +65,8 @@ export default {
             }, 2000);
         }
     },
-    layout: 'product'
+    layout: 'product',
+    middleware: 'authTrue'
 }
 </script>
 

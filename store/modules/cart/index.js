@@ -16,12 +16,12 @@ const mutations = ({
 });
 
 const actions = {
-    editCart({commit}, product) {
+    addToCart({commit}, product) {
         let cartProduct = {};
         cartProduct.productId = product.id;
         cartProduct.count = 1;
         if(this.state.cart.currentCart) {
-            this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }`, cartProduct)
+            this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }/add`, cartProduct)
             .then((response) => {
                 Cookie.set("Cart", response.id);
                 commit("setCart", response);
@@ -29,6 +29,15 @@ const actions = {
         }
         else {
             this.$axios.$post(`${api}`, cartProduct)
+            .then((response) => {
+                Cookie.set("Cart", response.id);
+                commit("setCart", response);
+            });
+        }
+    },
+    editCart({commit}, cart) {
+        if(this.state.cart.currentCart) {
+            this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }`, cart)
             .then((response) => {
                 Cookie.set("Cart", response.id);
                 commit("setCart", response);
@@ -71,7 +80,10 @@ const actions = {
                     let cart = response.data;
                     // Set the cart in the state
                     commit("setCart", cart);
-                });
+                })
+                .catch(() => {
+                    commit("clearCart");
+                })
             }
         }
         else {

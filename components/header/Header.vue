@@ -38,6 +38,8 @@ export default {
     header {
         width: 100%;
         background: #fff;
+        margin-bottom: 5rem;
+        border-bottom: 1px solid #e8e8e8;
         .container {
             display: flex;
             padding: 5rem 0 0;
@@ -46,6 +48,7 @@ export default {
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+                padding: 0 2rem;
                 .left{
                     max-width: 50%;
                     h1 {

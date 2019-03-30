@@ -27,7 +27,6 @@ export default {
 
 <style lang="scss" scoped>
 .productList {
-  margin-top: 5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 3rem;

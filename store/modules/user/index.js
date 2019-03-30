@@ -3,10 +3,14 @@ import Cookie from "js-cookie";
 import { Promise } from "q";
 
 const state = () => ({
-      user: null
+      user: null,
+      token: null
 });
 
 const mutations = ({
+      setToken(state, token) {
+        state.token = token;
+      },
       setUser(state, user) {
         state.user = user;
       },
@@ -29,6 +33,7 @@ const actions = {
       })
       .then(result => {
           commit("setUser", result);
+          commit("setToken", result.token);
           Cookie.set("jwt", result.token);
           Cookie.set(
           "expirationDate",
@@ -39,7 +44,7 @@ const actions = {
       .catch(e => reject(e));
     });
   },
-  async initAuth({commit, dispatch}, req) {
+  async initAuth({state, commit, dispatch}, req) {
     let token;
     let expirationDate;
     if (req) { 
@@ -62,13 +67,17 @@ const actions = {
       await dispatch("logout");
       return;
     }
+    commit("setToken", token);
     let userUrl = "https://localhost:44337/api/users/currentuser";
+    this.$axios.onRequest(config => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`;
+    });
     await this.$axios
-    .$post(userUrl)
+    .$get(userUrl)
     .then(result => {
       commit("setUser", result);
     })
-    .catch(() => {
+    .catch((e) => {
       commit("clearUser");
     });
   },
@@ -81,10 +90,13 @@ const actions = {
 
 const getters = {
   isAuthenticated(state) {
-    return state.user.token != null;
+      return state.token != null;
   },
   currentUser(state) {
     return state.user;
+  },
+  token(state) {
+    return state.token;
   }
 };
 

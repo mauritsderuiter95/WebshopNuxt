@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         addToCart() {
-            this.$store.dispatch("cart/editCart", this.product);
+            this.$store.dispatch("cart/addToCart", this.product);
         }
     }
 }
@@ -44,8 +44,19 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
-    &::last-child {
-        margin-top: auto 0;
+    /deep/ li {
+        margin: 0;
+        /deep/ span {
+            display: block;
+            height: 100%;
+            width: 100%;
+            /deep/ a {
+                padding: 12px 0;
+                display: block;
+                height: 100%;
+                width: 100%;
+            }
+        }
     }
 }
 </style>

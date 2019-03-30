@@ -15,6 +15,8 @@
       </div>
     </div>
     <div class="half">
+      <h1>{{ product.productName }}</h1>
+      <p>{{ product.shortDescription }}</p>
       <div class="actions">
         <a-button type="primary" @click="addToCart">Bestellen</a-button>
       </div>
@@ -48,7 +50,7 @@ export default {
       this.featuredPhoto = photo;
     },
     addToCart() {
-      this.$store.dispatch("cart/editCart", this.product);
+      this.$store.dispatch("cart/addToCart", this.product);
     }
   }
 }
@@ -58,10 +60,11 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5rem;
   .half {
     width: 50%;
     padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 .photos {
@@ -99,6 +102,8 @@ export default {
 }
 .actions {
   display: grid;
+  margin-top: auto;
+  margin-bottom: 1em;
 }
 >div {
   padding: 2rem;

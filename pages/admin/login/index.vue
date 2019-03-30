@@ -198,7 +198,7 @@ export default {
                         input {
                             width: calc(100% - 6rem);
                             border: none;
-                            padding: 2rem;
+                            padding: 1.6rem;
                             font-size: 1.6rem;
                             position: relative;
                             border: 1px solid #006b96;
