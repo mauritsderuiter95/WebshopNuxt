@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-app>
     <Header />
     <nuxt/>
-  </div>
+  </v-app>
 </template>
 
 <script>

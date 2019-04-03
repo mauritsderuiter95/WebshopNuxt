@@ -1,16 +1,13 @@
 <template>
     <div>
-        <nuxt-link to="/cart"><a-button type="primary"><a-icon type="shopping-cart" />{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></a-button></nuxt-link>
+        <nuxt-link to="/cart"><v-btn block color="primary"><v-icon>shopping_cart</v-icon>{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></v-btn></nuxt-link>
     </div>
 </template>
 
 <script>
-import { Button, Icon } from 'ant-design-vue';
 
 export default {
     components: {
-        'a-button': Button,
-        'a-icon': Icon
     },
     data() {
         return {
@@ -38,9 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button {
-    width: 100%;
-}
+
 </style>
 
 

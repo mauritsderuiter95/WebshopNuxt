@@ -11,8 +11,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat:200,400,500'},
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700,900|Material+Icons'}
     ]
   },
   /*
@@ -39,7 +38,8 @@ module.exports = {
           exclude: /(node_modules)/
         });
       }
-    }
+    },
+    vendor: ['vuetify']
   },
   vendor: ['axios', 'vue-cookie', 'vue-notifications'],
   modules: [
@@ -48,10 +48,15 @@ module.exports = {
   ],
   plugins: [
     '~plugins/vue-cookie.js',
-    '~plugins/axios.js'
+    '~plugins/axios.js',
+    '~plugins/vuetify.js'
   ],
   css: [
-    '@/assets/scss/style.scss'
+    '@/assets/scss/style.scss',
+    {
+      src: ('@/assets/css/app.styl'),
+      lang: 'styl'
+    }
   ],
   styleResources: {
     scss: [

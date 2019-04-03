@@ -1,27 +1,29 @@
 <template>
   <div class="container">
-    <div class="half">
-      <div class="photos" v-if="product.photos">
-        <div class="featured">
-          <transition name="fade" mode="out-in">
-            <img :src="featuredPhoto.url" :alt="featuredPhoto.alt" :title="featuredPhoto.title" :key="featuredPhoto.url" />
-          </transition>
+    <div class="grid">
+      <div class="half">
+        <div class="photos" v-if="product.photos">
+          <div class="featured">
+            <transition name="fade" mode="out-in">
+              <img :src="featuredPhoto.url" :alt="featuredPhoto.alt" :title="featuredPhoto.title" :key="featuredPhoto.url" />
+            </transition>
+          </div>
+          <ul class="imageList">
+            <li v-for="photo in product.photos" :key="photo.url" @click="bigPicture(photo)">
+              <img :src="photo.url" :alt="photo.alt" :title="photo.title" />
+            </li>
+          </ul>
         </div>
-        <ul class="imageList">
-          <li v-for="photo in product.photos" :key="photo.url" @click="bigPicture(photo)">
-            <img :src="photo.url" :alt="photo.alt" :title="photo.title" />
-          </li>
-        </ul>
+      </div>
+      <div class="half">
+        <h1>{{ product.productName }}</h1>
+        <p>{{ product.shortDescription }}</p>
+        <div class="actions">
+          <v-btn @click="addToCart" color="primary">Add to cart</v-btn>
+        </div>
       </div>
     </div>
-    <div class="half">
-      <h1>{{ product.productName }}</h1>
-      <p>{{ product.shortDescription }}</p>
-      <div class="actions">
-        <a-button type="primary" @click="addToCart">Bestellen</a-button>
-      </div>
-    </div>
-    <div class="info">
+    <div class="productInfo">
       <div v-html="product.longDescription">
       </div>
     </div>
@@ -30,11 +32,9 @@
 
 <script>
 import ProductService from '~/services/product.service.js';
-import { Button } from 'ant-design-vue';
 
 export default {
   components: {
-    'a-button': Button
   },
   asyncData({ params }) {
     return ProductService.getProduct(params.id)
@@ -60,11 +60,17 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  .half {
-    width: 50%;
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
+  width: 1200px;
+  background: #fff;
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2rem;
+    .half {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 .photos {
@@ -82,6 +88,7 @@ export default {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
     margin-top: 1rem;
+    padding-left: 0;
     li {
       cursor: pointer;
       img {
@@ -91,7 +98,7 @@ export default {
     }
   }
 }
-.info {
+.productInfo {
   font-size: 1.6rem;
   /deep/ p {
     margin-bottom: 2rem;

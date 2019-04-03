@@ -1,32 +1,30 @@
 <template>
-    <a-card
-        hoverable
-    >
-        <img
-            :alt="product.photos[0].alt"
+    <v-card>
+        <v-img
             :src="product.photos[0].url"
+            aspect-ratio="2.75"
+            :alt="product.photos[0].alt"
             :title="product.photos[0].title"
-            slot="cover"
-        />
-        <a-card-meta
-            :title="product.productName">
-        </a-card-meta>
-        <p>{{ product.shortDescription }}</p>
-        <p>{{ product.price }}</p>
-        <template class="ant-card-actions" slot="actions">
-            <nuxt-link :to="{ path: `/products/${product.id}`}" class="btn info">Info</nuxt-link>
-            <a class="btn" @click="addToCart">Bestellen</a>
-        </template>
-    </a-card> 
+        ></v-img>
+
+        <v-card-title primary-title>
+            <div>
+                <h3 class="headline mb-0">{{ product.productName }}</h3>
+                <div> {{ product.shortDescription }} </div>
+            </div>
+        </v-card-title>
+
+        <v-card-actions>
+            <nuxt-link :to="{ path: `/products/${product.id}`}"><v-btn flat>Info</v-btn></nuxt-link>
+            <v-btn flat color="primary" @click="addToCart">Bestellen</v-btn>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
-import { Card} from 'ant-design-vue';
 
 export default {
     components: {
-        'a-card': Card,
-        'a-card-meta': Card.Meta
     },
     props: {
         product: Object
@@ -40,23 +38,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ant-card {
+.v-card {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    /deep/ li {
-        margin: 0;
-        /deep/ span {
-            display: block;
-            height: 100%;
-            width: 100%;
-            /deep/ a {
-                padding: 12px 0;
-                display: block;
-                height: 100%;
-                width: 100%;
-            }
-        }
+    position: relative;
+    &__title {
+        margin-bottom: 52px;
+    }
+    &__actions {
+        margin-top: auto;
+        position: absolute;
+        bottom: 0;
     }
 }
 </style>

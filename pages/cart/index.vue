@@ -22,14 +22,14 @@
         </a-table>
         <div class="toolbar">
             <div class="checkout">
-                <nuxt-link to="cart/checkout"><a-button type="primary">Checkout</a-button></nuxt-link>
+                <nuxt-link to="cart/checkout"><v-btn color="primary">Checkout</v-btn></nuxt-link>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { Table, InputNumber, Button } from 'ant-design-vue';
+import { Table, InputNumber } from 'ant-design-vue';
 import ProductService from '~/services/product.service.js';
 
 const columns = [{
@@ -50,8 +50,7 @@ const columns = [{
 export default {
     components: {
         'a-table': Table,
-        'a-input-number': InputNumber,
-        'a-button': Button
+        'a-input-number': InputNumber
     },
     data() {
         return {
@@ -96,10 +95,14 @@ export default {
 .table {
     background: #fff;
     margin-bottom: 2rem;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 .toolbar {
     display: flex;
     justify-content: flex-end;
+    .v-btn {
+        margin: 0;
+    }
 }
 
 </style>
