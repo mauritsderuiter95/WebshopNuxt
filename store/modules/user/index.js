@@ -34,10 +34,11 @@ const actions = {
       .then(result => {
           commit("setUser", result);
           commit("setToken", result.token);
-          Cookie.set("jwt", result.token);
+          Cookie.set("jwt", result.token, { expires: 365 });
           Cookie.set(
           "expirationDate",
-          result.expires
+          result.expires, 
+          { expires: 365 }
           );
           resolve();
       })

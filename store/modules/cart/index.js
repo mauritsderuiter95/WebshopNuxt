@@ -23,14 +23,14 @@ const actions = {
         if(this.state.cart.currentCart) {
             this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }/add`, cartProduct)
             .then((response) => {
-                Cookie.set("Cart", response.id);
+                Cookie.set("Cart", response.id, { expires: 365 });
                 commit("setCart", response);
             });
         }
         else {
             this.$axios.$post(`${api}`, cartProduct)
             .then((response) => {
-                Cookie.set("Cart", response.id);
+                Cookie.set("Cart", response.id, { expires: 365 });
                 commit("setCart", response);
             });
         }
@@ -39,7 +39,7 @@ const actions = {
         if(this.state.cart.currentCart) {
             this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }`, cart)
             .then((response) => {
-                Cookie.set("Cart", response.id);
+                Cookie.set("Cart", response.id, { expires: 365 });
                 commit("setCart", response);
             });
         }

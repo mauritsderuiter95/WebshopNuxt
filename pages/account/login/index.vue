@@ -55,7 +55,10 @@ export default {
                 this.$store.dispatch('user/authenticateUser', this.auth)
                 .then ((result) => {
                     console.log("in the promise.");
-                    this.$router.push('/account');
+                    if(!this.$route.query.returnpath)
+                        this.$router.push('/account');
+                    else
+                        this.$router.push(`/${this.$route.query.returnpath}`)
                 })
                 .catch((e) => {
                     console.log("in the catch.");

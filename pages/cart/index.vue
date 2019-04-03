@@ -5,6 +5,7 @@
             :dataSource="setData"
             :loading="loading"
             :pagination="false"
+            class="table"
         >
         <!-- <a-input-number :min="1" :max="10" slot="count" /> -->
         <template v-for="col in ['count']" :slot="col" slot-scope="count, record">
@@ -19,11 +20,16 @@
             </div>
         </template>
         </a-table>
+        <div class="toolbar">
+            <div class="checkout">
+                <nuxt-link to="cart/checkout"><a-button type="primary">Checkout</a-button></nuxt-link>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import { Table, InputNumber } from 'ant-design-vue';
+import { Table, InputNumber, Button } from 'ant-design-vue';
 import ProductService from '~/services/product.service.js';
 
 const columns = [{
@@ -44,7 +50,8 @@ const columns = [{
 export default {
     components: {
         'a-table': Table,
-        'a-input-number': InputNumber
+        'a-input-number': InputNumber,
+        'a-button': Button
     },
     data() {
         return {
@@ -86,6 +93,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.table {
+    background: #fff;
+    margin-bottom: 2rem;
+}
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+}
 
 </style>
 

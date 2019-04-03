@@ -1,5 +1,9 @@
 export default function(context) {
     if (context.store.getters['user/isAuthenticated']) {
-      context.redirect("/account");
+      console.log(context);
+      if(!context.query.returnpath)
+        context.redirect("/account");
+      else
+        context.redirect(`/${context.query.returnpath}`);
     }
   }
