@@ -44,6 +44,7 @@ export default {
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 2rem;
                 .left{
                     max-width: 50%;
                     h1 {

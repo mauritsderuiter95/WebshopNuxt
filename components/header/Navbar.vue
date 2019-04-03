@@ -26,11 +26,6 @@ export default {
 <style lang="scss" scoped>
 .menu-holder {
     width: 100%;
-    margin-top: 2rem;
-    .menu {
-        width: 100%;
-        border-bottom: none;
-    }
 }
 </style>
 
