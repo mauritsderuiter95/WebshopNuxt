@@ -1,13 +1,15 @@
 <template>
     <div>
-        <nuxt-link to="/cart"><v-btn block color="primary"><v-icon>shopping_cart</v-icon>{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></v-btn></nuxt-link>
+        <nuxt-link to="/cart"><wr-btn block color="primary"><i class="material-icons">shopping_cart</i>{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></wr-btn></nuxt-link>
     </div>
 </template>
 
 <script>
+import btn from '@/components/ui-components/Button.vue';
 
 export default {
     components: {
+        'wr-btn': btn
     },
     data() {
         return {

@@ -21,7 +21,7 @@ const actions = {
         cartProduct.productId = product.id;
         cartProduct.count = 1;
         if(this.state.cart.currentCart) {
-            this.$axios.$put(`${api}/${ this.state.cart.currentCart.id }/add`, cartProduct)
+            this.$axios.$patch(`${api}/${ this.state.cart.currentCart.id }`, cartProduct)
             .then((response) => {
                 Cookie.set("Cart", response.id, { expires: 365 });
                 commit("setCart", response);

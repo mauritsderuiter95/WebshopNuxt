@@ -1,24 +1,22 @@
 <template>
 <div class="menu-holder">
-  <v-toolbar dark color="primary">
-    <v-toolbar-side-icon></v-toolbar-side-icon>
-
-    <v-toolbar-title class="white--text">Title</v-toolbar-title>
-
-    <v-spacer></v-spacer>
-
-    <nuxt-link to="/"><v-btn flat>Home</v-btn></nuxt-link>
-    <nuxt-link to="/products"><v-btn flat>Koffie</v-btn></nuxt-link>
-    <nuxt-link to="/products"><v-btn flat>Thee</v-btn></nuxt-link>
-    <nuxt-link to="/products"><v-btn flat>Machines</v-btn></nuxt-link>
-  </v-toolbar>
+  <wr-toolbar>
+    <nuxt-link to="/"><wr-btn dark flat>Home</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn dark flat>Koffie</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn dark flat>Thee</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn dark flat>Machines</wr-btn></nuxt-link>
+  </wr-toolbar>
 </div>
 </template>
 
 <script>
+import Toolbar from '@/components/ui-components/Toolbar.vue';
+import Button from '@/components/ui-components/Button.vue';
 
 export default {
     components: {
+      'wr-toolbar': Toolbar,
+      'wr-btn': Button
     },
 }
 </script>
@@ -26,6 +24,9 @@ export default {
 <style lang="scss" scoped>
 .menu-holder {
     width: 100%;
+    a {
+      margin-right: 2rem;
+    }
 }
 </style>
 

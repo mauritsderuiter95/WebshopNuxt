@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="content">
-            <div class="credentialGuard" v-if="this.$store.getters['user/isAuthenticated'] || guest">
+            <div class="credentialGuard" v-if="!this.$store.getters['user/isAuthenticated'] || guest">
                 <v-card class="guest">
                     <v-card-title primary-title>
                         <div>
@@ -35,6 +35,65 @@
                         <v-btn color="primary" block @click="signUp">Maak account aan</v-btn>
                     </v-card-actions>
                 </v-card>
+            </div>
+            <div class="form" v-if="!guest">
+                <div class="label">
+                    <p>Voornaam</p>
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Voornaam"
+                        outline
+                    ></v-text-field>
+                </div>
+
+                <div class="label">
+                    <p>Achternaam</p>
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Achternaam"
+                        
+                    ></v-text-field>
+                </div>
+
+                <div class="label">
+                    <p>Adres</p>
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Adres"
+                        solo
+                    ></v-text-field>
+                </div>
+                <div class="label">
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Adres"
+                        solo
+                    ></v-text-field>
+                </div>
+
+                <div class="label">
+                    <p>Postcode</p>
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Postcode"
+                        solo
+                    ></v-text-field>
+                </div>
+
+                <div class="label">
+                    <p>Plaats</p>
+                </div>
+                <div class="input">
+                    <v-text-field
+                        placeholder="Plaats"
+                        solo
+                    ></v-text-field>
+                </div>
             </div>
         </div>
         <aside class="sidebar">
@@ -110,6 +169,22 @@ export default {
                     bottom: 0;
                     width: 100%;
                 }
+            }
+        }
+        .form {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            grid-gap: 1rem;
+            align-items: center;
+            .label {
+                display: flex;
+                justify-content: flex-end;
+                p {
+                    margin-bottom: 2.1rem;
+                }
+            }
+            .input {
+                display: flex;
             }
         }
     }
