@@ -1,8 +1,8 @@
 <template>
-    <v-app>
+    <div>
         <Navbar />
         <nuxt/>
-    </v-app>
+    </div>
 </template>
 
 <script>

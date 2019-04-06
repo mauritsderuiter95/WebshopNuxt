@@ -1,16 +1,12 @@
 <template>
-      <v-autocomplete
-        v-model="model"
-        :items="items"
-        :loading="isLoading"
-        :search-input.sync="search"
-        color="primary"
-        hide-no-data
-        hide-selected
-        item-text="ProductName"
-        label="Zoek een product"
-        return-object
-      ></v-autocomplete>
+  <div class="search">
+    <input type="text" name="searchBar" id="searchBar" @change="searchProduct($event.target.value)">
+    <div class="results">
+      <ul>
+        <li v-for="item in items" :key="item.ProductName">{{ item.ProductName}}</li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -48,9 +44,8 @@ export default {
         return null;
       }
     },
-
-    watch: {
-      search (val) {
+    methods: {
+      searchProduct(val) {
         // Items have already been loaded
         if (this.items.length > 0) return;
 
@@ -73,3 +68,39 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.search {
+  position: relative;
+  input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum';
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    padding: 4px 11px;
+    color: rgba(0,0,0,0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  .results {
+    position: absoluut;
+    top: 4rem;
+    background: #fff;
+    border-radius: 2px;
+  }
+}
+</style>

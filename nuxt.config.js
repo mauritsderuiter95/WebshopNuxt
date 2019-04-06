@@ -39,7 +39,6 @@ module.exports = {
         });
       }
     },
-    vendor: ['vuetify']
   },
   vendor: ['axios', 'vue-cookie', 'vue-notifications'],
   modules: [
@@ -48,15 +47,10 @@ module.exports = {
   ],
   plugins: [
     '~plugins/vue-cookie.js',
-    '~plugins/axios.js',
-    '~plugins/vuetify.js'
+    '~plugins/axios.js'
   ],
   css: [
-    '@/assets/scss/style.scss',
-    {
-      src: ('@/assets/css/app.styl'),
-      lang: 'styl'
-    }
+    '@/assets/scss/style.scss'
   ],
   styleResources: {
     scss: [

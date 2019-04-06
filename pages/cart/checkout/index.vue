@@ -38,67 +38,54 @@
             </div>
             <div class="form" v-if="!guest">
                 <div class="label">
-                    <p>Voornaam</p>
+                    <p>Voornaam:</p>
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Voornaam"
-                        outline
-                    ></v-text-field>
+                    <input type="text" name="firstname" id="firstname" />
                 </div>
 
                 <div class="label">
-                    <p>Achternaam</p>
+                    <p>Achternaam:</p>
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Achternaam"
-                        
-                    ></v-text-field>
+                    <input type="text" name="lastname" id="lastname">
                 </div>
 
                 <div class="label">
-                    <p>Adres</p>
+                    <p>Adres:</p>
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Adres"
-                        solo
-                    ></v-text-field>
+                    <input type="text" name="address" id="address">
                 </div>
                 <div class="label">
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Adres"
-                        solo
-                    ></v-text-field>
+                    <input type="text" name="address2" id="address2">
                 </div>
 
                 <div class="label">
-                    <p>Postcode</p>
+                    <p>Postcode:</p>
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Postcode"
-                        solo
-                    ></v-text-field>
+                    <input type="text" name="postcode" id="postcode">
                 </div>
 
                 <div class="label">
-                    <p>Plaats</p>
+                    <p>Plaats:</p>
                 </div>
                 <div class="input">
-                    <v-text-field
-                        placeholder="Plaats"
-                        solo
-                    ></v-text-field>
+                    <input type="text" name="city" id="city">
+                </div>
+                <div class="label">
+                </div>
+                <div class="input">
+                    <wr-btn color="primary" dark type="submit">Submit</wr-btn>
                 </div>
             </div>
         </div>
         <aside class="sidebar">
-            <v-card>
-                <v-card-title>
+            <wr-card>
+                <div class="card-content">
                     <h3>Cart</h3>
                     <ul class="items">
                         <li class="item" v-for="item in cart" :key="item.productName">
@@ -106,16 +93,20 @@
                             <span>€5</span>
                         </li>
                     </ul>
-                </v-card-title>
-            </v-card>
+                </div>
+            </wr-card>
         </aside>
     </div>
 </template>
 
 <script>
+import Card from '@/components/ui-components/Card.vue';
+import Button from '@/components/ui-components/Button.vue';
 
 export default {
     components: {
+        'wr-card': Card,
+        'wr-btn': Button
     },
     data() {
         return {
@@ -180,24 +171,51 @@ export default {
                 display: flex;
                 justify-content: flex-end;
                 p {
-                    margin-bottom: 2.1rem;
+                    margin-bottom: 0;
+                    font-size: 1.4rem;
                 }
             }
             .input {
                 display: flex;
+                input {
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        margin: 0;
+                        padding: 0;
+                        font-variant: tabular-nums;
+                        list-style: none;
+                        -webkit-font-feature-settings: 'tnum';
+                        font-feature-settings: 'tnum';
+                        position: relative;
+                        display: inline-block;
+                        width: 100%;
+                        height: 32px;
+                        padding: 4px 11px;
+                        color: rgba(0,0,0,0.65);
+                        font-size: 14px;
+                        line-height: 1.5;
+                        background-color: #fff;
+                        background-image: none;
+                        border: 1px solid #d9d9d9;
+                        border-radius: 4px;
+                        -webkit-transition: all .3s;
+                        transition: all .3s;
+                }
             }
         }
     }
     .sidebar {
         width: 25%;
         margin-left: 2rem;
-        .v-card__title {
+        .card-content {
             display: block;
+            padding: 1rem 2rem;
             .items {
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
-                font-size: 1.4rem;
+                font-size: 1.6rem;
+                margin-left: 1rem;
                 .item {
                     display: flex;
                     justify-content: space-between;

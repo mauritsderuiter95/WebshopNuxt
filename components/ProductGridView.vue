@@ -1,30 +1,34 @@
 <template>
-    <v-card>
-        <v-img
+    <wr-card>
+        <wr-img
             :src="product.photos[0].url"
-            aspect-ratio="2.75"
+            :aspect-ratio="2"
             :alt="product.photos[0].alt"
             :title="product.photos[0].title"
-        ></v-img>
+        ></wr-img>
 
-        <v-card-title primary-title>
-            <div>
-                <h3 class="headline mb-0">{{ product.productName }}</h3>
-                <div> {{ product.shortDescription }} </div>
-            </div>
-        </v-card-title>
+        <div class="content">
+            <h3 class="headline mb-0">{{ product.productName }}</h3>
+            <p> {{ product.shortDescription }} </p>
+        </div>
 
-        <v-card-actions>
-            <nuxt-link :to="{ path: `/products/${product.id}`}"><v-btn flat>Info</v-btn></nuxt-link>
-            <v-btn flat color="primary" @click="addToCart">Bestellen</v-btn>
-        </v-card-actions>
-    </v-card>
+        <div class="footer">
+            <nuxt-link :to="{ path: `/products/${product.id}`}" class="info-btn"><wr-btn flat>Info</wr-btn></nuxt-link>
+            <wr-btn flat dark color="primary" @click="addToCart">Bestellen</wr-btn>
+        </div>
+    </wr-card>
 </template>
 
 <script>
+import img from '@/components/ui-components/Image.vue';
+import card from '@/components/ui-components/Card.vue';
+import btn from '@/components/ui-components/Button.vue';
 
 export default {
     components: {
+        'wr-img': img,
+        'wr-card': card,
+        'wr-btn': btn
     },
     props: {
         product: Object
@@ -38,16 +42,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-card {
-    height: 100%;
-    position: relative;
-    &__title {
-        margin-bottom: 52px;
-    }
-    &__actions {
-        margin-top: auto;
-        position: absolute;
-        bottom: 0;
+.content {
+    padding: 1rem;
+    margin-bottom: 52px;
+}
+.footer {
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    padding: 1rem;
+    .info-btn {
+        margin-right: 1rem;
     }
 }
 </style>

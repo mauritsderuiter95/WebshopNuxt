@@ -83,7 +83,7 @@ const actions = {
                 })
                 .catch(() => {
                     commit("clearCart");
-                })
+                });
             }
         }
         else {

@@ -23,7 +23,6 @@
     "nuxt": "^2.5.1",
     "sass": "^1.17.3",
     "vue-cookie": "^1.1.4",
-    "vuetify": "^1.5.9",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {

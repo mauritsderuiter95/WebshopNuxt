@@ -22,7 +22,7 @@
         </a-table>
         <div class="toolbar">
             <div class="checkout">
-                <nuxt-link to="cart/checkout"><v-btn color="primary">Checkout</v-btn></nuxt-link>
+                <nuxt-link to="cart/checkout"><wr-btn color="primary" dark>Checkout</wr-btn></nuxt-link>
             </div>
         </div>
     </div>
@@ -31,6 +31,7 @@
 <script>
 import { Table, InputNumber } from 'ant-design-vue';
 import ProductService from '~/services/product.service.js';
+import btn from '@/components/ui-components/Button.vue';
 
 const columns = [{
 //   title: 'Thumbnail',
@@ -50,7 +51,8 @@ const columns = [{
 export default {
     components: {
         'a-table': Table,
-        'a-input-number': InputNumber
+        'a-input-number': InputNumber,
+        'wr-btn': btn
     },
     data() {
         return {

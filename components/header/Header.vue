@@ -37,6 +37,7 @@ export default {
 <style lang="scss" scoped>
     header {
         width: 100%;
+        margin-top: 2rem;
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -56,6 +57,7 @@ export default {
                     max-width: 50%;
                     .search {
                         margin-bottom: 0.5rem;
+                        min-width: 30rem;
                     }
                 }
             }
