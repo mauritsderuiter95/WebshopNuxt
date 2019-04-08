@@ -1,10 +1,11 @@
 <template>
 <div class="menu-holder">
   <wr-toolbar>
-    <nuxt-link to="/"><wr-btn flat>Home</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat>Koffie</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat>Thee</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat>Machines</wr-btn></nuxt-link>
+    <nuxt-link to="/"><wr-btn flat :dark="dark">Home</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn flat :dark="dark">Koffie</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn flat :dark="dark">Vending</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn flat :dark="dark">Occasions</wr-btn></nuxt-link>
+    <slot></slot>
   </wr-toolbar>
 </div>
 </template>
@@ -18,6 +19,9 @@ export default {
       'wr-toolbar': Toolbar,
       'wr-btn': Button
     },
+    props: {
+      dark: Boolean
+    }
 }
 </script>
 

@@ -81,6 +81,9 @@ export default {
         background-color: lighten($primary-color, 3) !important;
     }
 }
+.white {
+    background-color: #fff !important;
+}
 
 @keyframes effect_dylan {
   50% {
