@@ -28,8 +28,7 @@ export default {
 
 <style lang="scss" scoped>
 .responsiveImg {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
+    border-radius: inherit;
     position: relative;
     overflow: hidden;
     flex: 1 0 auto;

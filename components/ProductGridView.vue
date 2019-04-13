@@ -1,20 +1,24 @@
 <template>
     <wr-card>
-        <wr-img
-            :src="product.photos[0].url"
-            :aspect-ratio="2"
-            :alt="product.photos[0].alt"
-            :title="product.photos[0].title"
-        ></wr-img>
+        <nuxt-link :to="`/products/${product.id}`">
+            <wr-img
+                :src="product.photos[0].url"
+                :aspect-ratio="1"
+                :alt="product.photos[0].alt"
+                :title="product.photos[0].title"
+            ></wr-img>
+        </nuxt-link>
 
         <div class="content">
-            <h3 class="headline mb-0">{{ product.productName }}</h3>
+            <nuxt-link :to="`/products/${product.id}`">
+                <h3 class="headline mb-0">{{ product.productName }}</h3>
+            </nuxt-link>
             <p> {{ product.shortDescription }} </p>
         </div>
 
         <div class="footer">
-            <nuxt-link :to="{ path: `/products/${product.id}`}" class="info-btn"><wr-btn flat>Info</wr-btn></nuxt-link>
-            <wr-btn flat dark color="primary" @click="addToCart">Bestellen</wr-btn>
+            <nuxt-link :to="`/products/${product.id}`" class="info-btn"><wr-btn flat block big>Info</wr-btn></nuxt-link>
+            <wr-btn block flat big dark color="primary" @click="addToCart">Bestellen</wr-btn>
         </div>
     </wr-card>
 </template>
@@ -43,17 +47,26 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-    padding: 1rem;
-    margin-bottom: 52px;
+    margin-top: 4rem;
+    margin-bottom: 7rem;
+    h3 {
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1.8rem;
+    }
 }
 .footer {
     margin-top: auto;
     position: absolute;
     bottom: 0;
     display: flex;
-    padding: 1rem;
+    width: 100%;
+    margin-left: -4rem;
     .info-btn {
         margin-right: 1rem;
+        display: block;
+        width: 100%;
     }
 }
 </style>

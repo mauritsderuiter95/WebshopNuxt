@@ -22,7 +22,6 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   margin: 3rem;
-  background: #f7f7f7;
 }
 </style>
 

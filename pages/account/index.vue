@@ -1,11 +1,13 @@
 <template>
     <div>
+        <h2>Mijn Account</h2>
     </div>
 </template>
 
 <script>
 export default {
-    middleware: 'auth'
+    middleware: 'auth',
+    layout: 'account'
 }
 </script>
 

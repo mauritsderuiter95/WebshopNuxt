@@ -1,16 +1,20 @@
 <template>
   <div>
-    <header class="top">
-      <div class="menu">
-        <Navbar dark>
-          <nuxt-link to="/cart/checkout"><wr-btn flat dark>Winkelwagen</wr-btn></nuxt-link>
-        </Navbar>
+    <div class="topContainer">
+      <header class="top">
+        <div class="menu">
+          <Navbar dark>
+            <nuxt-link to="/cart"><wr-btn flat dark>Winkelwagen</wr-btn></nuxt-link>
+          </Navbar>
+        </div>
+      </header>
+      <div class="topContent">
+        <div class="box">
+          <h1>WR Automaten</h1>
+          <sub>Uw Partner in Service</sub>
+        </div>
       </div>
-      <div class="content">
-        <h1>WR Automaten</h1>
-        <sub>Uw Partner in Service</sub>
-      </div>
-    </header>
+    </div>
     <section class="about">
       <div class="intro">
         <h2>About</h2>
@@ -36,12 +40,12 @@
     <section class="vending">
       <div class="box">
         <div class="flex">
-          <div class="img">
-            <img src="~/assets/img/vending.png" alt="Vending" title="Vending" class="boxImg">
-          </div>
           <div class="text">
             <h2>Vending</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
+          </div>
+          <div class="img">
+            <img src="~/assets/img/vending.png" alt="Vending" title="Vending" class="boxImg">
           </div>
         </div>
       </div>
@@ -53,7 +57,7 @@
             <img src="~/assets/img/soda.png" alt="Occasion" title="Occasion" class="boxImg">
           </div>
           <div class="text">
-            <h2>Vending</h2>
+            <h2>Occasion</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
           </div>
         </div>
@@ -63,6 +67,7 @@
       <div class="content">
         <h2>Contact</h2>
         <p></p>
+        <a href="https://www.freepik.com/free-photos-vectors/food" target="_new">Illustrations by Macrovector</a>
       </div>
     </section>
   </div>
@@ -83,35 +88,43 @@ export default {
 
 <style lang="scss" scoped>
 .top {
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-  height: 90vh;
+  clip-path: polygon(0 0, 100% 0, 100% 66.67%, 0 100%);
+  height: 45vh;
+  min-height: 45rem;
   //background: #1a1c33;
   background: $primary-color;
   border-radius: .5rem .5rem 0 0;
-  margin-bottom: 20rem;
+  margin-bottom: 24rem;
   display:flex;
   flex-direction: column;
-  position: relative;
   .menu {
     width: fit-content;
     margin-left: auto;
     margin-top: 3rem;
     margin-right: 3rem;
+    font-size: 1.6rem;
   }
-  .content {
+}
+.topContainer {
+  position: relative;
+  .topContent {
     position: absolute;
-    top: 40%;
+    top: 16rem;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: 120rem;
-    color: #fff;
-    h1 {
-      font-size: 10rem;
-      font-family: 'Magneto';
-      color: #fff;
-    }
-    sub {
-      font-size: 3rem;
+    color: $primary-color;
+    .box {
+      margin-bottom: 0;
+        h1 {
+        font-size: 10rem;
+        font-family: 'Magneto';
+        color: $primary-color;
+        margin-bottom: 0.5em;
+      }
+      sub {
+        font-size: 3rem;
+      }
     }
   }
 }
@@ -165,16 +178,20 @@ export default {
   }
 }
 .bottom {
-  clip-path: polygon(0 25vh, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 15vh, 100% 0, 100% 100%, 0 100%);
   height: 90vh;
   //background: #1a1c33;
   background: $primary-color;
   border-radius: 0 0 .5rem .5rem;
-  padding-top: 25vh;
+  padding-top: 15vh;
   .content {
     max-width: 70rem;
     color: #fff;
     margin: 0 auto;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
   }
 }
 

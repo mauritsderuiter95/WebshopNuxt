@@ -1,5 +1,5 @@
 <template>
-    <button @click="callback($event)" ref="btn" :class="['btn', { dark: dark }, { block: block }, { flat: flat }, color]" :type="submit > 1 ? submit : 'button'">
+    <button @click="callback($event)" ref="btn" :class="['btn', { dark: dark }, { block: block }, { flat: flat }, {big: big}, color]" :type="submit > 1 ? submit : 'button'">
         <slot>Button</slot>
     </button>
 </template>
@@ -13,6 +13,7 @@ export default {
         onClick: Function,
         block: Boolean,
         flat: Boolean,
+        big: Boolean,
         submit: String
     },
     methods: {
@@ -31,13 +32,14 @@ export default {
     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
     padding: 0.3rem 1rem;
     border: none;
-    border-radius: 2px;
-    font-size: 1.6rem;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    text-decoration: none;
     position: relative;
+    font-size: inherit;
     i {
         color: rgba(0,0,0,0.9);
     }
@@ -74,6 +76,10 @@ export default {
 }
 .flat {
     box-shadow: none
+}
+.big {
+    font-size: 2rem;
+    padding: 2rem;
 }
 .primary {
     background-color: $primary-color !important;

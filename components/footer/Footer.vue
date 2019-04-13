@@ -26,6 +26,10 @@ export default {
   .content {
     color: #fff;
     text-align: center;
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
   }
 }
 </style>

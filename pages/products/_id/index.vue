@@ -1,30 +1,31 @@
 <template>
-  <div class="container">
-    <div class="grid">
-      <div class="half">
-        <div class="photos" v-if="product.photos">
-          <div class="featured">
-            <transition name="fade" mode="out-in">
-              <img :src="featuredPhoto.url" :alt="featuredPhoto.alt" :title="featuredPhoto.title" :key="featuredPhoto.url" />
-            </transition>
+  <div class="body">
+    <div class="content">
+      <div class="grid">
+        <div class="half">
+          <div class="photos" v-if="product.photos">
+            <div class="featured">
+              <transition name="fade" mode="out-in">
+                <img :src="featuredPhoto.url" :alt="featuredPhoto.alt" :title="featuredPhoto.title" :key="featuredPhoto.url" />
+              </transition>
+            </div>
+            <ul class="imageList">
+              <li v-for="photo in product.photos" :key="photo.url" @click="bigPicture(photo)">
+                <img :src="photo.url" :alt="photo.alt" :title="photo.title" />
+              </li>
+            </ul>
           </div>
-          <ul class="imageList">
-            <li v-for="photo in product.photos" :key="photo.url" @click="bigPicture(photo)">
-              <img :src="photo.url" :alt="photo.alt" :title="photo.title" />
-            </li>
-          </ul>
         </div>
-      </div>
-      <div class="half">
-        <h1>{{ product.productName }}</h1>
-        <p>{{ product.shortDescription }}</p>
-        <div class="actions">
-          <v-btn @click="addToCart" color="primary">Add to cart</v-btn>
+        <div class="half">
+          <h1>{{ product.productName }}</h1>
+          <p>{{ product.shortDescription }}</p>
+          <div class="actions">
+            <wr-btn @click="addToCart" color="primary" dark block big>Add to cart</wr-btn>
+          </div>
+          <div class="productInfo">
+            <div v-html="product.longDescription"></div>            
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="productInfo">
-      <div v-html="product.longDescription">
       </div>
     </div>
   </div>
@@ -32,9 +33,11 @@
 
 <script>
 import ProductService from '~/services/product.service.js';
+import Button from '~/components/ui-components/Button.vue';
 
 export default {
   components: {
+    'wr-btn': Button
   },
   asyncData({ params }) {
     return ProductService.getProduct(params.id)
@@ -57,57 +60,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.body {
+  margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 2rem;
-    .half {
-      display: flex;
-      flex-direction: column;
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 2rem;
+      .half {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+      }
     }
   }
-}
-.photos {
-  overflow: hidden;
-  .featured {
-    img {
-      width: 100%;
-      border-radius: 0.5rem;
-    }
-  }
-  .imageList {
-    list-style-type: none;
-    display: grid;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
-    margin-top: 1rem;
-    padding-left: 0;
-    li {
-      cursor: pointer;
+  .photos {
+    overflow: hidden;
+    border-radius: 4px;
+    transition: 0.3s;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    .featured {
       img {
         width: 100%;
         border-radius: 0.5rem;
       }
     }
+    .imageList {
+      list-style-type: none;
+      display: grid;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 1rem;
+      margin-top: 1rem;
+      padding-left: 0;
+      li {
+        cursor: pointer;
+        img {
+          width: 100%;
+          border-radius: 0.5rem;
+        }
+      }
+    }
   }
-}
-.productInfo {
-  font-size: 1.6rem;
-  /deep/ p {
-    margin-bottom: 2rem;
+  .productInfo {
+    font-size: 1.6rem;
+    /deep/ p {
+      margin-bottom: 2rem;
+    }
+    /deep/ ul {
+      margin-left: 2rem;
+    }
   }
-  /deep/ ul {
-    margin-left: 2rem;
-  }
-}
-.actions {
-  display: grid;
-  margin-top: auto;
-  margin-bottom: 1em;
 }
 >div {
   padding: 2rem;

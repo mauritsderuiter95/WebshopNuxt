@@ -16,10 +16,11 @@ export default {
 <style lang="scss" scoped>
 .card {
     background: #fff;
-    border-radius: 2px;
+    border-radius: 4px;
     transition: 0.3s;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2), 0 0 20px 0 rgba(0,0,0,0.1), 0 3px 3px -2px rgba(0,0,0,0.3);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     height: 100%;
     position: relative;
+    padding: 4rem;
 }
 </style>

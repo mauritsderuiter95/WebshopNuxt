@@ -5,6 +5,8 @@
     <nuxt-link to="/products"><wr-btn flat :dark="dark">Koffie</wr-btn></nuxt-link>
     <nuxt-link to="/products"><wr-btn flat :dark="dark">Vending</wr-btn></nuxt-link>
     <nuxt-link to="/products"><wr-btn flat :dark="dark">Occasions</wr-btn></nuxt-link>
+    <nuxt-link to="/products"><wr-btn flat :dark="dark">Bestellen</wr-btn></nuxt-link>
+    <nuxt-link to="/account"><wr-btn flat :dark="dark"><i class="material-icons">account_circle</i></wr-btn></nuxt-link>
     <slot></slot>
   </wr-toolbar>
 </div>
@@ -31,6 +33,8 @@ export default {
     margin-bottom: 5rem;
     a {
       margin-right: 2rem;
+      text-decoration: none;
+      font-size: 1.6rem;
     }
 }
 </style>

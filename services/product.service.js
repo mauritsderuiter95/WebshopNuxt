@@ -8,8 +8,14 @@ const agent = new https.Agent({
   })
 
 class ProductService {
-    getProducts() {
-        return axios.get(`${api}`, { httpsAgent: agent });
+    getProducts(category) {
+        if(category != undefined)
+            return axios.get(`${api}?category=${category}`, { httpsAgent: agent });
+        else
+            return axios.get(`${api}`, { httpsAgent: agent });
+    }
+    getCategories() {
+        return axios.get(`${api}/categories`, { httpsAgent: agent});
     }
     getProduct(productId) {
         return axios.get(`${api}/${productId}`, { httpsAgent: agent });
