@@ -28,11 +28,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.userNavTitle {
-    font-size: 3rem;
-}
 .userMenu {
     list-style-type: none;
+    margin-left: -1rem;
     li {
         color: #000;
         font-size: 2rem;

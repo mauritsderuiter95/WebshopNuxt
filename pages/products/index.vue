@@ -37,12 +37,13 @@ export default {
   margin: 0;
   display: flex;
   .content {
-    margin-left: 3rem;
+    margin-left: 6rem;
+    margin-right: 3rem;
     width: 80%;
     .productList {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 3rem;
+      grid-gap: 6rem;
       list-style-type: none;
       padding-left: 0;
     }

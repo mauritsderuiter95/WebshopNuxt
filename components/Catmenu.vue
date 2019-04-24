@@ -30,12 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 .categoryTitle {
-      margin-top: 4rem;
-      font-size: 3rem;
+      margin-top: 0rem;
 }
 .categoryList {
     list-style-type: none;
-    margin-bottom: 4rem;
+    margin-left: -1rem;
     .categoryListItem {
         color: #000;
         font-size: 2rem;

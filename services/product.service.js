@@ -1,7 +1,7 @@
 import axios from 'axios';
 import https from 'https';
 
-const api = 'https://localhost:44337/api/products';
+axios.defaults.baseURL = 'https://localhost:44337/api/products';
 
 const agent = new https.Agent({  
     rejectUnauthorized: false
@@ -10,24 +10,24 @@ const agent = new https.Agent({
 class ProductService {
     getProducts(category) {
         if(category != undefined)
-            return axios.get(`${api}?category=${category}`, { httpsAgent: agent });
+            return axios.get(`?category=${category}`, { httpsAgent: agent });
         else
-            return axios.get(`${api}`, { httpsAgent: agent });
+            return axios.get(`/`, { httpsAgent: agent });
     }
     getCategories() {
-        return axios.get(`${api}/categories`, { httpsAgent: agent});
+        return axios.get(`/categories`, { httpsAgent: agent});
     }
     getProduct(productId) {
-        return axios.get(`${api}/${productId}`, { httpsAgent: agent });
+        return axios.get(`/${productId}`, { httpsAgent: agent });
     }
     postProduct(product) {
-        return axios.post(`${api}`, product);
+        return axios.post(`/`, product);
     }
     putProduct(product) {
-        return axios.put(`${api}/${product.id}`, product);
+        return axios.put(`/${product.id}`, product);
     }
     deleteProduct(product) {
-        return axios.delete(`${api}/${product.id}`);
+        return axios.delete(`/${product.id}`);
     }
 }
 
