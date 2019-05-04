@@ -1,15 +1,58 @@
 <template>
-<div class="menu-holder">
-  <wr-toolbar>
-    <nuxt-link to="/"><wr-btn flat :dark="dark">Home</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat :dark="dark">Koffie</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat :dark="dark">Vending</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat :dark="dark">Occasions</wr-btn></nuxt-link>
-    <nuxt-link to="/products"><wr-btn flat :dark="dark">Bestellen</wr-btn></nuxt-link>
-    <nuxt-link to="/account"><wr-btn flat :dark="dark"><i class="material-icons">account_circle</i></wr-btn></nuxt-link>
-    <slot></slot>
-  </wr-toolbar>
-</div>
+  <div class="menu-holder">
+    <wr-toolbar>
+      <nuxt-link to="/">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          Home
+        </wr-btn>
+      </nuxt-link>
+      <nuxt-link to="/koffie">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          Koffie
+        </wr-btn>
+      </nuxt-link>
+      <nuxt-link to="/vending">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          Vending
+        </wr-btn>
+      </nuxt-link>
+      <nuxt-link to="/occasions">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          Occasions
+        </wr-btn>
+      </nuxt-link>
+      <nuxt-link to="/products">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          Bestellen
+        </wr-btn>
+      </nuxt-link>
+      <nuxt-link to="/account">
+        <wr-btn
+          flat
+          :dark="dark"
+        >
+          <i class="material-icons">account_circle</i>
+          <span>&nbsp;&nbsp;&nbsp;Account</span>
+        </wr-btn>
+      </nuxt-link>
+      <slot />
+    </wr-toolbar>
+  </div>
 </template>
 
 <script>

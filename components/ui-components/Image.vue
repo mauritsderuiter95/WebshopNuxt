@@ -1,17 +1,29 @@
 <template>
-    <div class="responsiveImg" role="img" :aria-label="alt" :title="title">
-        <div :style="{ paddingBottom: setHeight }"></div>
-        <div class="image" :style="{ backgroundImage: 'url(' + src + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"></div>
-        <div class="content"></div>
-    </div>
+  <div
+    class="responsiveImg"
+    role="img"
+    :aria-label="alt"
+    :title="title"
+  >
+    <div :style="{ paddingBottom: setHeight }" />
+    <div
+      class="image"
+      :style="{ backgroundImage: 'url(' + src + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"
+    />
+    <div class="content" />
+  </div>
 </template>
 
 <script>
 export default {
     props: {
+        // eslint-disable-next-line
         src: String,
+        // eslint-disable-next-line
         alt: String,
+        // eslint-disable-next-line
         title: String,
+        // eslint-disable-next-line
         aspectRatio: Number
     },
     computed: {

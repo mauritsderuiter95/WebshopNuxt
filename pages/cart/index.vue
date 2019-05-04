@@ -1,31 +1,43 @@
 <template>
-    <div class="container">
-        <a-table :columns="columns"
-            :rowKey="record => record.productId"
-            :dataSource="setData"
-            :loading="loading"
-            :pagination="false"
-            class="table"
-        >
-        <!-- <a-input-number :min="1" :max="10" slot="count" /> -->
-        <template v-for="col in ['count']" :slot="col" slot-scope="count, record">
-            <div :key="col">
-                <a-input-number
-                    style="margin: -5px 0"
-                    :value="count"
-                    @change="e => editCart(e, record.productId)"
-                    :min="1"
-                    :max="20"
-                />
-            </div>
-        </template>
-        </a-table>
-        <div class="toolbar">
-            <div class="checkout">
-                <nuxt-link to="cart/checkout"><wr-btn color="primary" dark>Checkout</wr-btn></nuxt-link>
-            </div>
+  <div class="container">
+    <a-table
+      :columns="columns"
+      :row-key="record => record.productId"
+      :data-source="setData"
+      :loading="loading"
+      :pagination="false"
+      class="table"
+    >
+      <!-- <a-input-number :min="1" :max="10" slot="count" /> -->
+      <template
+        v-for="col in ['count']"
+        :slot="col"
+        slot-scope="count, record"
+      >
+        <div :key="col">
+          <a-input-number
+            style="margin: -5px 0"
+            :value="count"
+            :min="1"
+            :max="20"
+            @change="e => editCart(e, record.productId)"
+          />
         </div>
+      </template>
+    </a-table>
+    <div class="toolbar">
+      <div class="checkout">
+        <nuxt-link to="cart/checkout">
+          <wr-btn
+            color="primary"
+            dark
+          >
+            Checkout
+          </wr-btn>
+        </nuxt-link>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>

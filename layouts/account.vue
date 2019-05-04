@@ -6,7 +6,7 @@
         <Usermenu />
       </div>
       <div class="content">
-        <nuxt/>
+        <nuxt />
       </div>
     </div>
     <Footer />

@@ -1,7 +1,12 @@
 <template>
-    <button @click="callback($event)" ref="btn" :class="['btn', { dark: dark }, { block: block }, { flat: flat }, {big: big}, color]" :type="submit > 1 ? submit : 'button'">
-        <slot>Button</slot>
-    </button>
+  <button
+    ref="btn"
+    :class="['btn', { dark: dark }, { block: block }, { flat: flat }, {big: big}, color]"
+    :type="submit > 1 ? submit : 'button'"
+    @click="callback($event)"
+  >
+    <slot>Button</slot>
+  </button>
 </template>
 
 <script>
@@ -9,11 +14,14 @@
 export default {
     props: {
         dark: Boolean,
+        // eslint-disable-next-line
         color: String,
+        // eslint-disable-next-line
         onClick: Function,
         block: Boolean,
         flat: Boolean,
         big: Boolean,
+        // eslint-disable-next-line
         submit: String
     },
     methods: {

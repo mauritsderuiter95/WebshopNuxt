@@ -1,15 +1,16 @@
 <template>
-    <div class="card">
-        <slot></slot>
-    </div>
+  <div class="card">
+    <slot />
+  </div>
 </template>
 
 <script>
 export default {
     props: {
+        // eslint-disable-next-line
         image: Object,
     }
-    
+
 }
 </script>
 
@@ -21,6 +22,6 @@ export default {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     height: 100%;
     position: relative;
-    padding: 4rem;
+    overflow: hidden;
 }
 </style>

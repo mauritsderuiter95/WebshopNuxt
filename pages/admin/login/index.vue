@@ -1,34 +1,66 @@
 <template>
-    <div class="page">
-        <div class="box">
-            <transition name="notification">
-                <div class="message" v-show="error">
-                    <i class="material-icons">error</i>{{ error }}
-                </div>
-            </transition>
-            <div class="boxContent">
-                <h1>Inloggen</h1>
-                <form @submit.prevent="submit($event)">
-                    <transition name="loader" mode="out-in">
-                        <div class="inputs" v-if="!loading" key="form">
-                            <div class="inputGroup">
-                                <label>Username:</label>
-                                <div class="icon"><i class="material-icons">face</i></div><input type="text" name="username" id="username" placeholder="username" />
-                            </div>
-                            <div class="inputGroup">
-                                <label>Password:</label>
-                                <div class="icon"><i class="material-icons">lock</i></div><input type="password" name="password" id="password" placeholder="password" />
-                            </div>
-                        </div>
-                        <div class="loader" v-else key="spinner">
-                            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                        </div>
-                    </transition>
-                    <button type="submit">Log in</button>
-                </form>
-            </div>
+  <div class="page">
+    <div class="box">
+      <transition name="notification">
+        <div
+          v-show="error"
+          class="message"
+        >
+          <i class="material-icons">error</i>{{ error }}
         </div>
+      </transition>
+      <div class="boxContent">
+        <h1>Inloggen</h1>
+        <form @submit.prevent="submit($event)">
+          <transition
+            name="loader"
+            mode="out-in"
+          >
+            <div
+              v-if="!loading"
+              key="form"
+              class="inputs"
+            >
+              <div class="inputGroup">
+                <label>Username:</label>
+                <div class="icon">
+                  <i class="material-icons">face</i>
+                </div><input
+                  id="username"
+                  type="text"
+                  name="username"
+                  placeholder="username"
+                >
+              </div>
+              <div class="inputGroup">
+                <label>Password:</label>
+                <div class="icon">
+                  <i class="material-icons">lock</i>
+                </div><input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                >
+              </div>
+            </div>
+            <div
+              v-else
+              key="spinner"
+              class="loader"
+            >
+              <div class="lds-spinner">
+                <div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div /><div />
+              </div>
+            </div>
+          </transition>
+          <button type="submit">
+            Log in
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -309,7 +341,7 @@ export default {
 
             }
         }
-    }  
+    }
 }
 
 </style>

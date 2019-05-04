@@ -1,26 +1,48 @@
 <template>
-    <wr-card>
-        <nuxt-link :to="`/products/${product.id}`">
-            <wr-img
-                :src="product.photos[0].url"
-                :aspect-ratio="1"
-                :alt="product.photos[0].alt"
-                :title="product.photos[0].title"
-            ></wr-img>
-        </nuxt-link>
+  <wr-card>
+    <nuxt-link :to="`/products/${product.id}`">
+      <wr-img
+        :src="product.photos[0].url"
+        :aspect-ratio="1"
+        :alt="product.photos[0].alt"
+        :title="product.photos[0].title"
+      />
+    </nuxt-link>
 
-        <div class="content">
-            <nuxt-link :to="`/products/${product.id}`">
-                <h3 class="headline mb-0">{{ product.productName }}</h3>
-            </nuxt-link>
-            <p> {{ product.shortDescription }} </p>
-        </div>
+    <div class="content">
+      <nuxt-link :to="`/products/${product.id}`">
+        <h3 class="headline mb-0">
+          {{ product.productName }}
+        </h3>
+      </nuxt-link>
+      <p> {{ product.shortDescription }} </p>
+    </div>
 
-        <div class="footer">
-            <nuxt-link :to="`/products/${product.id}`" class="info-btn"><wr-btn flat block big>Info</wr-btn></nuxt-link>
-            <wr-btn block flat big dark color="primary" @click="addToCart">Bestellen</wr-btn>
-        </div>
-    </wr-card>
+    <div class="footer">
+      <nuxt-link
+        :to="`/products/${product.id}`"
+        class="info-btn"
+      >
+        <wr-btn
+          flat
+          block
+          big
+        >
+          Info
+        </wr-btn>
+      </nuxt-link>
+      <wr-btn
+        block
+        flat
+        big
+        dark
+        color="primary"
+        @click="addToCart"
+      >
+        Bestellen
+      </wr-btn>
+    </div>
+  </wr-card>
 </template>
 
 <script>
@@ -35,6 +57,7 @@ export default {
         'wr-btn': btn
     },
     props: {
+        // eslint-disable-next-line
         product: Object
     },
     methods: {
@@ -48,7 +71,8 @@ export default {
 <style lang="scss" scoped>
 .content {
     margin-top: 4rem;
-    margin-bottom: 7rem;
+    margin-bottom: 11rem;
+    padding: 0 4rem;
     h3 {
         font-size: 2rem;
     }
@@ -62,7 +86,6 @@ export default {
     bottom: 0;
     display: flex;
     width: 100%;
-    margin-left: -4rem;
     .info-btn {
         margin-right: 1rem;
         display: block;

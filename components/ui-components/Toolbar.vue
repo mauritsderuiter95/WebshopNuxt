@@ -1,12 +1,12 @@
 <template>
-    <nav class="toolbar">
-        <slot></slot>
-    </nav>
+  <nav class="toolbar">
+    <slot />
+  </nav>
 </template>
 
 <script>
 export default {
-    
+
 }
 </script>
 

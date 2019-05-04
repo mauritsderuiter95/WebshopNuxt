@@ -1,7 +1,11 @@
 <template>
-    <div>
-        <nuxt-link to="/cart"><wr-btn color="white"><i class="material-icons">shopping_cart</i>{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span></wr-btn></nuxt-link>
-    </div>
+  <div>
+    <nuxt-link to="/cart">
+      <wr-btn color="white">
+        <i class="material-icons">shopping_cart</i>{{ getProducts }} <span v-if="getProducts === 1">&nbsp;product</span><span v-else>&nbsp;producten</span>
+      </wr-btn>
+    </nuxt-link>
+  </div>
 </template>
 
 <script>

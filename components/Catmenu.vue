@@ -1,11 +1,29 @@
 <template>
-    <div>
-        <h2 class="categoryTitle">Categorieën</h2>
-        <ul class="categoryList">
-            <li class="categoryListItem"><nuxt-link to="/products"><wr-btn flat>Alle</wr-btn></nuxt-link></li>
-            <li class="categoryListItem" v-for="category in categoryList" :key="category"><nuxt-link :to="'/products?category=' + category"><wr-btn flat>{{ category }}</wr-btn></nuxt-link></li>
-        </ul>
-    </div>
+  <div class="bar">
+    <h2 class="categoryTitle">
+      Categorieën
+    </h2>
+    <ul class="categoryList">
+      <li class="categoryListItem">
+        <nuxt-link to="/products">
+          <wr-btn flat>
+            Alle
+          </wr-btn>
+        </nuxt-link>
+      </li>
+      <li
+        v-for="category in categoryList"
+        :key="category"
+        class="categoryListItem"
+      >
+        <nuxt-link :to="'/products?category=' + category">
+          <wr-btn flat>
+            {{ category }}
+          </wr-btn>
+        </nuxt-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -29,15 +47,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.categoryTitle {
-      margin-top: 0rem;
-}
-.categoryList {
+.bar {
+  display: flex;
+  align-items: center;
+  .categoryTitle {
+    margin: 0;
+    padding: 2rem;
+    border-right: 1px solid rgba(0,0,0,0.2);
+  }
+  .categoryList {
     list-style-type: none;
-    margin-left: -1rem;
+    margin: 0 0 0 2rem;
+    display: flex;
     .categoryListItem {
-        color: #000;
-        font-size: 2rem;
+      color: #000;
+      font-size: 2rem;
     }
+  }
 }
 </style>

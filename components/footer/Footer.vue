@@ -1,16 +1,16 @@
 <template>
-    <div>
-        <footer class="bottom">
-            <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, voluptates. Sapiente itaque eius ducimus modi dolorum non id optio. Non, eligendi architecto provident aperiam id voluptate illo fugit porro sunt!</p>
-            </div>
-        </footer>
-    </div>
+  <div>
+    <footer class="bottom">
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, voluptates. Sapiente itaque eius ducimus modi dolorum non id optio. Non, eligendi architecto provident aperiam id voluptate illo fugit porro sunt!</p>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script>
 export default {
-    
+
 }
 </script>
 

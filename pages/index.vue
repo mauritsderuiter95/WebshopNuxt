@@ -4,7 +4,14 @@
       <header class="top">
         <div class="menu">
           <Navbar dark>
-            <nuxt-link to="/cart"><wr-btn flat dark>Winkelwagen</wr-btn></nuxt-link>
+            <nuxt-link to="/cart">
+              <wr-btn
+                flat
+                dark
+              >
+                Winkelwagen
+              </wr-btn>
+            </nuxt-link>
           </Navbar>
         </div>
       </header>
@@ -28,7 +35,12 @@
       <div class="box">
         <div class="flex">
           <div class="img">
-            <img src="~/assets/img/Coffee.png" alt="Coffee" title="Coffee" class="boxImg">
+            <v-lazy-image
+              src="/img/Coffee.png"
+              alt="Coffee"
+              title="Coffee"
+              class="boxImg"
+            />
           </div>
           <div class="text">
             <h2>Coffee</h2>
@@ -45,7 +57,12 @@
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
           </div>
           <div class="img">
-            <img src="~/assets/img/vending.png" alt="Vending" title="Vending" class="boxImg">
+            <v-lazy-image
+              src="/img/vending.png"
+              alt="Vending"
+              title="Vending"
+              class="boxImg"
+            />
           </div>
         </div>
       </div>
@@ -54,7 +71,12 @@
       <div class="box">
         <div class="flex">
           <div class="img">
-            <img src="~/assets/img/soda.png" alt="Occasion" title="Occasion" class="boxImg">
+            <v-lazy-image
+              src="/img/soda.png"
+              alt="Occasion"
+              title="Occasion"
+              class="boxImg"
+            />
           </div>
           <div class="text">
             <h2>Occasion</h2>
@@ -66,8 +88,11 @@
     <section class="bottom">
       <div class="content">
         <h2>Contact</h2>
-        <p></p>
-        <a href="https://www.freepik.com/free-photos-vectors/food" target="_new">Illustrations by Macrovector</a>
+        <p />
+        <a
+          href="https://www.freepik.com/free-photos-vectors/food"
+          target="_new"
+        >Illustrations by Macrovector</a>
       </div>
     </section>
   </div>
@@ -87,6 +112,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-lazy-image {
+  opacity: 0;
+  transition: opacity 2s;
+}
+.v-lazy-image-loaded {
+  opacity: 1;
+}
 .top {
   clip-path: polygon(0 0, 100% 0, 100% 66.67%, 0 100%);
   height: 45vh;

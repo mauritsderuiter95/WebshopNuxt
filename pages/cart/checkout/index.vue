@@ -1,102 +1,158 @@
 <template>
-    <div class="container">
-        <div class="content">
-            <div class="credentialGuard" v-if="!this.$store.getters['user/isAuthenticated'] || guest">
-                <v-card class="guest">
-                    <v-card-title primary-title>
-                        <div>
-                            <h3>Gast</h3>
-                            <p>U kunt afrekenen als gast. Hierbij kunt u niet online uw bestellingen inzien of volgen.</p>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn color="primary" block @click="enterGuest">Afrekenen als gast</v-btn>
-                    </v-card-actions>
-                </v-card>
-                <v-card class="signIn">
-                    <v-card-title primary-title>
-                        <div>
-                            <h3>Log in</h3>
-                            <p>Log in om deze bestelling toe te voegen aan uw account.</p>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn color="primary" block @click="signIn">Log in</v-btn>
-                    </v-card-actions>
-                </v-card>
-                <v-card class="signUp">
-                    <v-card-title primary-title>
-                        <div>
-                            <h3>Maak account aan</h3>
-                            <p>Maak een account aan om van allerlei voordelen te genieten. Zoals het volgen van uw bestellingen, deze online inzien en kortingsacties.</p>
-                        </div>
-                    </v-card-title>
-                    <v-card-actions>
-                        <v-btn color="primary" block @click="signUp">Maak account aan</v-btn>
-                    </v-card-actions>
-                </v-card>
+  <div class="container">
+    <div class="content">
+      <div
+        v-if="!this.$store.getters['user/isAuthenticated'] || guest"
+        class="credentialGuard"
+      >
+        <v-card class="guest">
+          <v-card-title primary-title>
+            <div>
+              <h3>Gast</h3>
+              <p>U kunt afrekenen als gast. Hierbij kunt u niet online uw bestellingen inzien of volgen.</p>
             </div>
-            <div class="form" v-if="!guest">
-                <div class="label">
-                    <p>Voornaam:</p>
-                </div>
-                <div class="input">
-                    <input type="text" name="firstname" id="firstname" />
-                </div>
-
-                <div class="label">
-                    <p>Achternaam:</p>
-                </div>
-                <div class="input">
-                    <input type="text" name="lastname" id="lastname">
-                </div>
-
-                <div class="label">
-                    <p>Adres:</p>
-                </div>
-                <div class="input">
-                    <input type="text" name="address" id="address">
-                </div>
-                <div class="label">
-                </div>
-                <div class="input">
-                    <input type="text" name="address2" id="address2">
-                </div>
-
-                <div class="label">
-                    <p>Postcode:</p>
-                </div>
-                <div class="input">
-                    <input type="text" name="postcode" id="postcode">
-                </div>
-
-                <div class="label">
-                    <p>Plaats:</p>
-                </div>
-                <div class="input">
-                    <input type="text" name="city" id="city">
-                </div>
-                <div class="label">
-                </div>
-                <div class="input">
-                    <wr-btn color="primary" dark type="submit">Submit</wr-btn>
-                </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              block
+              @click="enterGuest"
+            >
+              Afrekenen als gast
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-card class="signIn">
+          <v-card-title primary-title>
+            <div>
+              <h3>Log in</h3>
+              <p>Log in om deze bestelling toe te voegen aan uw account.</p>
             </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              block
+              @click="signIn"
+            >
+              Log in
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-card class="signUp">
+          <v-card-title primary-title>
+            <div>
+              <h3>Maak account aan</h3>
+              <p>Maak een account aan om van allerlei voordelen te genieten. Zoals het volgen van uw bestellingen, deze online inzien en kortingsacties.</p>
+            </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              block
+              @click="signUp"
+            >
+              Maak account aan
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
+      <div
+        v-if="!guest"
+        class="form"
+      >
+        <div class="label">
+          <p>Voornaam:</p>
         </div>
-        <aside class="sidebar">
-            <wr-card>
-                <div class="card-content">
-                    <h3>Cart</h3>
-                    <ul class="items">
-                        <li class="item" v-for="item in cart" :key="item.productName">
-                            <span>{{ item.productName }}</span>
-                            <span>€5</span>
-                        </li>
-                    </ul>
-                </div>
-            </wr-card>
-        </aside>
+        <div class="input">
+          <input
+            id="firstname"
+            type="text"
+            name="firstname"
+          >
+        </div>
+
+        <div class="label">
+          <p>Achternaam:</p>
+        </div>
+        <div class="input">
+          <input
+            id="lastname"
+            type="text"
+            name="lastname"
+          >
+        </div>
+
+        <div class="label">
+          <p>Adres:</p>
+        </div>
+        <div class="input">
+          <input
+            id="address"
+            type="text"
+            name="address"
+          >
+        </div>
+        <div class="label" />
+        <div class="input">
+          <input
+            id="address2"
+            type="text"
+            name="address2"
+          >
+        </div>
+
+        <div class="label">
+          <p>Postcode:</p>
+        </div>
+        <div class="input">
+          <input
+            id="postcode"
+            type="text"
+            name="postcode"
+          >
+        </div>
+
+        <div class="label">
+          <p>Plaats:</p>
+        </div>
+        <div class="input">
+          <input
+            id="city"
+            type="text"
+            name="city"
+          >
+        </div>
+        <div class="label" />
+        <div class="input">
+          <wr-btn
+            color="primary"
+            dark
+            type="submit"
+          >
+            Submit
+          </wr-btn>
+        </div>
+      </div>
     </div>
+    <aside class="sidebar">
+      <wr-card>
+        <div class="card-content">
+          <h3>Cart</h3>
+          <ul class="items">
+            <li
+              v-for="item in cart"
+              :key="item.productName"
+              class="item"
+            >
+              <span>{{ item.productName }}</span>
+              <span>€5</span>
+            </li>
+          </ul>
+        </div>
+      </wr-card>
+    </aside>
+  </div>
 </template>
 
 <script>

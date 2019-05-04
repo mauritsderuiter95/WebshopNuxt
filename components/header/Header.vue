@@ -1,21 +1,23 @@
 <template>
-    <div>
-        <header class="top">
-            <div class="row">
-                <div class="left">
-                    <nuxt-link to="/"><h1>WR Automaten &nbsp;</h1></nuxt-link>
-                    <h2>-&nbsp;&nbsp;&nbsp;Uw partner in service!</h2>
-                </div>
-                <div class="right">
-                    <div class="menu">
-                        <Navbar dark>
-                            <Cart />
-                        </Navbar>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </div>
+  <div>
+    <header class="top">
+      <div class="row">
+        <div class="left">
+          <nuxt-link to="/">
+            <h1>WR Automaten &nbsp;</h1>
+          </nuxt-link>
+          <h2>-&nbsp;&nbsp;&nbsp;Uw partner in service!</h2>
+        </div>
+        <div class="right">
+          <div class="menu">
+            <Navbar dark>
+              <Cart />
+            </Navbar>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
 </template>
 <script>
 import Cart from '~/components/header/Cart.vue';

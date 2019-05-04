@@ -1,14 +1,25 @@
 <template>
-  <div class="search" v-click-outside="moveDefault">
-    <div class="placeholder" @click="moveLeft" ref="placeholder">
-      <span><i class="material-icons">search</i><span class="text" ref="text">&nbsp;Zoeken</span></span>
+  <div
+    v-click-outside="moveDefault"
+    class="search"
+  >
+    <div
+      ref="placeholder"
+      class="placeholder"
+      @click="moveLeft"
+    >
+      <span><i class="material-icons">search</i><span
+        ref="text"
+        class="text"
+      >&nbsp;Zoeken</span></span>
     </div>
-    <input type="text" name="searchBar" id="searchBar" @change="searchProduct($event.target.value)" ref="input">
-    <div class="results">
-      <ul>
-        <li v-for="item in items" :key="item.ProductName">{{ item.ProductName}}</li>
-      </ul>
-    </div>
+    <input
+      id="searchBar"
+      ref="input"
+      type="text"
+      name="searchBar"
+      @change="searchProduct($event.target.value)"
+    >
   </div>
 </template>
 
@@ -17,6 +28,9 @@ import ProductService from '~/services/product.service.js';
 import ClickOutside from 'vue-click-outside';
 
 export default {
+  directives: {
+    ClickOutside
+  },
   data() {
       return {
           products: [],
@@ -42,9 +56,6 @@ export default {
       this.$refs.placeholder.style.width = "100%";
       this.$refs.text.style.opacity = "100";
     }
-  },
-  directives: {
-    ClickOutside
   }
 
 }
@@ -53,12 +64,13 @@ export default {
 <style lang="scss" scoped>
 .search {
   position: relative;
+  width: 100%;
   .placeholder {
     position: relative;
     z-index: 2;
     text-align: center;
     width: 100%;
-    padding: 1rem;
+    padding: 2.9rem;
     transition: all 0.2s;
     cursor: text;
     span {
@@ -78,7 +90,7 @@ export default {
     position: absolute;
     display: block;
     width: 100%;
-    padding: 1rem 2rem 1rem 4.5rem;
+    padding: 2.9rem 2rem 2.9rem 4.5rem;
     color: rgba(0, 0, 0, 0.65);
     font-size: 1.8rem;
     line-height: 1.5;
@@ -93,7 +105,6 @@ export default {
   }
   .results {
     position: absoluut;
-    top: 4rem;
     background: #fff;
     border-radius: 2px;
   }
