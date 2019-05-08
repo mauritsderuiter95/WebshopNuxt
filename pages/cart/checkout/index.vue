@@ -1,100 +1,99 @@
 <template>
   <div class="container">
     <div class="content">
-      <div
-        v-if="!this.$store.getters['user/isAuthenticated'] || guest"
-        class="credentialGuard"
-      >
-        <v-card class="guest">
-          <v-card-title primary-title>
-            <div>
-              <h3>Gast</h3>
-              <p>U kunt afrekenen als gast. Hierbij kunt u niet online uw bestellingen inzien of volgen.</p>
-            </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn
-              color="primary"
-              block
-              @click="enterGuest"
-            >
-              Afrekenen als gast
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-        <v-card class="signIn">
-          <v-card-title primary-title>
-            <div>
-              <h3>Log in</h3>
-              <p>Log in om deze bestelling toe te voegen aan uw account.</p>
-            </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn
-              color="primary"
-              block
-              @click="signIn"
-            >
-              Log in
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-        <v-card class="signUp">
-          <v-card-title primary-title>
-            <div>
-              <h3>Maak account aan</h3>
-              <p>Maak een account aan om van allerlei voordelen te genieten. Zoals het volgen van uw bestellingen, deze online inzien en kortingsacties.</p>
-            </div>
-          </v-card-title>
-          <v-card-actions>
-            <v-btn
-              color="primary"
-              block
-              @click="signUp"
-            >
-              Maak account aan
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+      <h1>WR Automaten</h1>
+      <ul class="breadcrumbs">
+        <li>
+          <nuxt-link to="/cart">
+            Winkelwagen
+          </nuxt-link>
+        </li>
+        <i class="material-icons chevron">
+          chevron_right
+        </i>
+        <li class="active">
+          Informatie
+        </li>
+        <i class="material-icons chevron">
+          chevron_right
+        </i>
+        <li class="inactive">
+          Verzending en betaling
+        </li>
+      </ul>
+      <div class="contactHeading">
+        <h2>
+          Contactinformatie
+        </h2>
+        <h3 v-if="!this.$store.getters['user/isAuthenticated']">
+          Hebt u al een account? <a @click="signIn">Inloggen</a>
+        </h3>
       </div>
-      <div
-        v-if="!guest"
+      <form
         class="form"
       >
-        <div class="label">
-          <p>Voornaam:</p>
+        <div class="input">
+          <input
+            id="tel"
+            v-model="user.phone"
+            type="tel"
+            name="tel"
+            placeholder="Telefoonnummer*"
+          >
         </div>
+        <div class="input">
+          <input
+            id="email"
+            v-model="user.email"
+            type="email"
+            name="email"
+            placeholder="E-mailadres*"
+          >
+        </div>
+
+        <h2 class="title">
+          Adres
+        </h2>
+
+        <div class="input wide">
+          <input
+            id="company"
+            v-model="user.company"
+            type="text"
+            name="company"
+            placeholder="Bedrijfsnaam"
+          >
+        </div>
+
         <div class="input">
           <input
             id="firstname"
+            v-model="user.firstName"
             type="text"
             name="firstname"
+            placeholder="Voornaam*"
           >
         </div>
 
-        <div class="label">
-          <p>Achternaam:</p>
-        </div>
         <div class="input">
           <input
             id="lastname"
+            v-model="user.lastName"
             type="text"
             name="lastname"
+            placeholder="Achternaam*"
           >
         </div>
 
-        <div class="label">
-          <p>Adres:</p>
-        </div>
-        <div class="input">
+        <div class="input wide">
           <input
             id="address"
             type="text"
             name="address"
+            placeholder="Adres*"
           >
         </div>
-        <div class="label" />
-        <div class="input">
+        <div class="input wide">
           <input
             id="address2"
             type="text"
@@ -102,72 +101,105 @@
           >
         </div>
 
-        <div class="label">
-          <p>Postcode:</p>
-        </div>
         <div class="input">
           <input
             id="postcode"
             type="text"
             name="postcode"
+            placeholder="Postcode*"
           >
         </div>
 
-        <div class="label">
-          <p>Plaats:</p>
-        </div>
         <div class="input">
           <input
             id="city"
             type="text"
             name="city"
+            placeholder="Plaats*"
           >
         </div>
-        <div class="label" />
-        <div class="input">
+        <div class="input action">
+          <nuxt-link to="/cart">
+            <wr-btn
+              medium
+              flat
+            >
+              <i class="material-icons">
+                chevron_left
+              </i>
+              Winkelwagen
+            </wr-btn>
+          </nuxt-link>
+        </div>
+        <div class="input flex-end action">
           <wr-btn
             color="primary"
             dark
+            medium
             type="submit"
+            block
           >
-            Submit
+            Verzending en betaling
+            <i class="material-icons">
+              chevron_right
+            </i>
           </wr-btn>
         </div>
-      </div>
+      </form>
     </div>
     <aside class="sidebar">
-      <wr-card>
-        <div class="card-content">
-          <h3>Cart</h3>
-          <ul class="items">
-            <li
-              v-for="item in cart"
-              :key="item.productName"
-              class="item"
+      <div class="card-content">
+        <table class="cart">
+          <tbody>
+            <tr
+              v-for="product in cart"
+              :key="product.productName"
             >
-              <span>{{ item.productName }}</span>
-              <span>€5</span>
-            </li>
-          </ul>
-        </div>
-      </wr-card>
+              <td class="image">
+                <div v-if="product.photo">
+                  <v-lazy-image
+                    :src="product.photo.url"
+                    :alt="product.photo.alt"
+                    class="boxImg"
+                  />
+                </div>
+              </td>
+              <td class="title">
+                <h4>{{ product.productName }}</h4>
+              </td>
+              <td class="amount">
+                €{{ (Number(product.productPrice) * Number(product.count)).toFixed(2) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="subtotal">
+        <span>Subtotaal</span>
+        <span class="right">€{{ subtotal.toFixed(2) }}</span>
+        <span>Verzendkosten</span>
+        <span class="right">Berekend bij volgende stap</span>
+      </div>
+      <div class="total">
+        <span>Totaal</span>
+        <span class="right">€{{ subtotal.toFixed(2) }}</span>
+      </div>
     </aside>
   </div>
 </template>
 
 <script>
-import Card from '@/components/ui-components/Card.vue';
+import ProductService from '~/services/product.service.js';
 import Button from '@/components/ui-components/Button.vue';
 
 export default {
     components: {
-        'wr-card': Card,
         'wr-btn': Button
     },
     data() {
-        return {
-            guest: false
-        }
+      return {
+        user: JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']))
+      }
     },
     computed: {
         cart() {
@@ -180,17 +212,34 @@ export default {
                 id: 0,
                 productName: null
             }]
+        },
+        subtotal() {
+          let subtotal = 0;
+          this.cart.map((item) => {
+            subtotal = subtotal + item.productPrice * item.count;
+          })
+          return subtotal;
         }
     },
+    mounted() {
+      if(this.$store.getters['cart/currentCart']) {
+        let cartProducts = this.$store.getters['cart/currentCart'].products;
+        cartProducts.forEach(cartProduct => {
+          ProductService.getProduct(cartProduct.productId)
+            .then(response => {
+              let cart = this.cart;
+              cartProduct = cart.find(item => item.productId === response.data.id);
+              cartProduct.photo = {};
+              cartProduct.photo.url = response.data.photos[0].url;
+              cartProduct.photo.alt = response.data.photos[0].alt;
+            })
+        });
+      }
+    },
     methods: {
-        enterGuest() {
-            this.guest = true;
-        },
         signIn() {
             this.$router.push('/account/login?returnpath=cart/checkout')
         },
-        signUp() {
-        }
     },
     layout: 'checkout'
 }
@@ -199,30 +248,74 @@ export default {
 <style lang="scss" scoped>
 .container {
     display: flex;
+    max-width: 120rem;
+    margin: 0 auto;
+    min-height: 100vh;
     .content {
-        width: 75%;
-        .credentialGuard {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-column-gap: 2rem;
-            .v-card {
-            position: relative;
-                &__title {
-                    margin-bottom: 52px;
-                }
-                &__actions {
-                    margin-top: auto;
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                }
+      width: 55%;
+      padding-right: 8rem;
+      padding-top: 6rem;
+        .breadcrumbs {
+          list-style-type: none;
+          display: flex;
+          margin-top: 2rem;
+          align-items: center;
+          li {
+            margin-right: 1rem;
+          }
+          .chevron {
+            margin-right: 1rem;
+          }
+          .active {
+            font-weight: 600;
+          }
+        }
+        h1 {
+          font-family: 'Magneto';
+          font-weight: 400;
+          color: $primary-color;
+        }
+        h2 {
+          margin-top: 4rem;
+          margin-bottom: 2rem;
+          font-weight: 400;
+          font-size: 2rem;
+          display: inline-block;
+        }
+        .contactHeading {
+          display: flex;
+          justify-content: space-between;
+          h3 {
+            display: inline-block;
+            margin-top: 4rem;
+            font-size: 1.4rem;
+            text-align: right;
+            font-weight: 400;
+            a {
+              cursor: pointer;
+              text-decoration: underline;
             }
+          }
         }
         .form {
             display: grid;
-            grid-template-columns: 1fr 3fr;
+            grid-template-columns: 1fr 1fr;
             grid-gap: 1rem;
             align-items: center;
+            .wide {
+              grid-column: span 2;
+            }
+            .title {
+              margin-bottom: 1rem;
+              margin-top: 3rem;
+            }
+            .flex-end {
+              justify-content: flex-end
+            }
+            .action {
+              margin-top: 2rem;
+              margin-bottom: 6rem;
+            }
             .label {
                 display: flex;
                 justify-content: flex-end;
@@ -246,9 +339,8 @@ export default {
                         display: inline-block;
                         width: 100%;
                         height: 32px;
-                        padding: 4px 11px;
-                        color: rgba(0,0,0,0.65);
-                        font-size: 14px;
+                        padding: 3rem;
+                        font-size: 1.8rem;
                         line-height: 1.5;
                         background-color: #fff;
                         background-image: none;
@@ -256,28 +348,78 @@ export default {
                         border-radius: 4px;
                         -webkit-transition: all .3s;
                         transition: all .3s;
+                        &::placeholder{
+                          color: rgba(0,0,0,0.65);
+                        }
                 }
             }
         }
     }
     .sidebar {
-        width: 25%;
-        margin-left: 2rem;
-        .card-content {
-            display: block;
-            padding: 1rem 2rem;
-            .items {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                font-size: 1.6rem;
-                margin-left: 1rem;
-                .item {
-                    display: flex;
-                    justify-content: space-between;
-                }
-            }
+      width: 45%;
+      position: relative;
+      padding-left: 6rem;
+      border-left: 1px solid #ddd;
+      padding-top: 4rem;
+      &::after {
+        background: #fafafa;
+        left: 0;
+        content: "";
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
+      .subtotal {
+        display: grid;
+        margin-top: 4rem;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid #ddd;
+        grid-template-columns: 1fr 1fr;
+        font-size: 1.6rem;
+        grid-row-gap: 1rem;
+      }
+      .total {
+        display: grid;
+        margin-top: 4rem;
+        padding-bottom: 4rem;
+        grid-template-columns: 1fr 1fr;
+        font-size: 2rem;
+      }
+      .right {
+          text-align: right;
+          font-weight: 500;
         }
+      .cart {
+        width: 100%;
+        border-collapse: collapse;
+        display: table;
+        font-size: 1.6rem;
+        tr {
+          display: flex;
+          border-bottom: 1px solid #ddd;
+          align-items: center;
+          :first-child {
+            padding-left: 0;
+          }
+          td {
+            padding: 2rem 0 2rem 4rem;
+          }
+          .title {
+            flex-grow: 1;
+            h4 {
+              font-weight: 400;
+            }
+          }
+          .image {
+            width: 5rem;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
     }
 }
 </style>

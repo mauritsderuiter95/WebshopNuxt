@@ -1,7 +1,7 @@
 <template>
   <button
     ref="btn"
-    :class="['btn', { dark: dark }, { block: block }, { flat: flat }, {big: big}, color]"
+    :class="['btn', { dark }, { block }, { flat }, { big }, { medium }, { outline }, color]"
     :type="submit > 1 ? submit : 'button'"
     @click="callback($event)"
   >
@@ -22,7 +22,9 @@ export default {
         flat: Boolean,
         big: Boolean,
         // eslint-disable-next-line
-        submit: String
+        submit: String,
+        medium: Boolean,
+        outline: Boolean
     },
     methods: {
         callback(e) {
@@ -89,11 +91,27 @@ export default {
     font-size: 2rem;
     padding: 2rem;
 }
+.medium {
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+.outline {
+  border: 2px solid #000;
+}
 .primary {
     background-color: $primary-color !important;
     &:hover {
         background-color: lighten($primary-color, 3) !important;
     }
+}
+.outline.primary {
+  border: 2px solid $primary-color;
+  background-color: transparent !important;
+  transition: 0.5s;
+  &:hover {
+    background-color: $primary-color!important;
+    color: #fff;
+  }
 }
 .white {
     background-color: #fff !important;

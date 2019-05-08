@@ -1,36 +1,74 @@
 <template>
-  <div class="container">
-    <a-table
-      :columns="columns"
-      :row-key="record => record.productId"
-      :data-source="setData"
-      :loading="loading"
-      :pagination="false"
-      class="table"
-    >
-      <!-- <a-input-number :min="1" :max="10" slot="count" /> -->
-      <template
-        v-for="col in ['count']"
-        :slot="col"
-        slot-scope="count, record"
-      >
-        <div :key="col">
-          <a-input-number
-            style="margin: -5px 0"
-            :value="count"
-            :min="1"
-            :max="20"
-            @change="e => editCart(e, record.productId)"
-          />
-        </div>
-      </template>
-    </a-table>
+  <div>
+    <div class="cart">
+      <h2>Winkelwagen</h2>
+      <table class="cartContent">
+        <tbody>
+          <tr
+            v-for="product in cart"
+            :key="product.productId"
+          >
+            <td class="image">
+              <div v-if="product.photo">
+                <v-lazy-image
+                  :src="product.photo.url"
+                  :alt="product.photo.alt"
+                  class="boxImg"
+                />
+              </div>
+            </td>
+            <td class="title">
+              <h4>{{ product.productName }}</h4>
+            </td>
+            <td class="amount">
+              €{{ Number(product.productPrice).toFixed(2) }}
+            </td>
+            <td>
+              <div class="counter">
+                <span
+                  class="editor minus"
+                  @click="removeProduct(product)"
+                >
+                  &minus;
+                </span>
+                <input
+                  id="count"
+                  type="text"
+                  name="count"
+                  class="count"
+                  :value="product.count"
+                  @input="editCart($event.target.value,product.productId)"
+                >
+                <span
+                  class="editor plus"
+                  @click="addProduct(product.productId)"
+                >
+                  +
+                </span>
+              </div>
+            </td>
+            <td class="amount">
+              €{{ (Number(product.productPrice) * Number(product.count)).toFixed(2) }}
+            </td>
+            <td
+              class="delete"
+              @click="deleteProduct(product.productId)"
+            >
+              <i class="material-icons">
+                delete_outline
+              </i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="toolbar">
       <div class="checkout">
         <nuxt-link to="cart/checkout">
           <wr-btn
             color="primary"
             dark
+            medium
           >
             Checkout
           </wr-btn>
@@ -41,43 +79,22 @@
 </template>
 
 <script>
-import { Table, InputNumber } from 'ant-design-vue';
 import ProductService from '~/services/product.service.js';
 import btn from '@/components/ui-components/Button.vue';
 
-const columns = [{
-//   title: 'Thumbnail',
-//   dataIndex: 'photos[0]',
-//   width: '20%',
-//   scopedSlots: { customRender: 'thumbnail' },
-// }, {
-  title: 'Productname',
-  dataIndex: 'productName',
-  width: '20%',
-}, {
-  title: 'Count',
-  dataIndex: 'count',
-  scopedSlots: { customRender: 'count' },
-}];
-
 export default {
     components: {
-        'a-table': Table,
-        'a-input-number': InputNumber,
         'wr-btn': btn
     },
     data() {
         return {
-            pagination: {},
-            loading: false,
-            columns
+            products: []
         }
     },
     computed: {
-        setData() {
-            if(this.$store.getters['cart/currentCart']) {
+      cart() {
+            if(this.$store.getters['cart/currentCart'])
                 return this.$store.getters['cart/currentCart'].products;
-            }
             return [{
                 count: 0,
                 productId: 0,
@@ -86,37 +103,145 @@ export default {
             }]
         }
     },
+    mounted() {
+      if(this.$store.getters['cart/currentCart']) {
+        let cartProducts = this.$store.getters['cart/currentCart'].products;
+        cartProducts.forEach(cartProduct => {
+          ProductService.getProduct(cartProduct.productId)
+            .then(response => {
+              let cart = this.cart;
+              cartProduct = cart.find(item => item.productId === response.data.id);
+              cartProduct.photo = {};
+              cartProduct.photo.url = response.data.photos[0].url;
+              cartProduct.photo.alt = response.data.photos[0].alt;
+            })
+        });
+      }
+    },
     methods: {
-        editCart(value, productId) {
-            if(value >= 1) {
-                let cart = {};
-                cart.id = this.$store.getters['cart/currentCart'].id;
-                cart.products = []
-                for(let key in this.$store.getters['cart/currentCart'].products) {
-                    let cartProduct = {};
-                    cartProduct.productId = this.$store.getters['cart/currentCart'].products[key].productId;
-                    cartProduct.productId === productId ? cartProduct.count = value : cartProduct.count = this.$store.getters['cart/currentCart'].products[key].count;
-                    cart.products.push(cartProduct);
-                }
-                this.$store.dispatch("cart/editCart", cart);
-            }
+      editCart(value, productId) {
+        if(value >= 1) {
+          let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
+          for (let key in cart.products) {
+            if(cart.products[key].productId === productId)
+              cart.products[key].count = value;
+          }
+          this.$store.dispatch("cart/editCart", cart);
         }
+      },
+      addProduct(productId){
+        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
+        for (let key in cart.products) {
+          if(cart.products[key].productId === productId)
+            cart.products[key].count++;
+        }
+        this.$store.dispatch("cart/editCart", cart);
+      },
+      removeProduct(product){
+        if (product.count >= 2) {
+          let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
+          for (let key in cart.products) {
+            if(cart.products[key].productId === product.productId)
+              cart.products[key].count--;
+          }
+          this.$store.dispatch("cart/editCart", cart);
+        }
+        else {
+          this.deleteProduct(product.productId);
+        }
+      },
+      deleteProduct(productId){
+        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
+        cart.products = cart.products.filter(item => item.productId !== productId);
+        this.$store.dispatch("cart/editCart", cart);
+      },
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.table {
-    background: #fff;
-    margin-bottom: 2rem;
-    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+.cart {
+  h2 {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+  .cartContent {
+    max-width: 120rem;
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    display: table;
+    font-size: 2rem;
+    tr {
+      display: flex;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      align-items: center;
+      :first-child {
+        padding-left: 0;
+      }
+      td {
+        padding: 2rem 0 2rem 4rem;
+        .counter {
+          position: relative;
+          input {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            border-radius: 4px;
+            font-size: 2rem;
+          }
+          .count {
+            max-width: 15rem;
+          }
+          .editor {
+            position: absolute;
+            top: 0;
+            padding: 0.5rem 2rem;
+            font-size: 4rem;
+            font-weight: 200;
+            color: rgba(0,0,0,0.2);
+            cursor: pointer;
+            &:hover {
+              color: rgba(0,0,0,0.9);
+            }
+          }
+          .minus {
+            left: 0;
+          }
+          .plus {
+            right: 0;
+          }
+        }
+      }
+      .amount {
+        min-width: 15rem;
+        text-align: right;
+      }
+      .delete {
+        cursor: pointer;
+      }
+      .title {
+        flex-grow: 1;
+      }
+      .image {
+        width: 5rem;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 .toolbar {
-    display: flex;
-    justify-content: flex-end;
-    .v-btn {
-        margin: 0;
-    }
+  display: flex;
+  justify-content: flex-end;
+  max-width: 120rem;
+  margin: 5rem auto 0;
+  .v-btn {
+    margin: 0;
+  }
 }
 
 </style>
