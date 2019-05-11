@@ -11,7 +11,7 @@
     "generate": "nuxt generate --port 8081",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "nuxt build && nuxt start"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.4.1",
