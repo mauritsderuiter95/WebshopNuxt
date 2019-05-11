@@ -2,6 +2,10 @@
   <div>
     <div class="cart">
       <h2>Winkelwagen</h2>
+      <span
+        v-if="!cart[0]"
+        class="message"
+      >Uw winkelwagen is momenteel leeg</span>
       <table class="cartContent">
         <tbody>
           <tr
@@ -62,7 +66,10 @@
         </tbody>
       </table>
     </div>
-    <div class="toolbar">
+    <div
+      v-if="cart[0]"
+      class="toolbar"
+    >
       <div class="checkout">
         <nuxt-link to="cart/checkout">
           <wr-btn
@@ -70,7 +77,7 @@
             dark
             medium
           >
-            Checkout
+            Bestellen
           </wr-btn>
         </nuxt-link>
       </div>
@@ -163,6 +170,12 @@ export default {
 .cart {
   h2 {
     text-align: center;
+    margin-bottom: 5rem;
+  }
+  .message {
+    text-align: center;
+    display: block;
+    font-size: 3rem;
     margin-bottom: 5rem;
   }
   .cartContent {

@@ -37,7 +37,7 @@ const actions = {
           Cookie.set("jwt", result.token, { expires: 365 });
           Cookie.set(
           "expirationDate",
-          result.expires, 
+          result.expires,
           { expires: 365 }
           );
           resolve();
@@ -48,7 +48,7 @@ const actions = {
   async initAuth({state, commit, dispatch}, req) {
     let token;
     let expirationDate;
-    if (req) { 
+    if (req) {
       if (!req.headers.cookie) {
         return;
       }
@@ -91,7 +91,7 @@ const actions = {
 
 const getters = {
   isAuthenticated(state) {
-      return state.token != null;
+      return state.token != null && state.user != null;
   },
   currentUser(state) {
     return state.user;

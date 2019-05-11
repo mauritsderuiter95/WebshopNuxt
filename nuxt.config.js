@@ -61,5 +61,5 @@ module.exports = {
   layoutTransition: {
     name: 'layout',
     mode: 'out-in'
-  }
+  },
 };
