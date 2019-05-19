@@ -1,0 +1,6 @@
+// .babelrc or babel-loader option
+{
+  "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+  ]
+}

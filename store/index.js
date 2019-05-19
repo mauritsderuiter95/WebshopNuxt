@@ -14,7 +14,7 @@ const actions = {
 
 const modules = {
   cart: CartModule,
-  user: UserModule
+  user: UserModule,
 };
 
 export default {

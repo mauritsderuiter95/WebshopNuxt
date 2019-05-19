@@ -3,10 +3,13 @@
     <div class="cart">
       <h2>Winkelwagen</h2>
       <span
-        v-if="!cart[0]"
+        v-if="!cart[0] || cart[0].count == 0"
         class="message"
       >Uw winkelwagen is momenteel leeg</span>
-      <table class="cartContent">
+      <table
+        v-if="cart[0] && cart[0].count >= 1"
+        class="cartContent"
+      >
         <tbody>
           <tr
             v-for="product in cart"
@@ -67,7 +70,7 @@
       </table>
     </div>
     <div
-      v-if="cart[0]"
+      v-if="cart[0] && cart[0].count >= 1"
       class="toolbar"
     >
       <div class="checkout">
@@ -106,24 +109,10 @@ export default {
                 count: 0,
                 productId: 0,
                 id: 0,
-                productName: null
+                productName: null,
+                photo: {}
             }]
         }
-    },
-    mounted() {
-      if(this.$store.getters['cart/currentCart']) {
-        let cartProducts = this.$store.getters['cart/currentCart'].products;
-        cartProducts.forEach(cartProduct => {
-          ProductService.getProduct(cartProduct.productId)
-            .then(response => {
-              let cart = this.cart;
-              cartProduct = cart.find(item => item.productId === response.data.id);
-              cartProduct.photo = {};
-              cartProduct.photo.url = response.data.photos[0].url;
-              cartProduct.photo.alt = response.data.photos[0].alt;
-            })
-        });
-      }
     },
     methods: {
       editCart(value, productId) {
@@ -183,15 +172,21 @@ export default {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
-    border-top: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     display: table;
     font-size: 2rem;
+    border-radius: 4px;
+    background: #fff;
     tr {
       display: flex;
-      border-bottom: 1px solid rgba(0,0,0,0.2);
       align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      padding: 0 2rem;
       :first-child {
         padding-left: 0;
+      }
+      &:last-of-type {
+        border: none;
       }
       td {
         padding: 2rem 0 2rem 4rem;

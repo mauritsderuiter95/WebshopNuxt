@@ -22,7 +22,17 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
 }
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    margin: 0;
+  }
+}
+
 </style>
 
 

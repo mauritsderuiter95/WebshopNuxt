@@ -38,4 +38,39 @@ export default {
       width: 25%;
     }
 }
+
+@media screen and (max-width: 1024px) {
+  .topbar {
+    margin: 0 6rem 6rem;
+    .menu {
+      width: 50%;
+      margin-right: 3rem;
+    }
+    .searchBar {
+      width: 50%;
+      margin-left: 3rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .topbar {
+    flex-wrap: wrap;
+    .menu {
+      width: 100%;
+      margin: 0
+    }
+    .searchBar {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 3rem;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .topbar {
+    margin: 0 3rem 3rem;
+  }
+}
 </style>

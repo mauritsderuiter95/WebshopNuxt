@@ -19,8 +19,8 @@
           </div>
           <div class="image">
             <v-lazy-image
-              :src="product.photos[0].url"
-              :alt="product.photos[0].alt"
+              :src="product.photo.url"
+              :alt="product.photo.alt"
             />
           </div>
           <div class="orderSummary">

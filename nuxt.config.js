@@ -11,7 +11,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons'}
+      // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons' },
     ]
   },
   /*
@@ -43,7 +43,7 @@ module.exports = {
   vendor: ['axios', 'vue-cookie', 'vue-notifications'],
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
   ],
   plugins: [
     '~plugins/vue-cookie.js',
@@ -51,7 +51,7 @@ module.exports = {
     '~plugins/lazyload.js'
   ],
   css: [
-    '@/assets/scss/style.scss'
+    '@/assets/scss/style.scss',
   ],
   styleResources: {
     scss: [
@@ -61,5 +61,8 @@ module.exports = {
   layoutTransition: {
     name: 'layout',
     mode: 'out-in'
+  },
+  axios: {
+    baseURL: 'https://localhost:44337/api'
   },
 };

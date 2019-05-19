@@ -2,6 +2,8 @@ import Vuex from "vuex";
 import Cookie from "js-cookie";
 import { Promise } from "q";
 
+const api = 'https://localhost:44337/api/users';
+
 const state = () => ({
       user: null,
       token: null
@@ -22,9 +24,9 @@ const mutations = ({
 const actions = {
   authenticateUser({commit}, authData){
     return new Promise((resolve, reject) => {
-      let authUrl = "https://localhost:44337/api/users/authenticate";
+      let authUrl = `${ api }/authenticate`;
       if (!authData.isLogin) {
-          authUrl = "https://localhost:44337/api/users";
+          authUrl = api;
       }
       return this.$axios
       .$post(authUrl, {
@@ -34,18 +36,18 @@ const actions = {
       .then(result => {
           commit("setUser", result);
           commit("setToken", result.token);
-          Cookie.set("jwt", result.token, { expires: 365 });
+          Cookie.set("jwt", result.token, { expires: 7 });
           Cookie.set(
           "expirationDate",
           result.expires,
-          { expires: 365 }
+          { expires: 7 }
           );
           resolve();
       })
       .catch(e => reject(e));
     });
   },
-  async initAuth({state, commit, dispatch}, req) {
+  async initAuth({commit, dispatch}, req) {
     let token;
     let expirationDate;
     if (req) {
@@ -69,10 +71,7 @@ const actions = {
       return;
     }
     commit("setToken", token);
-    let userUrl = "https://localhost:44337/api/users/currentuser";
-    this.$axios.onRequest(config => {
-      config.headers.common['Authorization'] = `Bearer ${state.token}`;
-    });
+    let userUrl = `${ api }/currentuser`;
     await this.$axios
     .$get(userUrl)
     .then(result => {

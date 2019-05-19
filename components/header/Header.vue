@@ -68,4 +68,63 @@ export default {
         }
     }
 }
+
+@media screen and (max-width: 1600px) {
+  .top {
+    .row {
+      .left {
+        width: auto;
+        max-width: initial;
+        h2 {
+          display: none;
+        }
+      }
+      .right {
+        width: auto;
+        max-width: initial;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .top {
+    clip-path: none;
+    border: none;
+    padding-bottom: 1rem;
+    border-radius: 0;
+    margin-bottom: 6rem;
+    .row {
+      display: block;
+      margin-bottom: 3rem;
+      .left {
+        width: auto;
+        max-width: initial;
+        margin-top: 1rem;
+        h1 {
+          margin-top: 1rem;
+        }
+        h2 {
+          display: none;
+        }
+      }
+      .right {
+        width: auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .top {
+    margin-bottom: 3rem;
+    .row {
+      .left {
+        h1 {
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+}
 </style>

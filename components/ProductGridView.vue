@@ -8,10 +8,10 @@
     <wr-card>
       <nuxt-link :to="`/products/${product.id}`">
         <wr-img
-          :src="product.photos[0].url"
+          :src="product.photo.url"
           :aspect-ratio="1"
-          :alt="product.photos[0].alt"
-          :title="product.photos[0].title"
+          :alt="product.photo.alt"
+          :title="product.photo.title"
         />
       </nuxt-link>
 

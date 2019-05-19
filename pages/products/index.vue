@@ -49,5 +49,27 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .body{
+    .content {
+      .productList {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 6rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .body{
+    .content {
+      .productList {
+        grid-template-columns: 1fr;
+        margin: 0 3rem;
+      }
+    }
+  }
+}
 </style>
 

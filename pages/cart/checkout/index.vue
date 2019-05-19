@@ -330,7 +330,8 @@ export default {
                 count: 0,
                 productId: 0,
                 id: 0,
-                productName: null
+                productName: null,
+                photo: {}
             }]
         },
         subtotal() {
@@ -340,21 +341,6 @@ export default {
           })
           return subtotal;
         }
-    },
-    mounted() {
-      if(this.$store.getters['cart/currentCart']) {
-        let cartProducts = this.$store.getters['cart/currentCart'].products;
-        cartProducts.forEach(cartProduct => {
-          ProductService.getProduct(cartProduct.productId)
-            .then(response => {
-              let cart = this.cart;
-              cartProduct = cart.find(item => item.productId === response.data.id);
-              cartProduct.photo = {};
-              cartProduct.photo.url = response.data.photos[0].url;
-              cartProduct.photo.alt = response.data.photos[0].alt;
-            })
-        });
-      }
     },
     methods: {
         signIn() {
@@ -368,25 +354,14 @@ export default {
         },
         finishOrder() {
           if(this.paymethod === "ideal") {
-            const Mollie = require('mollie-es6');
-            const mollieApp = new Mollie('test_MC5zA6qB73bVWubtbSamnHhSfkHVv3');
-            const co = require('co');
-            const payment = co.wrap(function*() {
-              const amount = 10.00;
-              const description = 'My first API payment';
-              const redirectUrl = 'http://localhost:8081/cart';
-              try {
-                const payment = yield mollieApp.payments.create(
-                  amount,
-                  description,
-                  redirectUrl
-                );
-                window.location = payment.getPaymentUrl();
-              } catch (e) {
-                // Handle error
-              }
-            });
-            payment();
+            this.$axios.$post(`${ this.$axios.defaults.baseURL }/orders`, this.$store.getters['cart/currentCart'])
+              .then(res => {
+                window.location = res;
+              })
+              .catch (err => {
+                console.log(err);
+                console.log(`"cartid":"${ this.$store.getters['cart/currentCart'].id }"`)
+              })
           }
         }
     },
@@ -453,7 +428,7 @@ export default {
         }
         .group {
           border-radius: 4px;
-          border: 1px solid #ddd;
+          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
           width: 100%;
           padding: 1rem 2rem;
           .row {
@@ -479,7 +454,7 @@ export default {
         .form {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-gap: 1rem;
+            grid-gap: 2rem;
             align-items: center;
             .wide {
               grid-column: span 2;
@@ -523,7 +498,8 @@ export default {
                 line-height: 1.5;
                 background-color: #fff;
                 background-image: none;
-                border: 1px solid #d9d9d9;
+                box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+                border: none;
                 border-radius: 4px;
                 -webkit-transition: all .3s;
                 transition: all .3s;

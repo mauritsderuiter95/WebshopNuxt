@@ -63,6 +63,28 @@
   src: url(https://fonts.gstatic.com/s/montserrat/v13/JTURjIg1_i6t8kCHKm45_epG3gnD-w.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNZ.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
 html {
     font-size: 62.5%;
     font-family: 'Montserrat', sans-serif;
@@ -72,7 +94,7 @@ html {
         font-size: 1.4rem;
         background: #fff;
         .container {
-            max-width: 1400px;
+            max-width: 120rem;
             width: 100%;
             margin: 0 auto;
         }

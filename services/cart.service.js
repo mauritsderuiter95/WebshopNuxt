@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cart from '~/models/Cart.js';
 import store from '~/store';
 
-const api = 'https://localhost:44337/api/carts';
+const api = 'https://backend.wrautomaten.nl/api/carts';
 
 class CartService {
     editCart(product) {

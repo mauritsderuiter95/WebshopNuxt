@@ -150,7 +150,7 @@ export default {
       margin-bottom: 0;
         h1 {
         font-size: 10rem;
-        font-family: 'Magneto';
+        font-family: 'Magneto', Helvetica;
         color: $primary-color;
         margin-bottom: 0.5em;
       }
@@ -223,6 +223,85 @@ export default {
     a {
       color: #fff;
       text-decoration: none;
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .top{
+    border-radius: 0;
+    clip-path: none;
+    margin-bottom: 0;
+    height: auto;
+    min-height: auto;
+    .menu {
+      width: 100%;
+      margin: 0;
+      font-size: 2rem;
+      padding-bottom: 10rem;
+      min-height: 20rem;
+    }
+  }
+  .topContainer {
+    .topContent {
+      position: relative;
+      top: -10rem;
+      left: initial;
+      transform: none;
+      width: auto;
+      margin: 0 3rem;
+      .box {
+        h1 {
+          font-size: 6rem;
+          text-align: center;
+        }
+        sub {
+          text-align: center;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .topContainer {
+    .topContent {
+      top: -8rem;
+      .box {
+        padding: 5rem;
+        margin: 0;
+        h1 {
+          font-size: 3rem;
+        }
+        sub {
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+
+  .intro {
+    margin: 0 3rem;
+    h2 {
+      font-size: 4rem;
+    }
+    p {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .box {
+    padding: 5rem;
+    margin: 3rem;
+    .flex {
+      .img {
+        display: none;
+      }
+      .text {
+        width: auto;
+      }
     }
   }
 }

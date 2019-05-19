@@ -18,6 +18,12 @@ export default {
   margin: 3rem;
   background: #f7f7f7;
 }
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    margin: 0;
+  }
+}
 </style>
 
 
