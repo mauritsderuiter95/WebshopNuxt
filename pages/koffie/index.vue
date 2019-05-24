@@ -1,9 +1,9 @@
 <template>
   <div>
     <Box
-      title="Test"
+      title="Elproma Celestino 6"
       content="Test test test"
-      image-url="/img/soda.png"
+      image-url="/img/koffieautomaat1.webp"
     />
   </div>
 </template>

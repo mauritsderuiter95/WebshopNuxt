@@ -133,7 +133,7 @@ export default {
     left: 0;
   }
   .isOpen {
-    z-index: 1;
+    z-index: 3;
     transform: translateY(0);
   }
   .closing {

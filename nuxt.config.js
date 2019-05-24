@@ -40,6 +40,11 @@ module.exports = {
       }
     },
   },
+  vue: {
+    config: {
+      performance: true,
+    },
+  },
   vendor: ['axios', 'vue-cookie', 'vue-notifications'],
   modules: [
     '@nuxtjs/axios',
@@ -63,6 +68,6 @@ module.exports = {
     mode: 'out-in'
   },
   axios: {
-    baseURL: 'https://localhost:44337/api'
+    baseURL: 'https://backend.wrautomaten.nl/api'
   },
 };

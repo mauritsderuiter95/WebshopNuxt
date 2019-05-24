@@ -24,8 +24,7 @@
     </div>
     <section class="about">
       <div class="intro">
-        <h2>About</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto obcaecati tempora quidem rerum. Accusamus, qui corrupti delectus quos sapiente modi cupiditate deleniti? In tempore ut facilis alias mollitia quia.</p>
+        <p>Koffie, tussendoortjes en frisdrank zonder omkijken? Wij zorgen dat u altijd voorzien bent. Catering via automaten heeft de toekomst.</p>
         <i class="material-icons">
           keyboard_arrow_down
         </i>
@@ -43,8 +42,10 @@
             />
           </div>
           <div class="text">
-            <h2>Coffee</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
+            <h2 class="box-title">
+              WR Koffie
+            </h2>
+            <p>Onze heerlijke ambachtelijk gebrande bonen komen uit Indonesië en Ethiopië. WR Koffie Classic is een milde koffie, zonder de bittere nasmaak en is geschikt voor de gemiddelde koffiedrinker. De variant Strong is een streling op de tong voor dé koffieliefhebber.</p>
           </div>
         </div>
       </div>
@@ -54,7 +55,7 @@
         <div class="flex">
           <div class="text">
             <h2>Vending</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
+            <p>Kostenloos plaatsen wij frisdrank- en/of zoetwarenautomaten. Wekelijks vullen en onderhouden wij dit automaat, zodat u er geen omkijken naar hebt. Wij ontzorgen u volledig! Neem voor alle mogelijkheden vrijblijvend contact op met Wim de Ruiter op 06 - 143 976 20. Voor elke kantine een passend automaat!</p>
           </div>
           <div class="img">
             <v-lazy-image
@@ -80,7 +81,7 @@
           </div>
           <div class="text">
             <h2>Occasion</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil officiis doloremque aspernatur, dignissimos ipsam, nobis ab esse incidunt eius perspiciatis adipisci nostrum hic pariatur dolorum voluptatem sapiente! Architecto, totam itaque.</p>
+            <p>Regelmatig bieden wij ervaren automaten aan. Deze automaten zijn volledig gereviseerd en in topconditie. Jarenlang kunt u genieten voor een lage investering in een uitstekend automaat. Voor ons actuele aanbod kijkt u op onze occasion-pagina.</p>
           </div>
         </div>
       </div>
@@ -200,8 +201,10 @@ export default {
       align-self: center;
       width: 50%;
       h2 {
-        font-size: 5rem;
+        font-size: 4.5rem;
         margin-bottom: 2rem;
+        font-family: 'Magneto';
+        color: #7C0000;
       }
       p {
         font-size: 2rem;

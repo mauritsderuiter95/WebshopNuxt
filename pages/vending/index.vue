@@ -1,7 +1,7 @@
 <template>
   <div>
     <Box
-      title="Test"
+      title="acn"
       content="Test test test"
       image-url="/img/soda.png"
     />
