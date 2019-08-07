@@ -1,58 +1,51 @@
 <template>
   <div class="body">
-    <div class="content">
-      <div class="grid">
-        <div class="half">
-          <div
-            v-if="product.photos"
-            class="photos"
+    <div class="grid">
+      <h1>{{ product.productName }}</h1>
+      <span />
+      <div class="half">
+        <div class="featured">
+          <img
+            :src="product.photo.url"
+            :alt="product.photo.alt"
+            :title="product.photo.title"
           >
-            <div class="featured">
-              <transition
-                name="fade"
-                mode="out-in"
-              >
-                <img
-                  :key="featuredPhoto.url"
-                  :src="featuredPhoto.url"
-                  :alt="featuredPhoto.alt"
-                  :title="featuredPhoto.title"
-                >
-              </transition>
-            </div>
-            <ul class="imageList">
-              <li
-                v-for="photo in product.photos"
-                :key="photo.url"
-                @click="bigPicture(photo)"
-              >
-                <img
-                  :src="photo.url"
-                  :alt="photo.alt"
-                  :title="photo.title"
-                >
-              </li>
-            </ul>
-          </div>
         </div>
-        <div class="half">
-          <h1>{{ product.productName }}</h1>
-          <p>{{ product.shortDescription }}</p>
-          <div class="actions">
-            <wr-btn
-              color="primary"
-              dark
-              block
-              big
-              @click="addToCart"
+      </div>
+      <div class="half">
+        <p>{{ product.shortDescription }}</p>
+        <span class="price">€ {{ Number(product.price).toFixed(2) }}</span>
+        <div class="actions">
+          <div class="counter">
+            <span
+              class="editor minus"
+              @click="countMinus"
             >
-              Add to cart
-            </wr-btn>
+              &minus;
+            </span>
+            <input
+              id="count"
+              v-model="count"
+              type="text"
+              name="count"
+              class="count"
+            >
+            <span
+              class="editor plus"
+              @click="count++"
+            >
+              +
+            </span>
           </div>
-          <div class="productInfo">
-            <!-- eslint-disable-next-line -->
-            <div v-html="product.longDescription" />
-          </div>
+          <wr-btn
+            color="primary"
+            dark
+            block
+            big
+            @click="addToCart"
+          >
+            In winkelwagen
+          </wr-btn>
         </div>
       </div>
     </div>
@@ -67,21 +60,27 @@ export default {
 	components: {
 		"wr-btn": Button
 	},
+  data() {
+    return {
+      count: 1,
+    }
+  },
 	asyncData({ params }) {
 		return ProductService.getProduct(params.id).then(response => {
 			return {
 				product: response.data,
-				featuredPhoto: response.data.photos[0]
 			};
 		});
-	},
+  },
 	methods: {
-		bigPicture(photo) {
-			this.featuredPhoto = photo;
-		},
 		addToCart() {
 			this.$store.dispatch("cart/addToCart", this.product);
-		}
+    },
+    countMinus() {
+      if(this.count > 1) {
+        this.count--;
+      }
+    }
 	}
 };
 </script>
@@ -90,62 +89,80 @@ export default {
 .body {
 	margin: 0 auto;
 	display: flex;
-  width: 120rem;
-	.content {
-		display: flex;
-		flex-wrap: wrap;
-		.grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-column-gap: 2rem;
-			.half {
-				display: flex;
-				flex-direction: column;
-				padding: 1rem;
-			}
-		}
+  max-width: 120rem;
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2rem;
+    width: 100%;
+    border-radius: $border-radius;
+    background: #fff;
+    box-shadow: $box-shadow;
+    padding: 10rem 18rem;
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      font-family: 'Magneto', Helvetica;
+      color: #7C0000;
+    }
+    .half {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      .price {
+        font-size: 4rem;
+        color: #7C0000;
+        font-weight: 700;
+        display: flex;
+        margin-left: auto;
+        margin-top: auto;
+      }
+      .actions {
+        margin-top: 2rem;
+        display: flex;
+        .counter {
+          position: relative;
+          margin-right: 4rem;
+          input {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            border-radius: $border-radius;
+            font-size: 2rem;
+          }
+          .count {
+            max-width: 15rem;
+          }
+          .editor {
+            position: absolute;
+            top: 0;
+            padding: 0.5rem 2rem;
+            font-size: 4rem;
+            font-weight: 200;
+            color: rgba(0,0,0,0.2);
+            cursor: pointer;
+            &:hover {
+              color: rgba(0,0,0,0.9);
+            }
+          }
+          .minus {
+            left: 0;
+          }
+          .plus {
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+  .featured {
+    img {
+      width: 100%;
+      border-radius: $border-radius;
+    }
 	}
-	.photos {
-		overflow: hidden;
-		border-radius: 4px;
-		transition: 0.3s;
-		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-		padding: 2rem;
-		.featured {
-			img {
-				width: 100%;
-				border-radius: 0.5rem;
-			}
-		}
-		.imageList {
-			list-style-type: none;
-			display: grid;
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			grid-gap: 1rem;
-			margin-top: 1rem;
-			padding-left: 0;
-			li {
-				cursor: pointer;
-				img {
-					width: 100%;
-					border-radius: 0.5rem;
-				}
-			}
-		}
-	}
-	.productInfo {
-		font-size: 1.6rem;
-		/deep/ p {
-			margin-bottom: 2rem;
-		}
-		/deep/ ul {
-			margin-left: 2rem;
-		}
-	}
-}
-> div {
-	padding: 2rem;
 }
 
 .fade-enter {
@@ -162,5 +179,27 @@ export default {
 	opacity: 0;
 	transition: opacity 0.2s;
 }
+
+@media screen and (max-width: 1024px) {
+  .body {
+    padding: 3rem;
+    .grid {
+      grid-row-gap: 4rem;
+      padding: 4rem 8rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .body {
+    padding: 3rem;
+    .grid {
+      grid-template-columns: 1fr;
+      grid-row-gap: 2rem;
+      padding: 2rem;
+    }
+  }
+}
+
 </style>
 

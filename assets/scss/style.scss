@@ -129,3 +129,69 @@ a {
   color: inherit;
   cursor: pointer;
 }
+
+.top {
+  clip-path: polygon(0 0, 100% 0, 100% 66.67%, 0 100%);
+  height: 45vh;
+  min-height: 45rem;
+  //background: #1a1c33;
+  background: $primary-color;
+  border-radius: .5rem .5rem 0 0;
+  display:flex;
+  flex-direction: column;
+  .menu {
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 3rem;
+    margin-right: 3rem;
+    font-size: 1.6rem;
+  }
+}
+
+.topContainer {
+  position: relative;
+  .topContent {
+    position: absolute;
+    top: 21rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120rem;
+    color: $primary-color;
+  }
+}
+
+.body {
+  .content {
+    margin: 0 auto;
+    max-width: 140rem;
+    .productList {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 6rem;
+      list-style-type: none;
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .body{
+    .content {
+      .productList {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 6rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .body{
+    .content {
+      .productList {
+        grid-template-columns: 1fr;
+        margin: 0 3rem;
+      }
+    }
+  }
+}

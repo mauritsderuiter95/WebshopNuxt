@@ -25,28 +25,31 @@
       </div>
 
       <div class="footer">
-        <nuxt-link
-          :to="`/products/${product.id}`"
-          class="info-btn"
-        >
-          <wr-btn
-            flat
-            block
-            big
+        <span class="price">€{{ Number(product.price).toFixed(2) }}</span>
+        <div class="buttons">
+          <nuxt-link
+            :to="`/products/${product.id}`"
+            class="info-btn"
           >
-            Info
+            <wr-btn
+              flat
+              block
+              big
+            >
+              Info
+            </wr-btn>
+          </nuxt-link>
+          <wr-btn
+            block
+            flat
+            big
+            dark
+            color="primary"
+            @click="addToCart"
+          >
+            Bestellen
           </wr-btn>
-        </nuxt-link>
-        <wr-btn
-          block
-          flat
-          big
-          dark
-          color="primary"
-          @click="addToCart"
-        >
-          Bestellen
-        </wr-btn>
+        </div>
       </div>
     </wr-card>
   </div>
@@ -91,7 +94,7 @@ export default {
   height: 100%;
   .content {
     margin-top: 4rem;
-    margin-bottom: 11rem;
+    margin-bottom: 14rem;
     padding: 0 4rem;
     h3 {
         font-size: 2rem;
@@ -105,11 +108,25 @@ export default {
     position: absolute;
     bottom: 0;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
-    .info-btn {
-      margin-right: 1rem;
-      display: block;
+    .buttons {
+      display: flex;
       width: 100%;
+      .info-btn {
+        margin-right: 1rem;
+        display: block;
+        width: 100%;
+      }
+    }
+    .price {
+      display: block;
+      font-size: 2.4rem;
+      color: #7C0000;
+      font-weight: 700;
+      margin-left: auto;
+      margin-right: 2rem;
+      margin-bottom: 2rem;
     }
   }
 }

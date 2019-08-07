@@ -133,7 +133,7 @@ export default {
       width: calc(100% - 6rem);
       margin: 0 3rem;
       border: none;
-      border-radius: 4px;
+      border-radius: $border-radius;
       background: #fff;
       padding-top: 14px;
       box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);

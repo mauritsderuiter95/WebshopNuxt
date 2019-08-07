@@ -4,7 +4,10 @@
       <h2>{{ title }}</h2>
       <p>{{ content }}</p>
     </div>
-    <div class="image">
+    <div
+      v-if="imageUrl"
+      class="image"
+    >
       <v-lazy-image
         :src="imageUrl"
       />
@@ -27,7 +30,7 @@ export default {
     },
     imageUrl: {
       type: String,
-      required: true,
+      required: false,
       default: ""
     }
   }
@@ -36,19 +39,20 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-  padding: 10rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
-  margin: 0 auto 20rem;
+  padding: 10rem 18rem;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  margin: 0 auto 10rem;
   max-width: 120rem;
   background: #fff;
   display: flex;
   .content {
-    width: 80%;
     margin-right: 10rem;
     h2 {
       font-size: 5rem;
       margin-bottom: 2rem;
+      font-family: 'Magneto', Helvetica;
+      color: $primary-color;
     }
     p {
       font-size: 2rem;
@@ -59,6 +63,23 @@ export default {
     img {
       max-width: 100%;
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .box {
+    padding: 4rem 8rem;
+    margin: 3rem;
+    .content {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+    padding: 2rem 4rem;
+    margin: 3rem;
   }
 }
 </style>

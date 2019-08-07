@@ -22,7 +22,7 @@ export default {
     height: 18rem;
     //background: #1a1c33;
     background: $primary-color;
-    border-radius: 0 0 .5rem .5rem;
+    border-radius: 0 0 $border-radius $border-radius;
     padding-top: 9rem;
     margin-top: 10rem;
     .content {

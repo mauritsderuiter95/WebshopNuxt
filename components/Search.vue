@@ -97,7 +97,7 @@ export default {
     background-color: #fff;
     background-image: none;
     border: none;
-    border-radius: 4px;
+    border-radius: $border-radius;
     transition: all .3s;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -106,7 +106,7 @@ export default {
   .results {
     position: absoluut;
     background: #fff;
-    border-radius: 2px;
+    border-radius: $border-radius;
   }
 }
 

@@ -1,22 +1,23 @@
 <template>
   <div>
-    <header class="top">
-      <div class="row">
-        <div class="left">
-          <nuxt-link to="/">
-            <h1>WR Automaten &nbsp;</h1>
-          </nuxt-link>
-          <h2>-&nbsp;&nbsp;&nbsp;Uw partner in service!</h2>
-        </div>
-        <div class="right">
-          <div class="menu">
-            <Navbar dark>
-              <Cart />
-            </Navbar>
+    <div class="topContainer">
+      <header class="top">
+        <div class="row">
+          <div class="left">
+            <nuxt-link to="/">
+              <h1>WR Automaten &nbsp;</h1>
+            </nuxt-link>
+          </div>
+          <div class="right">
+            <div class="menu">
+              <Navbar dark>
+                <Cart />
+              </Navbar>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   </div>
 </template>
 <script>
@@ -37,8 +38,7 @@ export default {
     clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
     //background: #1a1c33;
     background: $primary-color;
-    border-radius: .5rem .5rem 0 0;
-    margin-bottom: 10rem;
+    border-radius: $border-radius $border-radius 0 0;
     display:flex;
     flex-direction: column;
     position: relative;
@@ -47,7 +47,7 @@ export default {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        margin-top: 3rem;
+        align-items: center;
         .left{
             max-width: 50%;
             padding-left: 3rem;
@@ -100,7 +100,7 @@ export default {
       .left {
         width: auto;
         max-width: initial;
-        margin-top: 1rem;
+        margin-top: 4rem;
         h1 {
           margin-top: 1rem;
         }

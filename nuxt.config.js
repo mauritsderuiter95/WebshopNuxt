@@ -68,6 +68,6 @@ module.exports = {
     mode: 'out-in'
   },
   axios: {
-    baseURL: 'https://backend.wrautomaten.nl/api'
+    baseURL: 'https://localhost:44337/api'
   },
 };

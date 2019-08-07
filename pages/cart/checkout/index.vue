@@ -427,7 +427,7 @@ export default {
           margin-top: 4rem;
         }
         .group {
-          border-radius: 4px;
+          border-radius: $border-radius;
           box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
           width: 100%;
           padding: 1rem 2rem;
@@ -500,7 +500,7 @@ export default {
                 background-image: none;
                 box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
                 border: none;
-                border-radius: 4px;
+                border-radius: $border-radius;
                 -webkit-transition: all .3s;
                 transition: all .3s;
                 &::placeholder{

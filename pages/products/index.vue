@@ -36,40 +36,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.body {
-  .content {
-    margin: 0 auto;
-    max-width: 120rem;
-    .productList {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 6rem;
-      list-style-type: none;
-      padding-left: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .body{
-    .content {
-      .productList {
-        grid-template-columns: 1fr 1fr;
-        margin: 0 6rem;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .body{
-    .content {
-      .productList {
-        grid-template-columns: 1fr;
-        margin: 0 3rem;
-      }
-    }
-  }
-}
 </style>
 

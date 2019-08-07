@@ -73,7 +73,7 @@ export default {
 <style lang="scss" scoped>
 .menu-holder {
     width: 100%;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
     a {
       margin-right: 2rem;
       text-decoration: none;

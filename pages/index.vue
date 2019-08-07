@@ -1,26 +1,8 @@
 <template>
   <div>
-    <div class="topContainer">
-      <header class="top">
-        <div class="menu">
-          <Navbar dark>
-            <nuxt-link to="/cart">
-              <wr-btn
-                flat
-                dark
-              >
-                Winkelwagen
-              </wr-btn>
-            </nuxt-link>
-          </Navbar>
-        </div>
-      </header>
-      <div class="topContent">
-        <div class="box">
-          <h1>WR Automaten</h1>
-          <sub>Uw Partner in Service</sub>
-        </div>
-      </div>
+    <div class="box  jumbotron">
+      <h1>WR Automaten</h1>
+      <sub>Uw Partner in Service</sub>
     </div>
     <section class="about">
       <div class="intro">
@@ -86,31 +68,17 @@
         </div>
       </div>
     </section>
-    <section class="bottom">
-      <div class="content">
-        <h2>Contact</h2>
-        <p />
-        <a
-          href="https://www.freepik.com/free-photos-vectors/food"
-          target="_new"
-        >Illustrations by Macrovector</a>
-      </div>
-    </section>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/header/Navbar';
-import Button from '@/components/ui-components/Button.vue';
 
 export default {
   components: {
-    Navbar,
-    'wr-btn': Button
-  },
-  layout: 'home'
+  }
 }
 </script>
+
 
 <style lang="scss" scoped>
 .v-lazy-image {
@@ -119,47 +87,6 @@ export default {
 }
 .v-lazy-image-loaded {
   opacity: 1;
-}
-.top {
-  clip-path: polygon(0 0, 100% 0, 100% 66.67%, 0 100%);
-  height: 45vh;
-  min-height: 45rem;
-  //background: #1a1c33;
-  background: $primary-color;
-  border-radius: .5rem .5rem 0 0;
-  margin-bottom: 24rem;
-  display:flex;
-  flex-direction: column;
-  .menu {
-    width: fit-content;
-    margin-left: auto;
-    margin-top: 3rem;
-    margin-right: 3rem;
-    font-size: 1.6rem;
-  }
-}
-.topContainer {
-  position: relative;
-  .topContent {
-    position: absolute;
-    top: 16rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120rem;
-    color: $primary-color;
-    .box {
-      margin-bottom: 0;
-        h1 {
-        font-size: 10rem;
-        font-family: 'Magneto', Helvetica;
-        color: $primary-color;
-        margin-bottom: 0.5em;
-      }
-      sub {
-        font-size: 3rem;
-      }
-    }
-  }
 }
 .intro {
   text-align: center;
@@ -173,16 +100,29 @@ export default {
   }
   p {
     font-size: 2.5rem;
-    margin-bottom: 10rem;
+    margin-bottom: 3rem;
   }
   i {
     font-size: 10rem;
   }
 }
+.jumbotron {
+      margin-bottom: 0;
+        h1 {
+        font-size: 10rem;
+        font-family: 'Magneto', Helvetica;
+        color: $primary-color;
+        margin-bottom: 0.5em;
+      }
+      sub {
+        font-size: 3rem;
+      }
+    }
+
 .box {
   padding: 10rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 2rem rgba(0,0,0,0.2);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   margin: 0 auto 20rem;
   max-width: 120rem;
   background: #fff;
@@ -212,47 +152,8 @@ export default {
     }
   }
 }
-.bottom {
-  clip-path: polygon(0 15vh, 100% 0, 100% 100%, 0 100%);
-  height: 90vh;
-  //background: #1a1c33;
-  background: $primary-color;
-  border-radius: 0 0 .5rem .5rem;
-  padding-top: 15vh;
-  .content {
-    max-width: 70rem;
-    color: #fff;
-    margin: 0 auto;
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-  }
-}
 @media screen and (max-width: 1024px) {
-  .top{
-    border-radius: 0;
-    clip-path: none;
-    margin-bottom: 0;
-    height: auto;
-    min-height: auto;
-    .menu {
-      width: 100%;
-      margin: 0;
-      font-size: 2rem;
-      padding-bottom: 10rem;
-      min-height: 20rem;
-    }
-  }
-  .topContainer {
-    .topContent {
-      position: relative;
-      top: -10rem;
-      left: initial;
-      transform: none;
-      width: auto;
-      margin: 0 3rem;
-      .box {
+  .jumbotron {
         h1 {
           font-size: 6rem;
           text-align: center;
@@ -262,16 +163,18 @@ export default {
           display: block;
         }
       }
-    }
-  }
 }
 
 @media screen and (max-width: 768px) {
 
-  .topContainer {
-    .topContent {
-      top: -8rem;
-      .box {
+  // .topContainer {
+  //   .topContent {
+  //     top: -8rem;
+
+  //   }
+  // }
+
+  .jumbotron {
         padding: 5rem;
         margin: 0;
         h1 {
@@ -281,8 +184,6 @@ export default {
           font-size: 1.8rem;
         }
       }
-    }
-  }
 
   .intro {
     margin: 0 3rem;

@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
     <Header />
-    <nuxt />
+    <div class="body-content">
+      <nuxt />
+    </div>
     <Footer />
   </div>
 </template>
@@ -27,9 +29,18 @@ export default {
   min-height: calc(100vh - 60px);
 }
 
+.body-content {
+  margin-top: -24rem;
+  position: relative;
+  z-index: 2;
+}
+
 @media screen and (max-width: 1024px) {
   .wrapper {
     margin: 0;
+  }
+  .body-content {
+    margin-top: -37rem;
   }
 }
 

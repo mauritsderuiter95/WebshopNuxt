@@ -68,21 +68,21 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div
-      v-if="cart[0] && cart[0].count >= 1"
-      class="toolbar"
-    >
-      <div class="checkout">
-        <nuxt-link to="cart/checkout">
-          <wr-btn
-            color="primary"
-            dark
-            medium
-          >
-            Bestellen
-          </wr-btn>
-        </nuxt-link>
+      <div
+        v-if="cart[0] && cart[0].count >= 1"
+        class="toolbar"
+      >
+        <div class="checkout">
+          <nuxt-link to="cart/checkout">
+            <wr-btn
+              color="primary"
+              dark
+              medium
+            >
+              Bestellen
+            </wr-btn>
+          </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -98,7 +98,7 @@ export default {
     },
     data() {
         return {
-            products: []
+            products: [],
         }
     },
     computed: {
@@ -157,6 +157,14 @@ export default {
 
 <style lang="scss" scoped>
 .cart {
+  padding: 10rem;
+  border-radius: $border-radius;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  max-width: 120rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
   h2 {
     text-align: center;
     margin-bottom: 5rem;
@@ -172,10 +180,10 @@ export default {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    //box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     display: table;
     font-size: 2rem;
-    border-radius: 4px;
+    border-radius: $border-radius;
     background: #fff;
     tr {
       display: flex;
@@ -197,7 +205,7 @@ export default {
             padding: 2rem;
             background: rgba(0,0,0,0.05);
             border: none;
-            border-radius: 4px;
+            border-radius: $border-radius;
             font-size: 2rem;
           }
           .count {
@@ -246,7 +254,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   max-width: 120rem;
-  margin: 5rem auto 0;
+  margin: 5rem 0 0;
   .v-btn {
     margin: 0;
   }

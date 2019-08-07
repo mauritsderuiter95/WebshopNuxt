@@ -105,7 +105,7 @@ export default {
 	grid-column-gap: 6rem;
 	.box {
 		padding: 10rem;
-		border-radius: 1rem;
+		border-radius: $border-radius;
 		box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
 		background: #fff;
 		.form {
@@ -122,7 +122,7 @@ export default {
 					align-self: center;
 				}
 				input {
-					border-radius: 4px;
+					border-radius: $border-radius;
 					padding: 1rem 2rem;
 					font-size: 1.8rem;
 					border: 1px solid rgba(0, 0, 0, 0.2);

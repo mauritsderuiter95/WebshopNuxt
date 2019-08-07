@@ -95,8 +95,12 @@
         >
           <nuxt-link :to="`/products/${ product.productId }`">
             <div class="row">
-              <div class="first">
-                {{ product.photo }}
+              <div class="image">
+                <v-lazy-image
+                  :src="product.photo.url"
+                  :alt="product.photo.alt"
+                  class="boxImg"
+                />
               </div>
               <div class="second">
                 {{ product.productName }}
@@ -158,7 +162,7 @@ export default {
     flex-wrap: wrap;
     margin-bottom: 5rem;
     .group {
-      border-radius: 4px;
+      border-radius: $border-radius;
       box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
       width: 100%;
       padding: 1rem 2rem;
@@ -177,8 +181,15 @@ export default {
       align-items: center;
       width: 100%;
       .first {
-        color: rgba(0,0,0,0.65);
+        color:rgba(0, 0, 0, 0.65);
         margin-right: 1rem;
+      }
+      .image {
+        width: 5rem;
+        margin-right: 2rem;
+        img {
+          width: 100%;
+        }
       }
       .second {
         flex-grow: 1;

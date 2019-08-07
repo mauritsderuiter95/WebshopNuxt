@@ -17,9 +17,9 @@ export default {
 <style lang="scss" scoped>
 .card {
     background: #fff;
-    border-radius: 4px;
+    border-radius: $border-radius;
     transition: 0.3s;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    box-shadow: $box-shadow;
     height: 100%;
     position: relative;
     overflow: hidden;
