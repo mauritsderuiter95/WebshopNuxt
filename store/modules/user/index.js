@@ -58,8 +58,18 @@ const actions = {
       const jwtCookie = req.headers.cookie
         .split(";")
         .find(c => c.trim().startsWith("jwt="));
+
       if (!jwtCookie) {
-        return;
+        const guestCookie = req.headers.cookie
+          .split(";")
+          .find(c => c.trim().startsWith("guest"));
+
+          if(!guestCookie)
+            return;
+
+          let user = JSON.parse(decodeURIComponent(guestCookie.split('=')[1]));
+          commit('setUser', user);
+          return;
       }
       token = jwtCookie.split("=")[1];
       expirationDate = req.headers.cookie
@@ -86,12 +96,16 @@ const actions = {
     commit("clearUser");
     Cookie.remove("jwt");
     Cookie.remove("expirationDate");
+  },
+  saveGuest({commit}, user) {
+    commit("setUser", user);
+    Cookie.set("guest", user, { expires: 7 });
   }
 };
 
 const getters = {
   isAuthenticated(state) {
-      return state.token != null && state.user != null;
+      return state.token != null;
   },
   currentUser(state) {
     return state.user;

@@ -15,14 +15,15 @@
           ref="contact"
           class="active"
         >
-          Informatie
+          <a @click="previousStep">
+            Informatie
+          </a>
         </li>
         <i class="material-icons chevron">
           chevron_right
         </i>
         <li
           ref="sending"
-          class="inactive"
         >
           Verzending en betaling
         </li>
@@ -49,7 +50,7 @@
             <div class="input">
               <input
                 id="tel"
-                v-model="user.phone"
+                v-model="$v.user.phone.$model"
                 type="tel"
                 name="tel"
                 placeholder="Telefoonnummer*"
@@ -58,7 +59,7 @@
             <div class="input">
               <input
                 id="email"
-                v-model="user.email"
+                v-model="$v.user.email.$model"
                 type="email"
                 name="email"
                 placeholder="E-mailadres*"
@@ -82,7 +83,7 @@
             <div class="input">
               <input
                 id="firstname"
-                v-model="user.firstName"
+                v-model="$v.user.firstName.$model"
                 type="text"
                 name="firstname"
                 placeholder="Voornaam*"
@@ -92,7 +93,7 @@
             <div class="input">
               <input
                 id="lastname"
-                v-model="user.lastName"
+                v-model="$v.user.lastName.$model"
                 type="text"
                 name="lastname"
                 placeholder="Achternaam*"
@@ -102,6 +103,7 @@
             <div class="input wide">
               <input
                 id="address"
+                v-model="$v.user.street.$model"
                 type="text"
                 name="address"
                 placeholder="Adres*"
@@ -110,6 +112,7 @@
             <div class="input wide">
               <input
                 id="address2"
+                v-model="user.street2"
                 type="text"
                 name="address2"
               >
@@ -118,6 +121,7 @@
             <div class="input">
               <input
                 id="postcode"
+                v-model="$v.user.zipcode.$model"
                 type="text"
                 name="postcode"
                 placeholder="Postcode*"
@@ -127,11 +131,16 @@
             <div class="input">
               <input
                 id="city"
+                v-model="$v.user.city.$model"
                 type="text"
                 name="city"
                 placeholder="Plaats*"
               >
             </div>
+            <div
+              ref="error"
+              class="error"
+            />
             <div class="input action">
               <nuxt-link to="/cart">
                 <wr-btn
@@ -169,7 +178,7 @@
           <div class="group summary">
             <div class="row">
               <span class="summaryLabel first">E-mailadres</span>
-              <span class="second">bla {{ user.email }}</span>
+              <span class="second">{{ user.email }}</span>
               <a
                 class="summaryLink"
                 @click="previousStep"
@@ -177,7 +186,7 @@
             </div>
             <div class="row">
               <span class="summaryLabel first">Adres</span>
-              <span class="second">bla {{ user.address }}</span>
+              <span class="second">{{ user.street }}, {{ user.zipcode }} {{ user.city }}</span>
               <a
                 class="summaryLink"
                 @click="previousStep"
@@ -197,11 +206,12 @@
               <div class="row">
                 <input
                   id="sendmethod"
-                  v-model="sendmethod"
+                  v-model="$v.sendmethod.$model"
                   type="radio"
                   name="sendmethod"
                   value="postnl"
                   class="first input-radio"
+                  @input="calcCosts"
                 >
                 <span class="second">PostNL Pakket</span>
                 <span>€4,99</span>
@@ -209,11 +219,12 @@
               <div class="row">
                 <input
                   id="sendmethod"
-                  v-model="sendmethod"
+                  v-model="$v.sendmethod.$model"
                   type="radio"
                   name="sendmethod"
                   value="retrieve"
                   class="first input-radio"
+                  @input="calcCosts"
                 >
                 <span class="second">Ophalen</span>
                 <span>€0,00</span>
@@ -227,7 +238,7 @@
               <div class="row">
                 <input
                   id="ideal"
-                  v-model="paymethod"
+                  v-model="$v.paymethod.$model"
                   type="radio"
                   name="ideal"
                   value="ideal"
@@ -238,7 +249,7 @@
               <div class="row">
                 <input
                   id="bank"
-                  v-model="paymethod"
+                  v-model="$v.paymethod.$model"
                   type="radio"
                   name="bank"
                   value="bank"
@@ -247,6 +258,11 @@
                 <span class="second">Bankoverdracht</span>
               </div>
             </div>
+
+            <div
+              ref="error2"
+              class="error"
+            />
 
             <div class="input wide action">
               <wr-btn
@@ -295,7 +311,10 @@
         <span>Subtotaal</span>
         <span class="right">€{{ subtotal.toFixed(2) }}</span>
         <span>Verzendkosten</span>
-        <span class="right">Berekend bij volgende stap</span>
+        <span
+          ref="sendingcosts"
+          class="right"
+        >Berekend bij volgende stap</span>
       </div>
       <div class="total">
         <span>Totaal</span>
@@ -308,6 +327,7 @@
 <script>
 import ProductService from '~/services/product.service.js';
 import Button from '@/components/ui-components/Button.vue';
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
     components: {
@@ -315,10 +335,50 @@ export default {
     },
     data() {
       return {
-        user: JSON.parse(JSON.stringify(this.$store.getters['user/currentUser'])) || {},
+        user: {
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          street: "",
+          zipcode: "",
+          city: ""
+        },
         step1: true,
         paymethod: "",
         sendmethod: ""
+      }
+    },
+    validations: {
+      user: {
+        firstName: {
+          required
+        },
+        lastName: {
+          required
+        },
+        email: {
+          required,
+          email
+        },
+        phone: {
+          required
+        },
+        street: {
+          required
+        },
+        zipcode: {
+          required
+        },
+        city: {
+          required
+        }
+      },
+      paymethod: {
+        required
+      },
+      sendmethod: {
+        required
       }
     },
     computed: {
@@ -342,26 +402,62 @@ export default {
           return subtotal;
         }
     },
+    mounted() {
+      if (this.$store.getters['user/currentUser'].firstName)
+        this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']));
+    },
     methods: {
         signIn() {
             this.$router.push('/account/login?returnpath=cart/checkout')
         },
         nextStep() {
-          this.step1 = false;
+          if (!this.$v.user.$invalid) {
+            this.step1 = false;
+            this.$refs.contact.classList.remove('active');
+            this.$refs.sending.classList.add('active');
+            this.$store.dispatch("user/saveGuest", this.user);
+          }
+          else {
+            this.$refs.error.style.display = 'block';
+            if (this.$v.user.email.$anyError) {
+              this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
+              return;
+            }
+            this.$refs.error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
+          }
         },
         previousStep() {
           this.step1 = true;
+          this.$refs.contact.classList.add('active');
+          this.$refs.sending.classList.remove('active');
+        },
+        calcCosts() {
+          if (this.sendmethod === "postnl") {
+            console.log('test');
+            this.subtotal + 4.99;
+            this.$refs.sendingcosts = "€4,99";
+          }
+          else {
+            this.$refs.sendingcosts = "Gratis";
+          }
         },
         finishOrder() {
-          if(this.paymethod === "ideal") {
-            this.$axios.$post(`${ this.$axios.defaults.baseURL }/orders`, this.$store.getters['cart/currentCart'])
-              .then(res => {
-                window.location = res;
-              })
-              .catch (err => {
-                console.log(err);
-                console.log(`"cartid":"${ this.$store.getters['cart/currentCart'].id }"`)
-              })
+          if (!this.$v.$invalid) {
+            this.$refs.error2.style.display = 'none';
+            if(this.paymethod === "ideal") {
+              this.$axios.$post(`${ this.$axios.defaults.baseURL }/orders`, this.$store.getters['cart/currentCart'])
+                .then(res => {
+                  window.location = res;
+                })
+                .catch (err => {
+                  console.log(err);
+                  console.log(`"cartid":"${ this.$store.getters['cart/currentCart'].id }"`)
+                })
+            }
+          }
+          else {
+            this.$refs.error2.style.display = 'block';
+            this.$refs.error2.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
           }
         }
     },
@@ -470,6 +566,14 @@ export default {
               margin-top: 2rem;
               margin-bottom: 6rem;
             }
+            .error {
+              grid-column: span 2;
+              padding: 1.7rem 3rem;
+              font-size: 1.8rem;
+              background: #FF9494;
+              border-radius: $border-radius;
+              display: none;
+            }
             .label {
                 display: flex;
                 justify-content: flex-end;
@@ -484,7 +588,6 @@ export default {
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 margin: 0;
-                padding: 0;
                 font-variant: tabular-nums;
                 list-style: none;
                 -webkit-font-feature-settings: 'tnum';

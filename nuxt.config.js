@@ -53,7 +53,8 @@ module.exports = {
   plugins: [
     '~plugins/vue-cookie.js',
     '~plugins/axios.js',
-    '~plugins/lazyload.js'
+    '~plugins/lazyload.js',
+    '~plugins/vuelidate.js'
   ],
   css: [
     '@/assets/scss/style.scss',
