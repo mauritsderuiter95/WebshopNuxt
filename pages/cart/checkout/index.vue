@@ -639,7 +639,7 @@ export default {
       padding-top: 4rem;
       z-index: 3;
       &::after {
-        background: #fafafa;
+        background: #fff;
         left: 0;
         content: "";
         width: 100vw;
