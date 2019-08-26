@@ -1,13 +1,35 @@
 <template>
   <div class="container">
+    <div
+      class="topbar"
+      @click="expandCart"
+    >
+      <div class="left">
+        <i class="material-icons">
+          shopping_cart
+        </i>
+        <span ref="cartLabel">Bekijk winkelwagen</span>
+      </div>
+      <div class="right">
+        <i
+          ref="icon"
+          class="material-icons"
+        >
+          expand_more
+        </i>
+      </div>
+    </div>
     <div class="content">
       <h1>WR Automaten</h1>
       <ul class="breadcrumbs">
-        <li>
-          <nuxt-link to="/cart">
+        <nuxt-link to="/cart">
+          <li class="mobile">
+            <i class="material-icons chevron">
+              chevron_left
+            </i>
             Winkelwagen
-          </nuxt-link>
-        </li>
+          </li>
+        </nuxt-link>
         <i class="material-icons chevron">
           chevron_right
         </i>
@@ -141,7 +163,7 @@
               ref="error"
               class="error"
             />
-            <div class="input action">
+            <div class="input action desktop">
               <nuxt-link to="/cart">
                 <wr-btn
                   medium
@@ -280,7 +302,10 @@
         </div>
       </transition>
     </div>
-    <aside class="sidebar">
+    <aside
+      ref="cart"
+      class="sidebar"
+    >
       <div class="card-content">
         <table class="cart">
           <tbody>
@@ -346,7 +371,8 @@ export default {
         },
         step1: true,
         paymethod: "",
-        sendmethod: ""
+        sendmethod: "",
+        cartExpanded: false,
       }
     },
     validations: {
@@ -400,11 +426,13 @@ export default {
             subtotal = subtotal + item.productPrice * item.count;
           })
           return subtotal;
-        }
+        },
     },
     mounted() {
-      if (this.$store.getters['user/currentUser'].firstName)
-        this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']));
+      if (this.$store.getters['user/currentUser']) {
+        if (this.$store.getters['user/currentUser'].firstName)
+          this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']));
+      }
     },
     methods: {
         signIn() {
@@ -459,6 +487,19 @@ export default {
             this.$refs.error2.style.display = 'block';
             this.$refs.error2.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
           }
+        },
+        expandCart() {
+          this.cartExpanded = !this.cartExpanded;
+          if (this.cartExpanded) {
+            this.$refs.cart.style.display = 'block';
+            this.$refs.icon.classList.add('rotate');
+            this.$refs.cartLabel.textContent = 'Verberg winkelwagen';
+          }
+          else {
+            this.$refs.cart.style.display = 'none';
+            this.$refs.icon.classList.remove('rotate');
+            this.$refs.cartLabel.textContent = 'Bekijk winkelwagen';
+          }
         }
     },
     layout: 'checkout'
@@ -468,9 +509,10 @@ export default {
 <style lang="scss" scoped>
 .container {
     display: flex;
-    max-width: 120rem;
-    margin: 0 auto;
-    min-height: 100vh;
+    width: 100%;
+    .topbar {
+      display: none;
+    }
     .content {
       width: 55%;
       padding-right: 8rem;
@@ -491,6 +533,11 @@ export default {
           .active {
             font-weight: 600;
           }
+          .mobile {
+            i {
+              display: none;
+            }
+          }
         }
         h1 {
           font-family: 'Magneto';
@@ -509,7 +556,7 @@ export default {
           justify-content: space-between;
           h3 {
             display: inline-block;
-            margin-top: 4rem;
+            margin-top: 4.4rem;
             font-size: 1.4rem;
             text-align: right;
             font-weight: 400;
@@ -698,6 +745,113 @@ export default {
         }
       }
     }
+}
+
+@media screen and (max-width: 1025px) {
+  .content {
+    padding-left: 6rem;
+  }
+  .sidebar {
+    padding-right: 6rem;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .container {
+    flex-direction: column;
+    .topbar {
+      padding: 1rem 2rem;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 4;
+      .left {
+        display: flex;
+        align-items: center;
+        i {
+          font-size: 3rem;
+          margin-right: 2rem;
+        }
+      }
+      i {
+        font-size: 5rem;
+        transition: transform .2s;
+      }
+      .rotate {
+        transform: rotateX(180deg);
+      }
+    }
+    .content {
+      width: 100%;
+      padding-left: 6rem;
+    }
+    .sidebar {
+      display: none;
+      position: absolute;
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+      box-shadow: $box-shadow;
+      top: 4rem;
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .container {
+    .content {
+      padding: 3rem;
+      .breadcrumbs {
+        .chevron {
+          display: none;
+        }
+        .mobile {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          .chevron {
+            display: initial;
+          }
+        }
+        li {
+          display: none;
+        }
+      }
+      .contactHeading {
+        flex-wrap: wrap;
+        h2 {
+          display: block;
+        }
+        h3 {
+          display: block;
+          margin-top: 0;
+          margin-bottom: 2rem;
+        }
+      }
+      .form {
+        display: flex;
+        flex-wrap: wrap;
+        .input {
+          width: 100%;
+          margin-bottom: 2rem;
+        }
+        .desktop {
+          display: none;
+        }
+      }
+      .summary {
+        .row {
+          flex-direction: column;
+          align-items: flex-start;
+          .summaryLink {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
 
 .slide-leave-active,

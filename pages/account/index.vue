@@ -6,8 +6,7 @@
       </h2>
       <wr-btn
         medium
-        color="primary"
-        dark
+        color="white"
         @click="logOut"
       >
         Uitloggen
@@ -18,7 +17,10 @@
         <h3 class="groupTitle second">
           Gegevens
         </h3>
-        <wr-btn medium>
+        <wr-btn
+          medium
+          color="white"
+        >
           Wijzigen
         </wr-btn>
       </div>
@@ -156,6 +158,7 @@ export default {
   }
   .groupTitle {
       margin-left: 2rem;
+      color: #fff;
     }
   .groupHolder {
     display: flex;
@@ -167,6 +170,7 @@ export default {
       width: 100%;
       padding: 1rem 2rem;
       margin: 2.5rem 0;
+      background: #fff;
     }
     .clickable {
       transition: 0.2s;
@@ -193,6 +197,7 @@ export default {
       }
       .second {
         flex-grow: 1;
+        color: #000;
       }
       .summaryLabel {
         width: 10rem;

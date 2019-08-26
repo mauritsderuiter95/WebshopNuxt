@@ -369,4 +369,61 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 769px) {
+  .modalBackground {
+    .modal {
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+      height: fit-content;
+      .row {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 2rem;
+        .col {
+          border: none;
+          margin-bottom: 4rem;
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+          .cartSummary {
+            .holder {
+              .counter {
+                .count {
+                  max-width: fit-content;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .modalBackground {
+    .modal {
+      margin: 4rem 2rem;
+      .row {
+        .col {
+          padding: 0;
+          .message {
+            font-size: 0.9rem;
+            max-width: 25rem;
+          }
+          .cartSummary {
+            .holder {
+              .counter {
+                .count {
+                  max-width: 15rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>

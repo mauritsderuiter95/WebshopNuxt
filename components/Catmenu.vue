@@ -96,6 +96,7 @@ export default {
       color: #000;
       font-size: 2rem;
       cursor: pointer;
+      padding: 1rem 2rem;
     }
   }
 }
@@ -135,7 +136,6 @@ export default {
       border: none;
       border-radius: $border-radius;
       background: #fff;
-      padding-top: 14px;
       box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
       opacity: 0;
       z-index: -1;

@@ -27,10 +27,10 @@
             <td class="title">
               <h4>{{ product.productName }}</h4>
             </td>
-            <td class="amount">
+            <td class="amount itemPrice">
               €{{ Number(product.productPrice).toFixed(2) }}
             </td>
-            <td>
+            <td class="counterCol">
               <div class="counter">
                 <span
                   class="editor minus"
@@ -78,6 +78,7 @@
               color="primary"
               dark
               medium
+              block
             >
               Bestellen
             </wr-btn>
@@ -257,6 +258,46 @@ export default {
   margin: 5rem 0 0;
   .v-btn {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .cart {
+    padding: 2rem;
+    .cartContent {
+      tr {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 10% 50% 40%;
+        .title {
+          grid-column: span 1;
+        }
+        .amount {
+          grid-column-start: 3;
+          grid-row-start: 1;
+        }
+        .delete {
+          text-align: right;
+        }
+        .counterCol {
+          grid-column: span 2;
+          padding: 2rem 2rem 2rem 0;
+          .counter {
+            .count {
+              max-width: 20rem;
+            }
+          }
+        }
+      }
+      .itemPrice {
+        display: none;
+      }
+    }
+    .toolbar {
+      .checkout {
+        width: 100%;
+      }
+    }
   }
 }
 

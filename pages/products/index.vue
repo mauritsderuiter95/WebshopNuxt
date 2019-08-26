@@ -36,5 +36,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.body {
+  margin-top: 5rem;
+}
 </style>
 
