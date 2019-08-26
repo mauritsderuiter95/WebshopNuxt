@@ -107,17 +107,17 @@ export default {
   }
 }
 .jumbotron {
-      margin-bottom: 0;
-        h1 {
-        font-size: 10rem;
-        font-family: 'Magneto', Helvetica;
-        color: $primary-color;
-        margin-bottom: 0.5em;
-      }
-      sub {
-        font-size: 3rem;
-      }
-    }
+  margin-bottom: 0;
+    h1 {
+    font-size: 10rem;
+    font-family: 'Magneto', Helvetica;
+    color: $primary-color;
+    margin-bottom: 0.5em;
+  }
+  sub {
+    font-size: 3rem;
+  }
+}
 
 .box {
   padding: 10rem;
@@ -154,36 +154,28 @@ export default {
 }
 @media screen and (max-width: 1024px) {
   .jumbotron {
-        h1 {
-          font-size: 6rem;
-          text-align: center;
-        }
-        sub {
-          text-align: center;
-          display: block;
-        }
-      }
+    h1 {
+      font-size: 6rem;
+      text-align: center;
+    }
+    sub {
+      text-align: center;
+      display: block;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {
-
-  // .topContainer {
-  //   .topContent {
-  //     top: -8rem;
-
-  //   }
-  // }
-
   .jumbotron {
-        padding: 5rem;
-        margin: 0;
-        h1 {
-          font-size: 3rem;
-        }
-        sub {
-          font-size: 1.8rem;
-        }
-      }
+    padding: 5rem;
+    margin: 0;
+    h1 {
+      font-size: 3rem;
+    }
+    sub {
+      font-size: 1.8rem;
+    }
+  }
 
   .intro {
     margin: 0 3rem;

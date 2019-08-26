@@ -1,7 +1,7 @@
 import Cookie from 'js-cookie';
 
-//const api = 'https://backend.wrautomaten.nl/api/carts';
-const api = 'https://localhost:44337/api/carts';
+const api = 'https://backend.wrautomaten.nl/api/carts';
+//const api = 'https://localhost:44337/api/carts';
 
 const state = () => ({
     currentCart: {},

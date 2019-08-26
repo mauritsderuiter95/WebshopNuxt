@@ -1,8 +1,8 @@
 import axios from 'axios';
 import https from 'https';
 
-//axios.defaults.baseURL = 'https://backend.wrautomaten.nl/api/products';
-axios.defaults.baseURL = 'https://localhost:44337/api/products';
+axios.defaults.baseURL = 'https://backend.wrautomaten.nl/api/products';
+//axios.defaults.baseURL = 'https://localhost:44337/api/products';
 
 const agent = new https.Agent({
     rejectUnauthorized: false

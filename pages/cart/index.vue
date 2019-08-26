@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div class="cart">
       <h2>Winkelwagen</h2>
       <span
@@ -261,46 +261,58 @@ export default {
   }
 }
 
-@media screen and (max-width: 425px) {
-  .cart {
-    padding: 2rem;
-    .cartContent {
-      tr {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 10% 50% 40%;
-        .title {
-          grid-column: span 1;
-        }
-        .amount {
-          grid-column-start: 3;
-          grid-row-start: 1;
-        }
-        .delete {
-          text-align: right;
-        }
-        .counterCol {
-          grid-column: span 2;
-          padding: 2rem 2rem 2rem 0;
-          .counter {
-            .count {
-              max-width: 20rem;
+@media screen and (max-width: 1025px) {
+  .wrapper {
+    margin: 2rem;
+    .cart {
+      padding: 2rem;
+      max-width: 90vw;
+      .cartContent {
+        tr {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 20% auto;
+          td {
+            padding: 2rem;
+          }
+          .image {
+            display: none;
+          }
+          .title {
+            grid-column: span 1;
+            align-self: flex-start;
+          }
+          .amount {
+            grid-column-start: 1;
+            grid-row-start: 3;
+            align-self: flex-end;
+            text-align: left;
+          }
+          .delete {
+            text-align: right;
+          }
+          .counterCol {
+            grid-column: span 2;
+            .counter {
+              .count {
+                max-width: 100%;
+                width: 100%;
+              }
             }
           }
         }
+        .itemPrice {
+          display: none;
+        }
       }
-      .itemPrice {
-        display: none;
-      }
-    }
-    .toolbar {
-      .checkout {
-        width: 100%;
+      .toolbar {
+        .checkout {
+          width: 100%;
+        }
       }
     }
   }
 }
-
 </style>
 
 

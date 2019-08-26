@@ -2,8 +2,8 @@ import Vuex from "vuex";
 import Cookie from "js-cookie";
 import { Promise } from "q";
 
-//const api = 'https://backend.wrautomaten.nl/api/users';
-const api = 'https://localhost:44337/api/users';
+const api = 'https://backend.wrautomaten.nl/api/users';
+//const api = 'https://localhost:44337/api/users';
 
 const state = () => ({
       user: null,
