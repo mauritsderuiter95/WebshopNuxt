@@ -767,6 +767,7 @@ export default {
       justify-content: space-between;
       position: relative;
       z-index: 4;
+      margin-top: 5.2rem;
       .left {
         display: flex;
         align-items: center;
@@ -794,7 +795,7 @@ export default {
       min-height: 100vh;
       height: 100%;
       box-shadow: $box-shadow;
-      top: 4rem;
+      top: 9rem;
     }
   }
 }

@@ -2,7 +2,6 @@
   <div class="body">
     <div class="grid">
       <h1>{{ product.productName }}</h1>
-      <span />
       <div class="half">
         <div class="featured">
           <img
@@ -104,6 +103,7 @@ export default {
       margin-bottom: 2rem;
       font-family: 'Magneto', Helvetica;
       color: #7C0000;
+      grid-column: span 2;
     }
     .half {
       display: flex;

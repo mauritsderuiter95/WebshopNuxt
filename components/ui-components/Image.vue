@@ -8,7 +8,7 @@
     <div :style="{ paddingBottom: setHeight }" />
     <div
       class="image"
-      :style="{ backgroundImage: 'url(' + src + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"
+      :style="{ backgroundImage: `url('${ src }')`, backgroundPosition: 'center center', backgroundSize: 'cover' }"
     />
     <div class="content" />
   </div>

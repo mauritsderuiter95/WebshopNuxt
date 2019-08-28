@@ -13,6 +13,9 @@
           <MachineGridView :machine="machine" />
         </li>
       </ul>
+      <h2 v-if="machineList.length === 0">
+        Momenteel worden er geen occassions aangeboden.
+      </h2>
     </section>
   </div>
 </template>
@@ -38,4 +41,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  h2 {
+    text-align: center;
+  }
+}
 </style>
