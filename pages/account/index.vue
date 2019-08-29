@@ -17,12 +17,14 @@
         <h3 class="groupTitle second">
           Gegevens
         </h3>
-        <wr-btn
-          medium
-          color="white"
-        >
-          Wijzigen
-        </wr-btn>
+        <nuxt-link to="/account/information">
+          <wr-btn
+            medium
+            color="white"
+          >
+            Wijzigen
+          </wr-btn>
+        </nuxt-link>
       </div>
       <div class="group">
         <div class="row">
@@ -38,7 +40,7 @@
             Adres
           </div>
           <div class="second">
-            {{ user.address }}
+            {{ user.street }}, {{ user.zipcode }} {{ user.city }}
           </div>
         </div>
         <div class="row">

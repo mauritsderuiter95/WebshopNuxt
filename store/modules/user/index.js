@@ -92,6 +92,9 @@ const actions = {
       commit("clearUser");
     });
   },
+  setUser({commit}, user) {
+    commit("setUser", user);
+  },
   logout({commit}) {
     commit("clearUser");
     Cookie.remove("jwt");

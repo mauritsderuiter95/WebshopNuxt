@@ -1,16 +1,21 @@
 <template>
   <div class="box">
-    <div class="content">
-      <h2>{{ title }}</h2>
-      <p>{{ content }}</p>
+    <div class="intro">
+      <div class="content">
+        <h2>{{ title }}</h2>
+        <p>{{ content }}</p>
+      </div>
+      <div
+        v-if="imageUrl"
+        class="image"
+      >
+        <v-lazy-image
+          :src="imageUrl"
+        />
+      </div>
     </div>
-    <div
-      v-if="imageUrl"
-      class="image"
-    >
-      <v-lazy-image
-        :src="imageUrl"
-      />
+    <div class="slot">
+      <slot />
     </div>
   </div>
 </template>
@@ -25,7 +30,7 @@ export default {
     },
     content: {
       type: String,
-      required: true,
+      required: false,
       default: ""
     },
     imageUrl: {
@@ -45,24 +50,30 @@ export default {
   margin: 0 auto 10rem;
   max-width: 120rem;
   background: #fff;
-  display: flex;
-  .content {
-    margin-right: 10rem;
-    h2 {
-      font-size: 5rem;
-      margin-bottom: 2rem;
-      font-family: 'Magneto', Helvetica;
-      color: $primary-color;
+  .intro {
+    display: flex;
+    margin-bottom: 3rem;
+    .content {
+      margin-right: 10rem;
+      h2 {
+        font-size: 5rem;
+        margin-bottom: 2rem;
+        font-family: 'Magneto', Helvetica;
+        color: $primary-color;
+      }
+      p {
+        font-size: 2rem;
+      }
     }
-    p {
-      font-size: 2rem;
+    .image {
+      width: 20%;
+      img {
+        max-width: 100%;
+      }
     }
   }
-  .image {
-    width: 20%;
-    img {
-      max-width: 100%;
-    }
+  .slot {
+    min-width: 100%;
   }
 }
 
