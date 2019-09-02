@@ -81,7 +81,7 @@
             <div class="input">
               <input
                 id="email"
-                v-model="$v.user.email.$model"
+                v-model="$v.user.username.$model"
                 type="email"
                 name="email"
                 placeholder="E-mailadres*"
@@ -200,7 +200,7 @@
           <div class="group summary">
             <div class="row">
               <span class="summaryLabel first">E-mailadres</span>
-              <span class="second">{{ user.email }}</span>
+              <span class="second">{{ user.username }}</span>
               <a
                 class="summaryLink"
                 @click="previousStep"
@@ -363,7 +363,7 @@ export default {
         user: {
           firstName: "",
           lastName: "",
-          email: "",
+          username: "",
           phone: "",
           street: "",
           zipcode: "",
@@ -383,7 +383,7 @@ export default {
         lastName: {
           required
         },
-        email: {
+        username: {
           required,
           email
         },
@@ -447,7 +447,7 @@ export default {
           }
           else {
             this.$refs.error.style.display = 'block';
-            if (this.$v.user.email.$anyError) {
+            if (this.$v.user.username.$anyError) {
               this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
               return;
             }

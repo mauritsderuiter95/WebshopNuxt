@@ -19,6 +19,7 @@ const mutations = ({
       },
       clearUser(state) {
         state.user = null;
+        state.token = null;
       }
 });
 

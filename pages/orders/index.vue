@@ -15,7 +15,7 @@
           <div class="row">
             <div class="first">
               <h4 class="groupTitle">
-                {{ order.ordernumber }}&nbsp;&nbsp;|
+                Ordernummer {{ order.ordernumber }}&nbsp;&nbsp;|
               </h4>
             </div>
             <div class="second">
@@ -75,6 +75,10 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    padding: 4rem;
+    background: #fff;
+    border-radius: 0.25rem;
   .toolbar {
     display: flex;
     justify-content: space-between;
@@ -83,14 +87,13 @@ export default {
   }
   .groupTitle {
       margin-left: 2rem;
+      color: #7C0000
     }
   .groupHolder {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5rem;
     .group {
-      border-radius: $border-radius;
-      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
       width: 100%;
       padding: 1rem 2rem;
       margin: 2.5rem 0;
@@ -98,7 +101,7 @@ export default {
     .clickable {
       transition: 0.2s;
       &:hover {
-        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
       }
     }
     .row {

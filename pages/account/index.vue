@@ -20,7 +20,8 @@
         <nuxt-link to="/account/information">
           <wr-btn
             medium
-            color="white"
+            color="primary"
+            dark
           >
             Wijzigen
           </wr-btn>
@@ -67,7 +68,11 @@
           Bestellingen
         </h3>
         <nuxt-link to="/orders">
-          <wr-btn medium>
+          <wr-btn
+            medium
+            color="primary"
+            dark
+          >
             Alle Bestellingen
           </wr-btn>
         </nuxt-link>
@@ -81,7 +86,7 @@
           <div class="row">
             <div class="first">
               <h4 class="groupTitle">
-                {{ order.ordernumber }}&nbsp;&nbsp;|
+                Ordernummer {{ order.ordernumber }}&nbsp;&nbsp;|
               </h4>
             </div>
             <div class="second">
@@ -142,8 +147,8 @@ export default {
     },
     methods: {
       logOut() {
-        this.$store.dispatch("user/logout");
-        window.location = '/account';
+        this.$store.dispatch('user/logout');
+        this.$router.push('/account');
       }
     },
     middleware: 'auth'
@@ -152,6 +157,10 @@ export default {
 
 <style lang="scss" scoped>
 .container {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    padding: 4rem;
+    background: #fff;
+    border-radius: 0.25rem;
   .toolbar {
     display: flex;
     justify-content: space-between;
@@ -160,24 +169,21 @@ export default {
   }
   .groupTitle {
       margin-left: 2rem;
-      color: #fff;
+      color: #7C0000;
     }
   .groupHolder {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 5rem;
     .group {
-      border-radius: $border-radius;
-      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
       width: 100%;
       padding: 1rem 2rem;
       margin: 2.5rem 0;
-      background: #fff;
     }
     .clickable {
       transition: 0.2s;
       &:hover {
-        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.1);
       }
     }
     .row {

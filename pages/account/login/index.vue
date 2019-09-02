@@ -32,28 +32,24 @@
           big
           @click="login"
         >
-          Test
+          Inloggen
         </wr-btn>
       </form>
     </div>
-    <div class="box">
+    <div class="box small">
       <h2>Registreren</h2>
-      <p>Voordelen Registreren:</p>
-      <ul>
-        <li>Punt 1</li>
-        <li>Punt 2</li>
-        <li>Punt 3</li>
-      </ul>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-      <wr-btn
-        primary
-        block
-        dark
-        color="primary"
-        big
-      >
-        Test
-      </wr-btn>
+      <p>Door te registreren kan je sneller winkelen, overzichtelijk je vorige bestellingen zien en de status van je laatste bestelling opvragen.</p>
+      <div class="bottom">
+        <wr-btn
+          primary
+          block
+          dark
+          color="primary"
+          big
+        >
+          Registreren
+        </wr-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -101,13 +97,24 @@ export default {
 	margin: 0 auto;
 	max-width: 120rem;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 2fr 1fr;
 	grid-column-gap: 6rem;
 	.box {
 		padding: 10rem;
 		border-radius: $border-radius;
 		box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
 		background: #fff;
+    &.small {
+      padding: 10rem 5rem;
+      display: flex;
+      flex-direction: column;
+      p {
+        margin-top: 2rem;
+      }
+      .bottom {
+        margin-top: auto;
+      }
+    }
 		.form {
 			display: flex;
 			flex-direction: column;
@@ -117,6 +124,7 @@ export default {
 				margin-bottom: 3rem;
 				grid-template-columns: 1fr 2fr;
 				grid-column-gap: 2rem;
+        width: 100%;
 				label {
 					font-size: 1.8rem;
 					align-self: center;

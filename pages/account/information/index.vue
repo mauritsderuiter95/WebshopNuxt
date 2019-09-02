@@ -16,7 +16,7 @@
         <div class="input">
           <input
             id="email"
-            v-model="$v.user.email.$model"
+            v-model="$v.user.username.$model"
             type="email"
             name="email"
             placeholder="E-mailadres*"
@@ -151,7 +151,7 @@
 <script>
 import Box from '@/components/ui-components/Box.vue';
 import Button from '@/components/ui-components/Button.vue';
-import { required, email } from 'vuelidate/lib/validators';
+import { required, email, numeric } from 'vuelidate/lib/validators';
 
 export default {
   components: {
@@ -163,7 +163,7 @@ export default {
       user: {
         firstName: "",
         lastName: "",
-        email: "",
+        username: "",
         phone: "",
         street: "",
         zipcode: "",
@@ -181,12 +181,13 @@ export default {
       lastName: {
         required
       },
-      email: {
+      username: {
         required,
         email
       },
       phone: {
-        required
+        required,
+        numeric
       },
       password: {
       },
@@ -211,7 +212,7 @@ export default {
     postData() {
       if (this.$v.user.$invalid) {
         this.$refs.error.style.display = 'block';
-          if (this.$v.user.email.$anyError) {
+          if (this.$v.user.username.$anyError) {
             this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
             return;
           }
