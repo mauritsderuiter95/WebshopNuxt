@@ -2,28 +2,30 @@
   <div class="container">
     <div class="box">
       <h2>Inloggen</h2>
-      <form
-        action=""
-        class="form"
-      >
-        <div class="input-group">
-          <label for="email">E-mailadres</label>
+      <div class="form">
+        <div class="input">
           <input
             id="email"
             v-model="email"
             type="email"
             name="email"
+            placeholder="E-mailadres"
           >
         </div>
-        <div class="input-group">
-          <label for="password">Wachtwoord</label>
+        <div class="input">
           <input
             id="password"
             v-model="password"
             type="password"
             name="password"
+            placeholder="Wachtwoord"
+            @keyup.enter="login"
           >
         </div>
+        <div
+          ref="error"
+          class="error"
+        />
         <wr-btn
           primary
           block
@@ -34,21 +36,23 @@
         >
           Inloggen
         </wr-btn>
-      </form>
+      </div>
     </div>
     <div class="box small">
       <h2>Registreren</h2>
       <p>Door te registreren kan je sneller winkelen, overzichtelijk je vorige bestellingen zien en de status van je laatste bestelling opvragen.</p>
       <div class="bottom">
-        <wr-btn
-          primary
-          block
-          dark
-          color="primary"
-          big
-        >
-          Registreren
-        </wr-btn>
+        <nuxt-link to="/account/register">
+          <wr-btn
+            primary
+            block
+            dark
+            color="primary"
+            big
+          >
+            Registreren
+          </wr-btn>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -82,9 +86,10 @@ export default {
 					else this.$router.push(`/${this.$route.query.returnpath}`);
 				})
 				.catch(e => {
-          console.log(auth)
 					this.email = null;
-					this.password = null;
+          this.password = null;
+          this.$refs.error.style.display = 'block';
+          this.$refs.error.textContent = 'Gebruikersnaam of wachtwoord is incorrect';
 				});
 		}
 	},
@@ -119,23 +124,14 @@ export default {
 			display: flex;
 			flex-direction: column;
 			margin-top: 2rem;
-			.input-group {
-				display: grid;
-				margin-bottom: 3rem;
-				grid-template-columns: 1fr 2fr;
-				grid-column-gap: 2rem;
+      .input, .title {
         width: 100%;
-				label {
-					font-size: 1.8rem;
-					align-self: center;
-				}
-				input {
-					border-radius: $border-radius;
-					padding: 1rem 2rem;
-					font-size: 1.8rem;
-					border: 1px solid rgba(0, 0, 0, 0.2);
-				}
-			}
+        margin-bottom: 2rem;
+      }
+      .error {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
 		}
 	}
 }

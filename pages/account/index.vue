@@ -148,7 +148,7 @@ export default {
     methods: {
       logOut() {
         this.$store.dispatch('user/logout');
-        this.$router.push('/account');
+        this.$router.push('/account/login');
       }
     },
     middleware: 'auth'
