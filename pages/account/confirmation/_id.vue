@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Box title="Validatie" />
-    <p ref="message" />
+    <Box title="Validatie">
+      <p ref="message" />
+    </Box>
   </div>
 </template>
 

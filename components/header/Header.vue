@@ -127,4 +127,16 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .top {
+    .row {
+      .left {
+        h1 {
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+}
 </style>

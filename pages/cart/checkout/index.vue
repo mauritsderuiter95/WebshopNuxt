@@ -461,7 +461,6 @@ export default {
         },
         calcCosts() {
           if (this.sendmethod === "postnl") {
-            console.log('test');
             this.subtotal + 4.99;
             this.$refs.sendingcosts = "€4,99";
           }
@@ -478,8 +477,6 @@ export default {
                   window.location = res;
                 })
                 .catch (err => {
-                  console.log(err);
-                  console.log(`"cartid":"${ this.$store.getters['cart/currentCart'].id }"`)
                 })
             }
           }

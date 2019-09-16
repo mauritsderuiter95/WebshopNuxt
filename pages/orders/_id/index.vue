@@ -86,6 +86,8 @@ export default {
         })
         if(this.order.status === "Gelukt")
           clearInterval(dataInterval);
+        if(this.$route.params.id === undefined)
+          clearInterval(dataInterval);
       }
 
       let dataInterval = setInterval(() => {
