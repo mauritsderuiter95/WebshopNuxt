@@ -114,6 +114,14 @@ html {
     }
 }
 
+@media print {
+  html {
+    body {
+      background: #fff;
+    }
+  }
+}
+
 .layout-enter, .layout-leave-to {
     opacity: 0;
 }

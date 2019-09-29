@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="groupHolder">
+    <div
+      v-if="order"
+      class="groupHolder"
+    >
       <div class="row">
         <h2 class="groupTitle second">
           Bestelling {{ order.ordernumber }}
@@ -61,6 +64,31 @@
           </nuxt-link>
         </div>
       </div>
+      <div class="toolbar">
+        <a
+          :href="invoiceUrl"
+          download="factuur.pdf"
+        >
+          <wr-btn
+            medium
+            color="primary"
+            dark
+          >Factuur</wr-btn>
+        </a>
+      </div>
+    </div>
+    <div
+      v-else
+      class="bigger"
+    >
+      <div class="row">
+        <h2 class="groupTitle second">
+          Geen toegang
+        </h2>
+      </div>
+      <div class="row">
+        <p>Om toegang te krijgen kunt u gebruik maken van de link in de gekregen e-mail, of inloggen via de knop "Account" bovenin het scherm.</p>
+      </div>
     </div>
   </div>
 </template>
@@ -69,37 +97,58 @@
 import Button from '~/components/ui-components/Button.vue';
 
 export default {
-    components: {
-        'wr-btn': Button
+  components: {
+      'wr-btn': Button
+  },
+  computed: {
+    invoiceUrl() {
+      return `http://backend.wrautomaten.nl/api/orders/${this.order.id}/invoice?key=${this.order.key}`;
+    }
+  },
+  asyncData({ $axios, params, query }) {
+    let url = `${ $axios.defaults.baseURL }/orders/${params.id}`;
+    if (query.key)
+      url = `${url}?key=${query.key}`;
+    return $axios.$get(url)
+      .then(res => {
+        return { order: res }
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  },
+  mounted() {
+    this.checkStatus();
+  },
+  methods: {
+    getData() {
+      let url = `${ this.$axios.defaults.baseURL }/orders/${this.$route.params.id}`;
+      if (this.$route.query.key)
+        url = `${url}?key=${this.$route.query.key}`;
+      this.$axios.$get(url)
+      .then(res => {
+        this.order = res;
+      })
     },
-    asyncData({ $axios, params }) {
-      return $axios.$get(`${ $axios.defaults.baseURL }/orders/${params.id}`)
-        .then(res => {
-          return { order: res }
-        })
-    },
-    mounted() {
-      let getData = () => {
-        this.$axios.$get(`${ this.$axios.defaults.baseURL }/orders/${this.$route.params.id}`)
-        .then(res => {
-          this.order = res;
-        })
-        if(this.order.status === "Gelukt")
+    checkStatus() {
+      let dataInterval = setInterval(() => {
+        this.getData();
+        if(this.order.status === "Gelukt" || this.order.status === "Betaling is mislukt")
           clearInterval(dataInterval);
         if(this.$route.params.id === undefined)
           clearInterval(dataInterval);
-      }
-
-      let dataInterval = setInterval(() => {
-        getData();
       }, 5000);
-    },
-    middleware: 'auth'
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .container {
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  padding: 4rem;
+  background: #fff;
+  border-radius: 0.25rem;
   .toolbar {
     display: flex;
     justify-content: space-between;
@@ -140,7 +189,6 @@ export default {
     }
     .group {
       border-radius: $border-radius;
-      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
       width: 100%;
       padding: 1rem 2rem;
       margin: 2.5rem 0;
@@ -183,6 +231,20 @@ export default {
       &:first-of-type {
         margin-top: 2.5rem;
       }
+    }
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      .v-btn {
+        margin: 0;
+      }
+    }
+  }
+  .bigger {
+    margin: 5rem;
+    p {
+      margin-top: 3rem;
     }
   }
 }
