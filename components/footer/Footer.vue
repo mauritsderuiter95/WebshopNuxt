@@ -120,7 +120,7 @@ export default {
 
 // Animations
 .border-animation {
-  --border-width: 0.1em;
+  --border-width: 0.1rem;
   --animation-speed: 0.5s;
   --color: #ffffff;
   color: var(--color);
@@ -139,7 +139,7 @@ export default {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
-    padding: 1rem;
+    padding: 1.3rem 1rem 1rem 1rem;
     background: #7C0000;
     z-index: 1;
     border: solid var(--border-width) transparent;

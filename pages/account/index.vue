@@ -129,6 +129,7 @@
 
 <script>
 import Button from '~/components/ui-components/Button.vue';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
     components: {
@@ -136,7 +137,7 @@ export default {
     },
     data() {
       return {
-        user: JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']))
+        user: cloneDeep(this.$store.getters['user/currentUser'])
       }
     },
     asyncData({ $axios }) {
