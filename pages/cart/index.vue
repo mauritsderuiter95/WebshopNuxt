@@ -3,16 +3,16 @@
     <div class="cart">
       <h2>Winkelwagen</h2>
       <span
-        v-if="!cart[0] || cart[0].count == 0"
+        v-if="!state.cart.products[0] || state.cart.products[0].count == 0"
         class="message"
       >Uw winkelwagen is momenteel leeg</span>
       <table
-        v-if="cart[0] && cart[0].count >= 1"
+        v-else
         class="cartContent"
       >
         <tbody>
           <tr
-            v-for="product in cart"
+            v-for="product in state.cart.products"
             :key="product.productId"
           >
             <td class="image">
@@ -69,7 +69,7 @@
         </tbody>
       </table>
       <div
-        v-if="cart[0] && cart[0].count >= 1"
+        v-if="state.cart.products[0] && state.cart.products[0].count >= 1"
         class="toolbar"
       >
         <div class="checkout">
@@ -89,71 +89,17 @@
   </div>
 </template>
 
-<script>
-import ProductService from '~/services/product.service.js';
-import btn from '@/components/ui-components/Button.vue';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import btn from '../../components/ui-components/Button.vue';
+import setup from './setup';
 
-export default {
-    components: {
-        'wr-btn': btn
-    },
-    data() {
-        return {
-            products: [],
-        }
-    },
-    computed: {
-      cart() {
-            if(this.$store.getters['cart/currentCart'])
-                return this.$store.getters['cart/currentCart'].products;
-            return [{
-                count: 0,
-                productId: 0,
-                id: 0,
-                productName: null,
-                photo: {}
-            }]
-        }
-    },
-    methods: {
-      editCart(value, productId) {
-        if(value >= 1) {
-          let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-          for (let key in cart.products) {
-            if(cart.products[key].productId === productId)
-              cart.products[key].count = value;
-          }
-          this.$store.dispatch("cart/editCart", cart);
-        }
-      },
-      addProduct(productId){
-        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-        for (let key in cart.products) {
-          if(cart.products[key].productId === productId)
-            cart.products[key].count++;
-        }
-        this.$store.dispatch("cart/editCart", cart);
-      },
-      removeProduct(product){
-        if (product.count >= 2) {
-          let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-          for (let key in cart.products) {
-            if(cart.products[key].productId === product.productId)
-              cart.products[key].count--;
-          }
-          this.$store.dispatch("cart/editCart", cart);
-        }
-        else {
-          this.deleteProduct(product.productId);
-        }
-      },
-      deleteProduct(productId){
-        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-        cart.products = cart.products.filter(item => item.productId !== productId);
-        this.$store.dispatch("cart/editCart", cart);
-      },
-    }
-}
+export default createComponent({
+  components: {
+    'wr-btn': btn,
+  },
+  setup,
+});
 </script>
 
 <style lang="scss" scoped>
@@ -314,5 +260,3 @@ export default {
   }
 }
 </style>
-
-

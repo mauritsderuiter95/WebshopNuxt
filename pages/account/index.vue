@@ -127,33 +127,38 @@
   </div>
 </template>
 
-<script>
-import Button from '~/components/ui-components/Button.vue';
-import cloneDeep from 'lodash.clonedeep';
+<script lang="ts">
+import cloneDeep from 'lodash/cloneDeep';
+import { createComponent } from '@vue/composition-api';
+import Button from '../../components/ui-components/Button.vue';
+import Order from '../../models/Order';
 
-export default {
-    components: {
-        'wr-btn': Button
-    },
-    data() {
-      return {
-        user: cloneDeep(this.$store.getters['user/currentUser'])
-      }
-    },
-    asyncData({ $axios }) {
-      return $axios.$get(`${ $axios.defaults.baseURL }/orders?limit=3`)
-        .then(res => {
-          return { orders: res }
-        })
-    },
-    methods: {
-      logOut() {
-        this.$store.dispatch('user/logout');
-        this.$router.push('/account/login');
-      }
-    },
-    middleware: 'auth'
-}
+export default createComponent({
+  components: {
+    'wr-btn': Button,
+  },
+  asyncData(ctx : any) {
+    return ctx.$axios.$get(`${ctx.$axios.defaults.baseURL}/orders?limit=3`)
+      .then((res : Array<Order>) => ({ orders: res }));
+  },
+  middleware: 'auth',
+
+  setup(props, ctx) {
+    const user = cloneDeep(ctx.root.$store.getters['user/currentUser']);
+
+    function logOut() {
+      ctx.root.$store.dispatch('user/logout');
+      ctx.root.$router.push('/account/login');
+    }
+
+    return {
+      props,
+      user,
+      logOut,
+    };
+  },
+
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,15 +1,11 @@
-import Vuex from "vuex";
-import Cookie from "js-cookie";
 import CartModule from './modules/cart';
 import UserModule from './modules/user';
 
-const api = 'https://backend.wrautomaten.nl/api/carts';
-
 const actions = {
-  async nuxtServerInit ({ commit, dispatch }, { req }) {
-    await dispatch("user/initAuth", req);
-    await dispatch("cart/getCart", req);
-  }
+  async nuxtServerInit({ dispatch }, { req }) {
+    await dispatch('user/initAuth', req);
+    await dispatch('cart/getCart', req);
+  },
 };
 
 const modules = {
@@ -20,5 +16,5 @@ const modules = {
 export default {
   namespaced: true,
   actions,
-  modules
+  modules,
 };

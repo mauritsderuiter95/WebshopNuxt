@@ -1,252 +1,476 @@
 <template>
   <div>
     <Box title="Gegevens wijzigen">
-      <div
-        class="form"
-      >
-        <div class="input">
-          <input
-            id="tel"
-            v-model="$v.user.phone.$model"
-            type="tel"
-            name="tel"
-            placeholder="Telefoonnummer*"
-          >
-        </div>
-        <div class="input">
-          <input
-            id="email"
-            v-model="$v.user.username.$model"
-            type="email"
-            name="email"
-            placeholder="E-mailadres*"
-          >
-        </div>
-        <div class="input">
-          <input
-            id="password"
-            v-model="$v.user.password.$model"
-            type="password"
-            name="password"
-            placeholder="Wachtwoord (alleen invoeren bij wijzigen)"
-          >
-        </div>
-        <div class="input">
-          <input
-            id="password2"
-            v-model="password2"
-            type="password"
-            name="password2"
-            placeholder="Herhaal wachtwoord"
-          >
-        </div>
-
-        <h2 class="title">
-          Adres
-        </h2>
-
-        <div class="input wide">
-          <input
-            id="company"
-            v-model="user.company"
-            type="text"
-            name="company"
-            placeholder="Bedrijfsnaam"
-          >
-        </div>
-
-        <div class="input">
-          <input
-            id="firstname"
-            v-model="$v.user.firstName.$model"
-            type="text"
-            name="firstname"
-            placeholder="Voornaam*"
-          >
-        </div>
-
-        <div class="input">
-          <input
-            id="lastname"
-            v-model="$v.user.lastName.$model"
-            type="text"
-            name="lastname"
-            placeholder="Achternaam*"
-          >
-        </div>
-
-        <div class="input wide">
-          <input
-            id="address"
-            v-model="$v.user.street.$model"
-            type="text"
-            name="address"
-            placeholder="Adres*"
-          >
-        </div>
-        <div class="input wide">
-          <input
-            id="address2"
-            v-model="user.street2"
-            type="text"
-            name="address2"
-          >
-        </div>
-
-        <div class="input">
-          <input
-            id="postcode"
-            v-model="$v.user.zipcode.$model"
-            type="text"
-            name="postcode"
-            placeholder="Postcode*"
-          >
-        </div>
-
-        <div class="input">
-          <input
-            id="city"
-            v-model="$v.user.city.$model"
-            type="text"
-            name="city"
-            placeholder="Plaats*"
-          >
-        </div>
+      <validation-observer ref="observer">
         <div
-          ref="error"
-          class="error"
-        />
-        <div class="input action desktop">
-          <nuxt-link to="/account">
-            <wr-btn
-              medium
-              flat
+          class="form"
+        >
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="tel"
+                v-model="state.user.phone"
+                type="tel"
+                name="tel"
+                placeholder="Telefoonnummer*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required|email" class="provider">
+              <input
+                id="email"
+                v-model="state.user.username"
+                type="email"
+                name="email"
+                placeholder="E-mailadres*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="min:7" class="provider" vid="password">
+              <input
+                id="password"
+                v-model="state.user.password"
+                type="password"
+                name="password"
+                placeholder="Wachtwoord (alleen invoeren bij wijzigen)"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+          <div class="input">
+            <ValidationProvider
+              v-slot="provider"
+              :rules="{is:state.user.password, required:state.user.password.length >= 1}"
+              class="provider"
             >
+              <input
+                id="password2"
+                v-model="state.password2"
+                type="password"
+                name="password2"
+                placeholder="Herhaal wachtwoord"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <h2 class="title">
+            Adres
+          </h2>
+
+          <div class="input wide">
+            <ValidationProvider v-slot="provider" rules="" class="provider">
+              <input
+                id="company"
+                v-model="state.user.company"
+                type="text"
+                name="company"
+                placeholder="Bedrijfsnaam"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="firstname"
+                v-model="state.user.firstName"
+                type="text"
+                name="firstname"
+                placeholder="Voornaam*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="lastname"
+                v-model="state.user.lastName"
+                type="text"
+                name="lastname"
+                placeholder="Achternaam*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <div class="input wide">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="address"
+                v-model="state.user.street"
+                type="text"
+                name="address"
+                placeholder="Adres*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+          <div class="input wide">
+            <ValidationProvider v-slot="provider" rules="" class="provider">
+              <input
+                id="address2"
+                v-model="state.user.street2"
+                type="text"
+                name="address2"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="postcode"
+                v-model="state.user.zipcode"
+                type="text"
+                name="postcode"
+                placeholder="Postcode*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+
+          <div class="input">
+            <ValidationProvider v-slot="provider" rules="required" class="provider">
+              <input
+                id="city"
+                v-model="state.user.city"
+                type="text"
+                name="city"
+                placeholder="Plaats*"
+              >
+              <span v-if="!provider.errors[0] && provider.untouched">
+                &nbsp;
+              </span>
+              <span v-else-if="provider.errors[0]" class="fail">
+                <popper
+                  trigger="hover"
+                  :options="{
+                    placement: 'top',
+                    modifiers: { offset: { offset: '0,10px' } }
+                  }"
+                >
+                  <div class="popper">
+                    {{ provider.errors[0] }}
+                  </div>
+
+                  <i slot="reference" class="material-icons">
+                    error_outline
+                  </i>
+                </popper>
+              </span>
+              <span v-else>
+                <i class="material-icons">
+                  check
+                </i>
+              </span>
+            </ValidationProvider>
+          </div>
+          <div
+            ref="error"
+            class="error"
+          />
+          <div class="input action desktop">
+            <nuxt-link to="/account">
+              <wr-btn
+                medium
+                flat
+              >
+                <i class="material-icons">
+                  chevron_left
+                </i>
+                Terug
+              </wr-btn>
+            </nuxt-link>
+          </div>
+          <div class="input flex-end action">
+            <wr-btn
+              color="primary"
+              dark
+              medium
+              type="submit"
+              @click="() => postData($refs['observer'])"
+            >
+              Opslaan &nbsp;
               <i class="material-icons">
-                chevron_left
+                save
               </i>
-              Terug
             </wr-btn>
-          </nuxt-link>
+          </div>
         </div>
-        <div class="input flex-end action">
-          <wr-btn
-            color="primary"
-            dark
-            medium
-            type="submit"
-            @click="postData"
-          >
-            Opslaan &nbsp;
-            <i class="material-icons">
-              save
-            </i>
-          </wr-btn>
-        </div>
-      </div>
+      </validation-observer>
     </Box>
   </div>
 </template>
 
-<script>
-import Box from '@/components/ui-components/Box.vue';
-import Button from '@/components/ui-components/Button.vue';
-import { required, email, numeric } from 'vuelidate/lib/validators';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import { ValidationObserver } from 'vee-validate';
+import Box from '../../../components/ui-components/Box.vue';
+import Button from '../../../components/ui-components/Button.vue';
+import setup from './setup';
+import 'vue-popperjs/dist/vue-popper.css';
+import '../../../assets/scss/_form.scss';
 
-export default {
+const Popper = require('vue-popperjs');
+
+export default createComponent({
   components: {
     Box,
     'wr-btn': Button,
+    ValidationObserver,
+    popper: Popper,
   },
-  data() {
-    return {
-      user: {
-        firstName: "",
-        lastName: "",
-        username: "",
-        phone: "",
-        street: "",
-        zipcode: "",
-        city: "",
-        password: "",
-      },
-      password2: ""
-    }
-  },
-  validations: {
-    user: {
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      username: {
-        required,
-        email
-      },
-      phone: {
-        required,
-        numeric
-      },
-      password: {
-      },
-      street: {
-        required
-      },
-      zipcode: {
-        required
-      },
-      city: {
-        required
-      }
-    },
-  },
-  mounted() {
-    if (this.$store.getters['user/currentUser']) {
-      if (this.$store.getters['user/currentUser'].firstName)
-        this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']));
-    }
-  },
-  methods: {
-    postData() {
-      if (this.$v.user.$invalid) {
-        this.$refs.error.style.display = 'block';
-        if (this.$v.user.username.$anyError) {
-          this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
-          return;
-        }
-        this.$refs.error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
-        return;
-      }
-      if (this.password2 !== this.user.password) {
-        this.$refs.error.style.display = 'block';
-        this.$refs.error.textContent = 'De wachtwoorden komen niet overeen.';
-        return;
-      }
-      const jsonPatchDocument = [];
-      let jsonPatch = {};
-
-      Object.entries(this.user).forEach(([key, val]) => {
-
-        if (val !== (this.$store.getters['user/currentUser'])[key]) {
-          jsonPatch = {
-            op: 'replace',
-            path: `/${ key }`,
-            value: val,
-          };
-          jsonPatchDocument.push(jsonPatch);
-        }
-      });
-
-      this.$axios.$patch(`${ this.$axios.defaults.baseURL }/users/${ this.user.id }`, jsonPatchDocument)
-        .then((res) => {
-          this.$store.dispatch("user/setUser", res);
-          this.$router.push('/account');
-        });
-    }
-  }
-}
+  setup,
+});
 </script>
 
 <style lang="scss" scoped>
@@ -254,4 +478,13 @@ export default {
     display: flex;
     align-items: center;
   }
+</style>
+
+<style lang="scss">
+.popper[x-placement^="top"] .popper__arrow {
+  border-width: 10px 10px 0 10px;
+  border-color: #FF9494 transparent transparent transparent;
+  bottom: -10px;
+  right: calc(50% + 10px);
+}
 </style>

@@ -24,41 +24,41 @@
 </template>
 
 <script>
-import ProductService from '~/services/product.service.js';
+import ProductService from '~/services/product.service';
 import ClickOutside from 'vue-click-outside';
 
 export default {
   directives: {
-    ClickOutside
+    ClickOutside,
   },
   data() {
-      return {
-          products: [],
-          entries: [],
-          isLoading: false,
-          model: null,
-          search: null,
-          items: null
-      }
+    return {
+      products: [],
+      entries: [],
+      isLoading: false,
+      model: null,
+      search: null,
+      items: null,
+    };
   },
   methods: {
     moveLeft() {
-      this.$refs.placeholder.style.width = "11rem";
-      this.$refs.text.style.opacity = "0";
-      let input = this.$refs.input;
+      this.$refs.placeholder.style.width = '11rem';
+      this.$refs.text.style.opacity = '0';
+      const {input} = this.$refs;
       setTimeout(
-        function(){
+        () => {
           input.focus();
-        }, 200
-      )
+        }, 200,
+      );
     },
     moveDefault() {
-      this.$refs.placeholder.style.width = "100%";
-      this.$refs.text.style.opacity = "100";
-    }
-  }
+      this.$refs.placeholder.style.width = '100%';
+      this.$refs.text.style.opacity = '100';
+    },
+  },
 
-}
+};
 </script>
 
 <style lang="scss" scoped>

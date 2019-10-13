@@ -14,25 +14,24 @@
   </div>
 </template>
 
-<script>
-import ProductGridView from '~/components/ProductGridView.vue';
-import ProductService from '~/services/product.service.js';
-import Topbar from '~/components/Topbar.vue';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import ProductGridView from '../../components/ProductGridView.vue';
+import ProductService from '../../services/product.service';
+import Topbar from '../../components/Topbar.vue';
 
-export default {
+export default createComponent({
   components: {
     ProductGridView,
-    Topbar
+    Topbar,
   },
-  // Watch for $route.query.page to call Component methods (asyncData, fetch, validate, layout, etc.)
+  // Watch for $route.query.page to call Component methods
   watchQuery: ['category'],
-  asyncData({query}) {
+  asyncData({ query }) {
     return ProductService.getProducts(query.category)
-      .then((res) => {
-        return { productList: res.data }
-      });
-  }
-}
+      .then((res) => ({ productList: res.data }));
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -40,4 +39,3 @@ export default {
   margin-top: 5rem;
 }
 </style>
-

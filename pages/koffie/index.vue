@@ -19,24 +19,21 @@
 
 <script>
 import MachineGridView from '~/components/MachineGridView.vue';
-import ProductService from '~/services/product.service.js';
+import ProductService from '~/services/product.service';
 import Box from '@/components/ui-components/Box.vue';
 
 export default {
   components: {
     Box,
-    MachineGridView
+    MachineGridView,
   },
   asyncData({ $axios }) {
-      return $axios.$get(`${ $axios.defaults.baseURL }/machines?type=coffee`)
-        .then(res => {
-          return { machineList: res }
-        })
-  }
+    return $axios.$get(`${$axios.defaults.baseURL}/machines?type=coffee`)
+      .then((res) => ({ machineList: res }));
+  },
 
-}
+};
 </script>
 
 <style lang="scss" scoped>
 </style>
-

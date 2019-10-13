@@ -40,38 +40,37 @@
 
 <script>
 import Button from '~/components/ui-components/Button.vue';
-import ProductService from '~/services/product.service.js';
+import ProductService from '~/services/product.service';
 
 export default {
-    components: {
-        'wr-btn': Button
-    },
-    data() {
-        return {
-          categoryList: Array,
-          expanded: false
-        }
-    },
-    mounted() {
-        ProductService.getCategories()
-        .then((res) => {
-            this.categoryList = res.data;
-        });
-    },
-    methods: {
-      expandBar() {
-        this.expanded = !this.expanded;
-        if(this.expanded) {
-          this.$refs.categoryList.classList.add('openList');
-          this.$refs.icon.classList.add('rotate');
-        }
-        else {
-          this.$refs.categoryList.classList.remove('openList');
-          this.$refs.icon.classList.remove('rotate');
-        }
+  components: {
+    'wr-btn': Button,
+  },
+  data() {
+    return {
+      categoryList: Array,
+      expanded: false,
+    };
+  },
+  mounted() {
+    ProductService.getCategories()
+      .then((res) => {
+        this.categoryList = res.data;
+      });
+  },
+  methods: {
+    expandBar() {
+      this.expanded = !this.expanded;
+      if (this.expanded) {
+        this.$refs.categoryList.classList.add('openList');
+        this.$refs.icon.classList.add('rotate');
+      } else {
+        this.$refs.categoryList.classList.remove('openList');
+        this.$refs.icon.classList.remove('rotate');
       }
-    }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

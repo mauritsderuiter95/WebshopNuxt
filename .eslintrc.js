@@ -1,21 +1,19 @@
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true
+  extends: ['@nuxtjs/eslint-config-typescript', 'airbnb/base'],
+  plugins: ['prettier'],
+  rules: {
+    'import/no-extraneous-dependencies': [
+      2,
+      {
+        devDependencies: ['**/test.tsx', '**/test.ts'],
+      },
+    ],
   },
-  parserOptions: {
-    parser: 'babel-eslint'
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
-  extends: [
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/recommended'
-  ],
-  // required to lint *.vue files
-  plugins: [
-    'vue'
-  ],
-  // add your custom rules here
-  rules: {}
-}
+};

@@ -1,0 +1,29 @@
+.form {
+  .input {
+    .provider {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: calc(100% - 40px);
+      }
+
+      span {
+        width: 40px;
+        text-align: right;
+
+        &.fail {
+          color: #FF9494
+        }
+
+        .popper {
+          padding: 2rem;
+          background: #FF9494;
+          box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.4);
+          border: none;
+        }
+      }
+    }
+  }
+}

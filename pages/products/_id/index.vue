@@ -52,35 +52,33 @@
 </template>
 
 <script>
-import ProductService from "~/services/product.service.js";
-import Button from "~/components/ui-components/Button.vue";
+import ProductService from '~/services/product.service';
+import Button from '~/components/ui-components/Button.vue';
 
 export default {
-	components: {
-		"wr-btn": Button
-	},
+  components: {
+    'wr-btn': Button,
+  },
   data() {
     return {
       count: 1,
-    }
+    };
   },
-	asyncData({ params }) {
-		return ProductService.getProduct(params.id).then(response => {
-			return {
+  asyncData({ params }) {
+    return ProductService.getProduct(params.id).then((response) => ({
 				product: response.data,
-			};
-		});
+			}));
   },
-	methods: {
-		addToCart() {
-			this.$store.dispatch("cart/addToCart", this.product);
+  methods: {
+    addToCart() {
+      this.$store.dispatch('cart/addToCart', this.product);
     },
     countMinus() {
-      if(this.count > 1) {
+      if (this.count > 1) {
         this.count--;
       }
-    }
-	}
+    },
+  },
 };
 </script>
 
@@ -202,4 +200,3 @@ export default {
 }
 
 </style>
-

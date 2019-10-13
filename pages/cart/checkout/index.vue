@@ -350,157 +350,152 @@
 </template>
 
 <script>
-import ProductService from '~/services/product.service.js';
+import ProductService from '~/services/product.service';
 import Button from '@/components/ui-components/Button.vue';
 import { required, email } from 'vuelidate/lib/validators';
 
 export default {
-    components: {
-      'wr-btn': Button
-    },
-    data() {
-      return {
-        user: {
-          firstName: "",
-          lastName: "",
-          username: "",
-          phone: "",
-          street: "",
-          zipcode: "",
-          city: ""
-        },
-        step1: true,
-        paymethod: "",
-        sendmethod: "",
-        cartExpanded: false,
-      }
-    },
-    validations: {
+  components: {
+    'wr-btn': Button,
+  },
+  data() {
+    return {
       user: {
-        firstName: {
-          required
-        },
-        lastName: {
-          required
-        },
-        username: {
-          required,
-          email
-        },
-        phone: {
-          required
-        },
-        street: {
-          required
-        },
-        zipcode: {
-          required
-        },
-        city: {
-          required
+        firstName: '',
+        lastName: '',
+        username: '',
+        phone: '',
+        street: '',
+        zipcode: '',
+        city: '',
+      },
+      step1: true,
+      paymethod: '',
+      sendmethod: '',
+      cartExpanded: false,
+    };
+  },
+  validations: {
+    user: {
+      firstName: {
+        required,
+      },
+      lastName: {
+        required,
+      },
+      username: {
+        required,
+        email,
+      },
+      phone: {
+        required,
+      },
+      street: {
+        required,
+      },
+      zipcode: {
+        required,
+      },
+      city: {
+        required,
+      },
+    },
+    paymethod: {
+      required,
+    },
+    sendmethod: {
+      required,
+    },
+  },
+  computed: {
+    cart() {
+      if (this.$store.getters['cart/currentCart']) {
+        return this.$store.getters['cart/currentCart'].products;
+      }
+      return [{
+        count: 0,
+        productId: 0,
+        id: 0,
+        productName: null,
+        photo: {},
+      }];
+    },
+    subtotal() {
+      let subtotal = 0;
+      this.cart.map((item) => {
+        subtotal += item.productPrice * item.count;
+      });
+      return subtotal;
+    },
+  },
+  mounted() {
+    if (this.$store.getters['user/currentUser']) {
+      if (this.$store.getters['user/currentUser'].firstName) { this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser'])); }
+    }
+  },
+  methods: {
+    signIn() {
+      this.$router.push('/account/login?returnpath=cart/checkout');
+    },
+    nextStep() {
+      if (!this.$v.user.$invalid) {
+        this.step1 = false;
+        this.$refs.contact.classList.remove('active');
+        this.$refs.sending.classList.add('active');
+        this.$store.dispatch('user/saveGuest', this.user);
+      } else {
+        this.$refs.error.style.display = 'block';
+        if (this.$v.user.username.$anyError) {
+          this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
+          return;
         }
-      },
-      paymethod: {
-        required
-      },
-      sendmethod: {
-        required
+        this.$refs.error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
       }
     },
-    computed: {
-        cart() {
-            if(this.$store.getters['cart/currentCart']) {
-                return this.$store.getters['cart/currentCart'].products;
-            }
-            return [{
-                count: 0,
-                productId: 0,
-                id: 0,
-                productName: null,
-                photo: {}
-            }]
-        },
-        subtotal() {
-          let subtotal = 0;
-          this.cart.map((item) => {
-            subtotal = subtotal + item.productPrice * item.count;
-          })
-          return subtotal;
-        },
+    previousStep() {
+      this.step1 = true;
+      this.$refs.contact.classList.add('active');
+      this.$refs.sending.classList.remove('active');
     },
-    mounted() {
-      if (this.$store.getters['user/currentUser']) {
-        if (this.$store.getters['user/currentUser'].firstName)
-          this.user = JSON.parse(JSON.stringify(this.$store.getters['user/currentUser']));
+    calcCosts() {
+      if (this.sendmethod === 'postnl') {
+        this.subtotal + 4.99;
+        this.$refs.sendingcosts = '€4,99';
+      } else {
+        this.$refs.sendingcosts = 'Gratis';
       }
     },
-    methods: {
-        signIn() {
-            this.$router.push('/account/login?returnpath=cart/checkout')
-        },
-        nextStep() {
-          if (!this.$v.user.$invalid) {
-            this.step1 = false;
-            this.$refs.contact.classList.remove('active');
-            this.$refs.sending.classList.add('active');
-            this.$store.dispatch("user/saveGuest", this.user);
-          }
-          else {
-            this.$refs.error.style.display = 'block';
-            if (this.$v.user.username.$anyError) {
-              this.$refs.error.textContent = 'Het e-mailadres is incorrect.';
-              return;
-            }
-            this.$refs.error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
-          }
-        },
-        previousStep() {
-          this.step1 = true;
-          this.$refs.contact.classList.add('active');
-          this.$refs.sending.classList.remove('active');
-        },
-        calcCosts() {
-          if (this.sendmethod === "postnl") {
-            this.subtotal + 4.99;
-            this.$refs.sendingcosts = "€4,99";
-          }
-          else {
-            this.$refs.sendingcosts = "Gratis";
-          }
-        },
-        finishOrder() {
-          if (!this.$v.$invalid) {
-            this.$refs.error2.style.display = 'none';
-            if(this.paymethod === "ideal") {
-              this.$axios.$post(`${ this.$axios.defaults.baseURL }/orders`, this.$store.getters['cart/currentCart'])
-                .then(res => {
-                  window.location = res;
-                })
-                .catch (err => {
-                })
-            }
-          }
-          else {
-            this.$refs.error2.style.display = 'block';
-            this.$refs.error2.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
-          }
-        },
-        expandCart() {
-          this.cartExpanded = !this.cartExpanded;
-          if (this.cartExpanded) {
-            this.$refs.cart.style.display = 'block';
-            this.$refs.icon.classList.add('rotate');
-            this.$refs.cartLabel.textContent = 'Verberg winkelwagen';
-          }
-          else {
-            this.$refs.cart.style.display = 'none';
-            this.$refs.icon.classList.remove('rotate');
-            this.$refs.cartLabel.textContent = 'Bekijk winkelwagen';
-          }
+    finishOrder() {
+      if (!this.$v.$invalid) {
+        this.$refs.error2.style.display = 'none';
+        if (this.paymethod === 'ideal') {
+          this.$axios.$post(`${this.$axios.defaults.baseURL}/orders`, this.$store.getters['cart/currentCart'])
+            .then((res) => {
+              window.location = res;
+            })
+            .catch((err) => {
+            });
         }
+      } else {
+        this.$refs.error2.style.display = 'block';
+        this.$refs.error2.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
+      }
     },
-    layout: 'checkout'
-}
+    expandCart() {
+      this.cartExpanded = !this.cartExpanded;
+      if (this.cartExpanded) {
+        this.$refs.cart.style.display = 'block';
+        this.$refs.icon.classList.add('rotate');
+        this.$refs.cartLabel.textContent = 'Verberg winkelwagen';
+      } else {
+        this.$refs.cart.style.display = 'none';
+        this.$refs.icon.classList.remove('rotate');
+        this.$refs.cartLabel.textContent = 'Bekijk winkelwagen';
+      }
+    },
+  },
+  layout: 'checkout',
+};
 </script>
 
 <style lang="scss" scoped>
