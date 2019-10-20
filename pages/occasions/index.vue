@@ -2,7 +2,10 @@
   <div class="body">
     <Box
       title="Occasion"
-      content="Regelmatig bieden wij ervaren automaten aan. Deze automaten zijn volledig gereviseerd en in topconditie. Jarenlang kunt u genieten voor een lage investering in een uitstekend automaat. Voor ons actuele aanbod kijkt u op onze occasion-pagina."
+      content="Regelmatig bieden wij ervaren automaten aan.
+      Deze automaten zijn volledig gereviseerd en in topconditie.
+      Jarenlang kunt u genieten voor een lage investering in een uitstekend automaat.
+      Voor ons actuele aanbod kijkt u op onze occasion-pagina."
     />
     <section class="content">
       <ul class="productList">
@@ -20,22 +23,22 @@
   </div>
 </template>
 
-<script>
-import MachineGridView from '~/components/MachineGridView.vue';
-import ProductService from '~/services/product.service';
-import Box from '@/components/ui-components/Box.vue';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import MachineGridView from '../../components/MachineGridView.vue';
+import Box from '../../components/ui-components/Box.vue';
 
-export default {
+export default createComponent({
   components: {
     Box,
     MachineGridView,
   },
-  asyncData({ $axios }) {
+  asyncData({ $axios } : any) {
     return $axios.$get(`${$axios.defaults.baseURL}/machines?type=occasion`)
-      .then((res) => ({ machineList: res }));
+      .then((res : []) => ({ machineList: res }));
   },
 
-};
+});
 </script>
 
 <style lang="scss" scoped>

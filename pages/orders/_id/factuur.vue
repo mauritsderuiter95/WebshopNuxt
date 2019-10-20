@@ -102,42 +102,46 @@
       </table>
     </section>
     <footer>
-      Indien u dit nog niet betaald heeft, kunt u het totaalbedrag overmaken naar het rekeningnummer [...] onder vermelding van het factuurnummer.
+      Indien u dit nog niet betaald heeft,
+      kunt u het totaalbedrag overmaken naar het rekeningnummer
+      [...] onder vermelding van het factuurnummer.
     </footer>
   </div>
 </template>
 
-<script>
-export default {
-    computed: {
-      getSubtotal() {
-        let prices = this.order.products.map(product => {
-          return product.productPrice * product.count;
-        })
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import CartProduct from '../../../models/CartProduct';
+import Order from '../../../models/Order';
 
-        return prices.reduce((acc, price) => acc + price, 0);
-      },
-      getBtw() {
-        return (this.getSubtotal + this.order.sendingCosts) * 0.09;
-      },
-      getTotal() {
-        return this.getSubtotal + this.order.sendingCosts + this.getBtw;
-      },
+export default createComponent({
+  computed: {
+    getSubtotal() : number {
+      const prices = (this.order as Order).products
+        .map((product : CartProduct) => product.productPrice * product.count);
+
+      return prices.reduce((acc, price) => acc + price, 0);
     },
-    asyncData({ $axios, params, query }) {
-      let url = `${ $axios.defaults.baseURL }/orders/${params.id}`;
-      if (query.key)
-        url = `${url}?key=${query.key}`;
-      return $axios.$get(url)
-        .then(res => {
-          return { order: res }
-        })
-        .catch(e => {
-          console.log(e)
-        })
+    getBtw() {
+      return ((this.getSubtotal as number) + (this.order as Order).sendingCosts) * 0.09;
     },
-    layout: 'empty'
-}
+    getTotal() {
+      return (this.getSubtotal as number)
+      + (this.order as Order).sendingCosts
+      + (this.getBtw as number);
+    },
+  },
+  asyncData({ $axios, params, query } : any) {
+    let url = `${$axios.defaults.baseURL}/orders/${params.id}`;
+    if (query.key) { url = `${url}?key=${query.key}`; }
+    return $axios.$get(url)
+      .then((res : Order) => ({ order: res }))
+      .catch((e : any) => {
+        console.log(e);
+      });
+  },
+  layout: 'empty',
+});
 </script>
 
 <style lang="scss" scoped>

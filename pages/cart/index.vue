@@ -39,7 +39,6 @@
                   &minus;
                 </span>
                 <input
-                  id="count"
                   type="text"
                   name="count"
                   class="count"

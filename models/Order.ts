@@ -1,45 +1,46 @@
 import CartProduct from './CartProduct';
+import User from './User';
 
 export default class Order {
-  Id: String;
+  id: string;
 
-  Ordernumber: String;
+  ordernumber: string;
 
-  CartId: Number;
+  cartId: string;
 
-  Products: Array<CartProduct>;
+  products: Array<CartProduct>;
 
-  OrderPayment: Object;
+  orderPayment: object;
 
-  SendingCosts: Number;
+  sendingCosts: number;
 
-  User: Object;
+  user: User;
 
-  Created: Date;
+  created: Date;
 
-  Status: String;
+  status: string;
 
-  Key: String;
+  key: string;
 
-  constructor(id: string,
-    ordernumber: string,
-    cartId: Number,
-    products: Array<CartProduct>,
-    orderPayment: Object,
-    sendingCosts: Number,
-    user: Object,
-    created: Date,
-    status: string,
-    key: string) {
-    this.Id = id;
-    this.Ordernumber = ordernumber;
-    this.CartId = cartId;
-    this.Products = products;
-    this.OrderPayment = orderPayment;
-    this.SendingCosts = sendingCosts;
-    this.User = user;
-    this.Created = created;
-    this.Status = status;
-    this.Key = key;
+  constructor(id: string = '',
+    ordernumber: string = '',
+    cartId: string = '',
+    products: Array<CartProduct> = [],
+    orderPayment: object = {},
+    sendingCosts: number = 0,
+    user: User = new User(),
+    created: Date = new Date(),
+    status: string = '',
+    key: string = '') {
+    this.id = id;
+    this.ordernumber = ordernumber;
+    this.cartId = cartId;
+    this.products = products;
+    this.orderPayment = orderPayment;
+    this.sendingCosts = sendingCosts;
+    this.user = user;
+    this.created = created;
+    this.status = status;
+    this.key = key;
   }
 }

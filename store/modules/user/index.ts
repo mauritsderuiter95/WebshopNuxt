@@ -62,13 +62,16 @@ const actions = {
         .find((c: string) => c.trim().startsWith('jwt='));
 
       if (!jwtCookie) {
-        const guestCookie = req.headers.cookie
+        let guestCookie = req.headers.cookie
           .split(';')
-          .find((c: string) => c.trim().startsWith('guest'));
+          .find((c: string) => c.trim().startsWith('guest='));
 
         if (!guestCookie) { return; }
 
-        const user = JSON.parse(decodeURIComponent(guestCookie.split('=')[1]));
+        const guestArr = guestCookie.split('=');
+        guestCookie = guestCookie.replace(`${guestArr[0]}=`, '');
+
+        const user = JSON.parse(decodeURIComponent(guestCookie));
         commit('setUser', user);
         return;
       }

@@ -3,9 +3,9 @@ export default class CartProduct {
 
   productName: string;
 
-  productPrice: Number;
+  productPrice: number;
 
-  count: Number;
+  count: number;
 
   photo: object;
 
@@ -13,8 +13,8 @@ export default class CartProduct {
   constructor(
     productId: string = '',
     productName: string = '',
-    productPrice: Number = 0,
-    count: Number = 0,
+    productPrice: number = 0,
+    count: number = 0,
     photo: object = {},
   ) {
     this.productId = productId;
