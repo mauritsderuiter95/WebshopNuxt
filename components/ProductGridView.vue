@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
     <Modal
-      :show-modal="showModal"
+      :show-modal="state.showModal"
       :product="product"
-      @hide="showModal = false"
+      @hide="state.showModal = false"
     />
     <wr-card>
       <nuxt-link :to="`/products/${product.id}`">
@@ -55,38 +55,47 @@
   </div>
 </template>
 
-<script>
-import img from '@/components/ui-components/Image.vue';
-import card from '@/components/ui-components/Card.vue';
-import btn from '@/components/ui-components/Button.vue';
-import Modal from '~/components/ui-components/Modal.vue';
+<script lang="ts">
+import {
+  createComponent, reactive,
+} from '@vue/composition-api';
+import img from './ui-components/Image.vue';
+import card from './ui-components/Card.vue';
+import btn from './ui-components/Button.vue';
+import Modal from './ui-components/Modal.vue';
 
-export default {
-    components: {
-        'wr-img': img,
-        'wr-card': card,
-        'wr-btn': btn,
-        Modal
-    },
-    props: {
-        // eslint-disable-next-line
+export default createComponent({
+  components: {
+    'wr-img': img,
+    'wr-card': card,
+    'wr-btn': btn,
+    Modal,
+  },
+  props: {
+    // eslint-disable-next-line
         product: Object
-    },
-    data() {
-      return {
-        showModal: false
-      }
-    },
-    methods: {
-        addToCart() {
-          this.showModal = true;
-          this.$store.dispatch("cart/addToCart", this.product);
-        },
-        hide() {
-          this.showModal = false;
-        }
-    }
-}
+  },
+  setup(props, ctx) {
+    const state = reactive({
+      showModal: false,
+    });
+
+    const addToCart = () => {
+      state.showModal = true;
+      ctx.root.$store.dispatch('cart/addToCart', props.product);
+    };
+
+    const hide = () => {
+      state.showModal = false;
+    };
+
+    return {
+      state,
+      addToCart,
+      hide,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

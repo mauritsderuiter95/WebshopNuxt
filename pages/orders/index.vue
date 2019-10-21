@@ -56,21 +56,23 @@
   </div>
 </template>
 
-<script>
-import Button from '~/components/ui-components/Button.vue';
+<script lang="ts">
+import {
+  createComponent,
+} from '@vue/composition-api';
+import Button from '../../components/ui-components/Button.vue';
+import Order from '../../models/Order';
 
-export default {
-    components: {
-        'wr-btn': Button
-    },
-    asyncData({ $axios }) {
-      return $axios.$get(`${ $axios.defaults.baseURL }/orders`)
-        .then(res => {
-          return { orders: res }
-        })
-    },
-    middleware: 'auth'
-}
+export default createComponent({
+  components: {
+    'wr-btn': Button,
+  },
+  asyncData({ $axios } : any) {
+    return $axios.$get(`${$axios.defaults.baseURL}/orders`)
+      .then((res : Order[]) => ({ orders: res }));
+  },
+  middleware: 'auth',
+});
 </script>
 
 <style lang="scss" scoped>

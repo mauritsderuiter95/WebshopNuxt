@@ -9,16 +9,17 @@
   </nav>
 </template>
 
-<script>
-import Search from '~/components/Search.vue';
-import Catmenu from '~/components/Catmenu.vue';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import Search from './Search.vue';
+import Catmenu from './Catmenu.vue';
 
-export default {
-    components: {
-        Search,
-        Catmenu,
-    }
-}
+export default createComponent({
+  components: {
+    Search,
+    Catmenu,
+  },
+});
 </script>
 
 <style lang="scss" scoped>

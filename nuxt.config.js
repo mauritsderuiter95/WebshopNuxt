@@ -38,12 +38,12 @@ module.exports = {
     '@nuxtjs/style-resources',
   ],
   plugins: [
-    '~plugins/vue-cookie.js',
-    '~plugins/axios.js',
-    '~plugins/lazyload.js',
-    '~plugins/vuelidate.js',
-    '~plugins/composition-api.js',
-    '~plugins/validator.js',
+    '~plugins/vue-cookie.ts',
+    '~plugins/axios.ts',
+    '~plugins/lazyload.ts',
+    '~plugins/vuelidate.ts',
+    '~plugins/composition-api.ts',
+    '~plugins/validator.ts',
   ],
   css: [
     '@/assets/scss/style.scss',

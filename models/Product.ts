@@ -15,14 +15,14 @@ export default class Product {
 
   photo: object;
 
-  constructor(id: string,
-    productName: string,
-    price: Number,
-    category: string[],
-    discount: Number,
-    shortDescription: string,
-    longDescription: string,
-    photo: object) {
+  constructor(id: string = '',
+    productName: string = '',
+    price: Number = 0,
+    category: string[] = [],
+    discount: Number = 0,
+    shortDescription: string = '',
+    longDescription: string = '',
+    photo: object = {}) {
     this.id = id;
     this.productName = productName;
     this.price = price;

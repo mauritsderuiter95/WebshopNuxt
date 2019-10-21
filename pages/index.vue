@@ -6,7 +6,11 @@
     </div>
     <section class="about">
       <div class="intro">
-        <p>Koffie, tussendoortjes en frisdrank zonder omkijken? Wij zorgen dat u altijd voorzien bent. Catering via automaten heeft de toekomst.</p>
+        <p>
+          Koffie, tussendoortjes en frisdrank zonder omkijken?
+          Wij zorgen dat u altijd voorzien bent.
+          Catering via automaten heeft de toekomst.
+        </p>
         <i class="material-icons">
           keyboard_arrow_down
         </i>
@@ -27,7 +31,12 @@
             <h2 class="box-title">
               WR Koffie
             </h2>
-            <p>Onze heerlijke ambachtelijk gebrande bonen komen uit Indonesië en Ethiopië. WR Koffie Classic is een milde koffie, zonder de bittere nasmaak en is geschikt voor de gemiddelde koffiedrinker. De variant Strong is een streling op de tong voor dé koffieliefhebber.</p>
+            <p>
+              Onze heerlijke ambachtelijk gebrande bonen komen uit Indonesië en Ethiopië.
+              WR Koffie Classic is een milde koffie, zonder de bittere nasmaak en is geschikt
+              voor de gemiddelde koffiedrinker.
+              De variant Strong is een streling op de tong voor dé koffieliefhebber.
+            </p>
           </div>
         </div>
       </div>
@@ -37,7 +46,13 @@
         <div class="flex">
           <div class="text">
             <h2>Vending</h2>
-            <p>Kostenloos plaatsen wij frisdrank- en/of zoetwarenautomaten. Wekelijks vullen en onderhouden wij dit automaat, zodat u er geen omkijken naar hebt. Wij ontzorgen u volledig! Neem voor alle mogelijkheden vrijblijvend contact op met Wim de Ruiter op 06 - 143 976 20. Voor elke kantine een passend automaat!</p>
+            <p>
+              Kostenloos plaatsen wij frisdrank- en/of zoetwarenautomaten.
+              Wekelijks vullen en onderhouden wij dit automaat,
+              zodat u er geen omkijken naar hebt. Wij ontzorgen u volledig!
+              Neem voor alle mogelijkheden vrijblijvend contact op met Wim de Ruiter
+              op 06 - 143 976 20. Voor elke kantine een passend automaat!
+            </p>
           </div>
           <div class="img">
             <v-lazy-image
@@ -63,7 +78,12 @@
           </div>
           <div class="text">
             <h2>Occasion</h2>
-            <p>Regelmatig bieden wij ervaren automaten aan. Deze automaten zijn volledig gereviseerd en in topconditie. Jarenlang kunt u genieten voor een lage investering in een uitstekend automaat. Voor ons actuele aanbod kijkt u op onze occasion-pagina.</p>
+            <p>
+              Regelmatig bieden wij ervaren automaten aan.
+              Deze automaten zijn volledig gereviseerd en in topconditie.
+              Jarenlang kunt u genieten voor een lage investering in een uitstekend automaat.
+              Voor ons actuele aanbod kijkt u op onze occasion-pagina.
+            </p>
           </div>
         </div>
       </div>
@@ -75,8 +95,8 @@
 
 export default {
   components: {
-  }
-}
+  },
+};
 </script>
 
 
@@ -203,4 +223,3 @@ export default {
 }
 
 </style>
-

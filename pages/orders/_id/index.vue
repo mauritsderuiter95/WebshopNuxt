@@ -1,20 +1,20 @@
 <template>
   <div class="container">
     <div
-      v-if="order"
+      v-if="orderExists()"
       class="groupHolder"
     >
       <div class="row">
         <h2 class="groupTitle second">
-          Bestelling {{ order.ordernumber }}
+          Bestelling {{ state.order.ordernumber }}
         </h2>
         <h4 class="groupTitle">
-          {{ order.created }}
+          {{ state.order.created }}
         </h4>
       </div>
       <div class="status">
         <div
-          v-if="order.status === 'Wachten op betaling'"
+          v-if="state.order.status === 'Wachten op betaling'"
           class="warning"
         >
           <span>Uw betaling is nog niet verwerkt</span>
@@ -23,13 +23,13 @@
           </div>
         </div>
         <div
-          v-if="order.status === 'Betaling is mislukt'"
+          v-if="state.order.status === 'Betaling is mislukt'"
           class="error"
         >
           <span>Uw betaling is mislukt</span>
         </div>
         <div
-          v-if="order.status === 'Betaald'"
+          v-if="state.order.status === 'Betaald'"
           class="success"
         >
           <span>Betaling verwerkt</span>
@@ -39,7 +39,7 @@
         class="order"
       >
         <div
-          v-for="product in order.products"
+          v-for="product in state.order.products"
           :key="product.id"
           class="group clickable"
         >
@@ -66,7 +66,7 @@
       </div>
       <div class="toolbar">
         <a
-          :href="invoiceUrl"
+          :href="state.invoiceUrl"
           download="factuur.pdf"
         >
           <wr-btn
@@ -96,50 +96,71 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import {
+  createComponent, reactive, onMounted,
+} from '@vue/composition-api';
 import Button from '../../../components/ui-components/Button.vue';
+import Order from '../../../models/Order';
 
-export default {
+export default createComponent({
   components: {
     'wr-btn': Button,
   },
-  computed: {
-    invoiceUrl() {
-      return `http://backend.wrautomaten.nl/api/orders/${this.order.id}/invoice?key=${this.order.key}`;
-    },
-  },
-  asyncData({ $axios, params, query }) {
-    let url = `${$axios.defaults.baseURL}/orders/${params.id}`;
-    if (query.key) { url = `${url}?key=${query.key}`; }
-    return $axios.$get(url)
-      .then((res) => ({ order: res }))
-      .catch((e) => {
-        console.log(e);
-      });
-  },
-  mounted() {
-    if (!this.$route.query.banktransfer) {
-      this.checkStatus();
-    }
-  },
-  methods: {
-    getData() {
-      let url = `${this.$axios.defaults.baseURL}/orders/${this.$route.params.id}`;
-      if (this.$route.query.key) { url = `${url}?key=${this.$route.query.key}`; }
-      this.$axios.$get(url)
-        .then((res) => {
-          this.order = res;
+  setup(props, ctx) {
+    const order = new Order();
+
+    const invoiceUrl = `http://backend.wrautomaten.nl/api/orders/${order.id}/invoice?key=${order.key}`;
+
+    const state = reactive({
+      order,
+      invoiceUrl,
+    });
+
+    // eslint-disable-next-line consistent-return
+    const getData = async () => {
+      let url = `${(ctx.root as any).$axios.defaults.baseURL}/orders/${ctx.root.$route.params.id}`;
+      let newOrder = new Order();
+      if (!ctx.root.$store.getters['user/currentUser'] && !ctx.root.$route.query.key) {
+        return newOrder;
+      }
+      if (ctx.root.$route.query.key) { url = `${url}?key=${ctx.root.$route.query.key}`; }
+      await (ctx.root as any).$axios.$get(url)
+        .then((res : Order) => {
+          newOrder = res;
         });
-    },
-    checkStatus() {
-      const dataInterval = setInterval(() => {
-        this.getData();
-        if (this.order.status === 'Gelukt' || this.order.status === 'Betaling is mislukt') { clearInterval(dataInterval); }
-        if (this.$route.params.id === undefined) { clearInterval(dataInterval); }
+      state.order = newOrder;
+    };
+
+    const checkStatus = async () => {
+      const dataInterval = setInterval(async () => {
+        await getData();
+        if (state.order.status === 'Gelukt' || state.order.status === 'Betaling is mislukt') { clearInterval(dataInterval); }
+        if (ctx.root.$route.params.id === undefined) { clearInterval(dataInterval); }
       }, 5000);
-    },
+    };
+
+    const orderExists = () => {
+      if (state.order.id.length > 1) {
+        return true;
+      }
+      return false;
+    };
+
+    onMounted(async () => {
+      await getData();
+      if (!ctx.root.$route.query.banktransfer) {
+        checkStatus();
+      }
+    });
+
+    return {
+      props,
+      state,
+      orderExists,
+    };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

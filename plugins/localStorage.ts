@@ -1,8 +1,8 @@
 import createPersistedState from 'vuex-persistedstate';
 
-export default ({store}) => {
+export default ({ store } : any) => {
   createPersistedState({
-      key: 'clientkey',
-      paths: []
+    key: 'clientkey',
+    paths: [],
   })(store);
 };

@@ -10,6 +10,8 @@ export default class Order {
 
   products: Array<CartProduct>;
 
+  ideal: boolean;
+
   orderPayment: object;
 
   sendingCosts: number;
@@ -26,6 +28,7 @@ export default class Order {
     ordernumber: string = '',
     cartId: string = '',
     products: Array<CartProduct> = [],
+    ideal: boolean = false,
     orderPayment: object = {},
     sendingCosts: number = 0,
     user: User = new User(),
@@ -36,6 +39,7 @@ export default class Order {
     this.ordernumber = ordernumber;
     this.cartId = cartId;
     this.products = products;
+    this.ideal = ideal;
     this.orderPayment = orderPayment;
     this.sendingCosts = sendingCosts;
     this.user = user;

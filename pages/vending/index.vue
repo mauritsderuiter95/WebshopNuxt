@@ -17,22 +17,22 @@
   </div>
 </template>
 
-<script>
-import MachineGridView from '~/components/MachineGridView.vue';
-import ProductService from '~/services/product.service';
-import Box from '@/components/ui-components/Box.vue';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
+import MachineGridView from '../../components/MachineGridView.vue';
+import Box from '../../components/ui-components/Box.vue';
 
-export default {
+export default createComponent({
   components: {
     Box,
     MachineGridView,
   },
-  asyncData({ $axios }) {
+  asyncData({ $axios } : any) {
     return $axios.$get(`${$axios.defaults.baseURL}/machines?type=vending`)
-      .then((res) => ({ machineList: res }));
+      .then((res : []) => ({ machineList: res }));
   },
 
-};
+});
 </script>
 
 <style lang="scss" scoped>

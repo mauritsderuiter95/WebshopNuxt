@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import {
   reactive, SetupContext, onMounted, computed,
@@ -9,7 +10,7 @@ import checkFormErrors from '../../../logic/checkFormErrors';
 import CartProduct from '../../../models/CartProduct';
 import Order from '../../../models/Order';
 
-export default function setup(props : any, ctx : SetupContext) {
+export default function setup(props : never, ctx : SetupContext) {
   const user : User = new User();
   const step1 : Boolean = true;
   const payMethod : string = '';
@@ -49,30 +50,32 @@ export default function setup(props : any, ctx : SetupContext) {
     ctx.root.$router.push('/account/login?returnpath=cart/checkout');
   }
 
-  async function nextStep(observer: any,
-    error : HTMLElement,
-    contact : HTMLElement,
-    sending : HTMLElement) {
-    if (!await checkFormErrors(observer)) {
+  async function nextStep() {
+    const {
+      step1Observer, error, contact, sending,
+    } = ctx.refs;
+
+    if (!(await checkFormErrors(step1Observer))) {
       error.style.display = 'block';
       error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
       return;
     }
-
     error.style.display = 'none';
     state.step1 = false;
     contact.classList.remove('active');
     sending.classList.add('active');
-    ctx.root.$store.dispatch('user/saveGuest', state.user);
+    ctx.root.$store.dispatch('user/saveGuest', cloneDeep(state.user));
   }
 
-  function previousStep(contact : HTMLElement, sending : HTMLElement) {
+  function previousStep() {
+    const { contact, sending } = ctx.refs;
     state.step1 = true;
     contact.classList.add('active');
     sending.classList.remove('active');
   }
 
-  function calcCosts(sendingCosts : HTMLElement, postnl : boolean) {
+  function calcCosts(postnl : boolean) {
+    const { sendingCosts } = ctx.refs;
     if (postnl) {
       state.sendingCosts = 4.99;
       state.total = state.subtotal + state.sendingCosts;
@@ -83,32 +86,36 @@ export default function setup(props : any, ctx : SetupContext) {
     }
   }
 
-  async function finishOrder(observer : any, error : HTMLElement) {
-    if (!await checkFormErrors(observer)) {
-      error.style.display = 'block';
-      error.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
+  async function finishOrder() {
+    const { step2Observer, error2 } = ctx.refs;
+    if (!(await checkFormErrors(step2Observer))) {
+      error2.style.display = 'block';
+      error2.textContent = 'Niet alle vereiste velden zijn correct ingevuld.';
       return;
     }
 
-    error.style.display = 'none';
+    error2.style.display = 'none';
 
     const cart = (ctx.root.$store.getters['cart/currentCart'] as Cart);
     const order = new Order();
     order.products = cart.products;
     order.cartId = cart.id;
     order.sendingCosts = state.sendingCosts;
-
+    order.ideal = state.payMethod === 'ideal';
     order.user = state.user;
 
-    if (state.payMethod === 'ideal') {
-      (ctx.root as any).$axios.$post(`${(ctx.root as any).$axios.defaults.baseURL}/orders`, order)
-        .then((res : Location) => {
-          window.location = res;
-        })
-        .catch((err : string) => {
-          console.log(err);
-        });
-    }
+    (ctx.root as any).$axios.$post(`${(ctx.root as any).$axios.defaults.baseURL}/orders`, order)
+      .then((res : Order) => {
+        if (res.ideal) {
+          // @ts-ignore
+          window.location = res.orderPayment._links.checkout.href;
+          return;
+        }
+        window.location = ((`https://www.wrautomaten.nl/orders/${res.id}?key=${res.key}` as unknown) as Location);
+      })
+      .catch((err : string) => {
+        console.log(err);
+      });
   }
 
   function expandCart(cart : HTMLElement, icon : HTMLElement, cartLabel : HTMLElement) {

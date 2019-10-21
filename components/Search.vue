@@ -23,42 +23,38 @@
   </div>
 </template>
 
-<script>
-import ProductService from '~/services/product.service';
+<script lang="ts">
+import { createComponent } from '@vue/composition-api';
 import ClickOutside from 'vue-click-outside';
 
-export default {
+export default createComponent({
   directives: {
     ClickOutside,
   },
-  data() {
-    return {
-      products: [],
-      entries: [],
-      isLoading: false,
-      model: null,
-      search: null,
-      items: null,
-    };
-  },
-  methods: {
-    moveLeft() {
-      this.$refs.placeholder.style.width = '11rem';
-      this.$refs.text.style.opacity = '0';
-      const {input} = this.$refs;
+  setup(props, ctx) {
+    const moveLeft = () => {
+      ctx.refs.placeholder.style.width = '11rem';
+      ctx.refs.text.style.opacity = '0';
       setTimeout(
         () => {
-          input.focus();
+          ctx.refs.input.focus();
         }, 200,
       );
-    },
-    moveDefault() {
-      this.$refs.placeholder.style.width = '100%';
-      this.$refs.text.style.opacity = '100';
-    },
+    };
+
+    const moveDefault = () => {
+      ctx.refs.placeholder.style.width = '100%';
+      ctx.refs.text.style.opacity = '100';
+    };
+
+    return {
+      props,
+      moveDefault,
+      moveLeft,
+    };
   },
 
-};
+});
 </script>
 
 <style lang="scss" scoped>

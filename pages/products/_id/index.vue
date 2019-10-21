@@ -24,14 +24,14 @@
             </span>
             <input
               id="count"
-              v-model="count"
+              v-model="state.count"
               type="text"
               name="count"
               class="count"
             >
             <span
               class="editor plus"
-              @click="count++"
+              @click="state.count++"
             >
               +
             </span>
@@ -51,41 +51,66 @@
   </div>
 </template>
 
-<script>
-import ProductService from '~/services/product.service';
-import Button from '~/components/ui-components/Button.vue';
+<script lang="ts">
+import {
+  createComponent, reactive,
+} from '@vue/composition-api';
+import ProductService from '../../../services/product.service';
+import Button from '../../../components/ui-components/Button.vue';
+import Product from '../../../models/Product';
 
-export default {
+export default createComponent({
   components: {
     'wr-btn': Button,
   },
-  data() {
-    return {
+  asyncData({ params } : any) {
+    const thisProduct = new Product();
+    thisProduct.id = params.id;
+    return ProductService.getProduct(thisProduct).then((res : any) => ({
+      product: res.data,
+    }));
+  },
+  setup(props, ctx) {
+    const state = reactive({
       count: 1,
+    });
+
+    const product = async () => {
+      let thisProduct = new Product();
+      thisProduct.id = ctx.root.$route.params.id;
+      await ProductService.getProduct(thisProduct).then((res : any) => {
+        thisProduct = res.data;
+      });
+      return thisProduct;
+    };
+
+    const addToCart = async () => {
+      const thisProduct = await product();
+      for (let i = 1; i <= state.count; i += 1) {
+        ctx.root.$store.dispatch('cart/addToCart', thisProduct);
+      }
+    };
+
+    const countMinus = () => {
+      if (state.count > 1) {
+        state.count -= 1;
+      }
+    };
+
+    return {
+      props,
+      state,
+      addToCart,
+      countMinus,
     };
   },
-  asyncData({ params }) {
-    return ProductService.getProduct(params.id).then((response) => ({
-				product: response.data,
-			}));
-  },
-  methods: {
-    addToCart() {
-      this.$store.dispatch('cart/addToCart', this.product);
-    },
-    countMinus() {
-      if (this.count > 1) {
-        this.count--;
-      }
-    },
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped>
 .body {
-	margin: 0 auto;
-	display: flex;
+  margin: 0 auto;
+  display: flex;
   max-width: 120rem;
   .grid {
     display: grid;
@@ -160,22 +185,22 @@ export default {
       width: 100%;
       border-radius: $border-radius;
     }
-	}
+  }
 }
 
 .fade-enter {
-	opacity: 0;
+  opacity: 0;
 }
 .fade-enter-active {
-	opacity: 1;
-	transition: opacity 0.2s;
+  opacity: 1;
+  transition: opacity 0.2s;
 }
 .fade-leave-to {
-	opacity: 1;
+  opacity: 1;
 }
 .fade-leave-active {
-	opacity: 0;
-	transition: opacity 0.2s;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 @media screen and (max-width: 1024px) {

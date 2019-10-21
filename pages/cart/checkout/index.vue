@@ -58,7 +58,7 @@
           v-if="state.step1"
           key="step1"
         >
-          <ValidationObserver ref="step1">
+          <ValidationObserver ref="step1Observer">
             <div class="contactHeading">
               <h2>
                 Contactinformatie
@@ -428,10 +428,7 @@
                   medium
                   type="submit"
                   block
-                  @click="() => nextStep($refs['step1'],
-                                         $refs['error'],
-                                         $refs['contact'],
-                                         $refs['sending'])"
+                  @click="() => nextStep()"
                 >
                   Verzending en betaling
                   <i class="material-icons">
@@ -446,14 +443,14 @@
           v-else
           key="step2"
         >
-          <ValidationObserver ref="step2">
+          <ValidationObserver ref="step2Observer">
             <div class="group summary">
               <div class="row">
                 <span class="summaryLabel first">E-mailadres</span>
                 <span class="second">{{ state.user.username }}</span>
                 <a
                   class="summaryLink"
-                  @click="() => previousStep($refs['contact'], $refs['sending'])"
+                  @click="() => previousStep()"
                 >Wijzigen</a>
               </div>
               <div class="row">
@@ -463,7 +460,7 @@
                 </span>
                 <a
                   class="summaryLink"
-                  @click="() => previousStep($refs['contact'], $refs['sending'])"
+                  @click="() => previousStep()"
                 >Wijzigen</a>
               </div>
             </div>
@@ -477,58 +474,62 @@
               class="form"
             >
               <div class="group wide">
-                <div class="row">
-                  <input
-                    v-model="state.sendMethod"
-                    type="radio"
-                    name="sendmethod"
-                    value="postnl"
-                    class="first input-radio"
-                    @input="() => calcCosts($refs['sendingcosts'], true)"
-                  >
-                  <span class="second">PostNL Pakket</span>
-                  <span>€4,99</span>
-                </div>
-                <div class="row">
-                  <input
-                    v-model="state.sendMethod"
-                    type="radio"
-                    name="sendmethod"
-                    value="retrieve"
-                    class="first input-radio"
-                    @input="() => calcCosts($refs['sendingcosts'], false)"
-                  >
-                  <span class="second">Ophalen</span>
-                  <span>€0,00</span>
-                </div>
+                <ValidationProvider rules="required">
+                  <div class="row">
+                    <input
+                      v-model="state.sendMethod"
+                      type="radio"
+                      name="sendmethod"
+                      value="postnl"
+                      class="first input-radio"
+                      @input="() => calcCosts(true)"
+                    >
+                    <span class="second">PostNL Pakket</span>
+                    <span>€4,99</span>
+                  </div>
+                  <div class="row">
+                    <input
+                      v-model="state.sendMethod"
+                      type="radio"
+                      name="sendmethod"
+                      value="retrieve"
+                      class="first input-radio"
+                      @input="() => calcCosts(false)"
+                    >
+                    <span class="second">Ophalen</span>
+                    <span>€0,00</span>
+                  </div>
+                </ValidationProvider>
               </div>
 
               <h2 class="title">
                 Betaalmethode
               </h2>
               <div class="group wide">
-                <div class="row">
-                  <input
-                    id="ideal"
-                    v-model="state.payMethod"
-                    type="radio"
-                    name="ideal"
-                    value="ideal"
-                    class="first input-radio"
-                  >
-                  <span class="second">Ideal</span>
-                </div>
-                <div class="row">
-                  <input
-                    id="bank"
-                    v-model="state.payMethod"
-                    type="radio"
-                    name="bank"
-                    value="bank"
-                    class="first input-radio"
-                  >
-                  <span class="second">Bankoverdracht</span>
-                </div>
+                <ValidationProvider rules="required">
+                  <div class="row">
+                    <input
+                      id="ideal"
+                      v-model="state.payMethod"
+                      type="radio"
+                      name="ideal"
+                      value="ideal"
+                      class="first input-radio"
+                    >
+                    <span class="second">Ideal</span>
+                  </div>
+                  <div class="row">
+                    <input
+                      id="bank"
+                      v-model="state.payMethod"
+                      type="radio"
+                      name="bank"
+                      value="bank"
+                      class="first input-radio"
+                    >
+                    <span class="second">Bankoverdracht</span>
+                  </div>
+                </ValidationProvider>
               </div>
 
               <div
@@ -588,7 +589,7 @@
         <span class="right">€{{ Number(state.subtotal).toFixed(2) }}</span>
         <span>Verzendkosten</span>
         <span
-          ref="sendingcosts"
+          ref="sendingCosts"
           class="right"
         >Berekend bij volgende stap</span>
       </div>

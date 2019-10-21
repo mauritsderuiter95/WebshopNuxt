@@ -28,7 +28,7 @@ export default createComponent({
   // Watch for $route.query.page to call Component methods
   watchQuery: ['category'],
   asyncData({ query }) {
-    return ProductService.getProducts(query.category)
+    return ProductService.getProducts((query.category as string | null))
       .then((res) => ({ productList: res.data }));
   },
 });

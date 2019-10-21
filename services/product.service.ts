@@ -10,7 +10,7 @@ const agent = new https.Agent({
 });
 
 export default class ProductService {
-  static getProducts(category: string) {
+  static getProducts(category: string | null) {
     if (category !== undefined) { return axios.get(`?category=${category}`, { httpsAgent: agent }); }
     return axios.get('/', { httpsAgent: agent });
   }
