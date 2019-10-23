@@ -26,20 +26,20 @@ export default {
     title: {
       type: String,
       required: true,
-      default: ""
+      default: '',
     },
     content: {
       type: String,
       required: false,
-      default: ""
+      default: '',
     },
     imageUrl: {
       type: String,
       required: false,
-      default: ""
-    }
-  }
-}
+      default: '',
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

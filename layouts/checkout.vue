@@ -4,7 +4,7 @@
       Deze shop is nog in aanbouw. Bestellingen worden geannuleerd.
     </div>
     <div class="spacer" />
-    <nuxt />
+    <nuxt role="main" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 export default {
   components: {
   },
-}
+};
 </script>
 
 

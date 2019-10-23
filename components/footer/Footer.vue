@@ -7,28 +7,34 @@
           <span>Snelle links</span>
           <ul>
             <li>
-              <a
-                href="/"
+              <nuxt-link
+                to="/"
                 class="border-animation"
               >
                 <div class="inner">
                   Home
                 </div>
-              </a>
+              </nuxt-link>
             </li>
             <li>
-              <a
-                href="/privacy"
+              <nuxt-link
+                to="/privacy"
                 class="border-animation"
               >
-                <div class="inner">Privacy Policy</div></a>
+                <div class="inner">
+                  Privacy Policy
+                </div>
+              </nuxt-link>
             </li>
             <li>
-              <a
-                href="/algemene-voorwaarden"
+              <nuxt-link
+                to="/algemene-voorwaarden"
                 class="border-animation"
               >
-                <div class="inner">Algemene Voorwaarden</div></a>
+                <div class="inner">
+                  Algemene Voorwaarden
+                </div>
+              </nuxt-link>
             </li>
           </ul>
         </section>
@@ -48,7 +54,7 @@
 <script>
 export default {
 
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -98,6 +104,31 @@ export default {
               transition: transform 0.2s;
               &:hover {
                 transform: scale(1.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sticky {
+    .bottom {
+      clip-path: none;
+      padding: 1rem 0 5rem;
+      .content {
+        padding: 0;
+        .information {
+          ul {
+            flex-direction: column;
+            margin-top: 3rem;
+            li {
+              margin: 1rem 0;
+              a {
+                display: block;
+                margin: 0 auto;
               }
             }
           }
@@ -272,4 +303,3 @@ export default {
   }
 }
 </style>
-

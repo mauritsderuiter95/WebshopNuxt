@@ -26,10 +26,30 @@ export default createComponent({
     Topbar,
   },
   // Watch for $route.query.page to call Component methods
-  watchQuery: ['category'],
+  watchQuery: ['category', 'search'],
   asyncData({ query }) {
     return ProductService.getProducts((query.category as string | null))
-      .then((res) => ({ productList: res.data }));
+      .then((res) => {
+        let productList = res.data;
+        if (query.search) {
+          const filteredList = [];
+          productList.forEach((product) => {
+            if (product.productName.toLowerCase().includes(query.search.toLowerCase())) {
+              filteredList.push(product);
+            }
+            productList = filteredList;
+          });
+        }
+        return {
+          productList,
+        };
+      })
+      .catch((e) => {
+        console.log(e);
+        return {
+          productList: [],
+        };
+      });
   },
 });
 </script>

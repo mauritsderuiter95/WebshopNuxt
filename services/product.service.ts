@@ -2,7 +2,11 @@ import axios from 'axios';
 import https from 'https';
 import Product from '../models/Product';
 
-axios.defaults.baseURL = 'https://backend.wrautomaten.nl/api/products';
+if (process.env.NODE_ENV !== 'production') {
+  axios.defaults.baseURL = 'http://localhost:8081/api/products';
+} else {
+  axios.defaults.baseURL = 'http://www.wrautomaten.nl/api/products';
+}
 // axios.defaults.baseURL = 'https://localhost:44337/api/products';
 
 const agent = new https.Agent({

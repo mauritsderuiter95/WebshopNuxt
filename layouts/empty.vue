@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt />
+    <nuxt role="main" />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   components: {
   },
-}
+};
 </script>
 
 

@@ -1,26 +1,26 @@
 <template>
   <div class="wrapper">
-    <div class="notice">
+    <div class="notice" role="banner">
       Deze shop is nog in aanbouw. Bestellingen worden geannuleerd.
     </div>
-    <Header />
-    <div class="body-content">
+    <Header role="navigation" />
+    <div class="body-content" role="main">
       <nuxt />
     </div>
-    <Footer />
+    <Footer role="contentinfo" />
   </div>
 </template>
 
 <script>
-import Header from '~/components/header/Header.vue';
-import Footer from '~/components/footer/Footer.vue';
+import Header from '../components/header/Header.vue';
+import Footer from '../components/footer/Footer.vue';
 
 export default {
   components: {
     Header,
-    Footer
-  }
-}
+    Footer,
+  },
+};
 </script>
 
 
@@ -62,5 +62,3 @@ export default {
 }
 
 </style>
-
-

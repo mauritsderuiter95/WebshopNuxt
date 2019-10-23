@@ -1,5 +1,5 @@
 <template>
-  <div id="product">
+  <div id="product" role="main">
     <transition
       name="productLayout"
       mode="out-in"
@@ -14,10 +14,9 @@
 export default {
   components: {
   },
-}
+};
 </script>
 
 
 <style lang="scss" scoped>
 </style>
-

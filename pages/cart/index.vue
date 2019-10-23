@@ -208,10 +208,11 @@ export default createComponent({
 
 @media screen and (max-width: 1025px) {
   .wrapper {
-    margin: 2rem;
+    margin: 3rem;
     .cart {
       padding: 2rem;
       max-width: 90vw;
+      margin: 0;
       .cartContent {
         tr {
           width: 100%;

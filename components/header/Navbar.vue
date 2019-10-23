@@ -56,18 +56,18 @@
 </template>
 
 <script>
-import Toolbar from '@/components/ui-components/Toolbar.vue';
-import Button from '@/components/ui-components/Button.vue';
+import Toolbar from '../ui-components/Toolbar.vue';
+import Button from '../ui-components/Button.vue';
 
 export default {
-    components: {
-      'wr-toolbar': Toolbar,
-      'wr-btn': Button
-    },
-    props: {
-      dark: Boolean
-    }
-}
+  components: {
+    'wr-toolbar': Toolbar,
+    'wr-btn': Button,
+  },
+  props: {
+    dark: Boolean,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -81,4 +81,3 @@ export default {
     }
 }
 </style>
-

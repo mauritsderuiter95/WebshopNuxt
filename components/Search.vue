@@ -16,15 +16,16 @@
     <input
       id="searchBar"
       ref="input"
+      v-model="state.searchValue"
       type="text"
       name="searchBar"
-      @change="searchProduct($event.target.value)"
+      @input="searchProduct"
     >
   </div>
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api';
+import { createComponent, watch } from '@vue/composition-api';
 import ClickOutside from 'vue-click-outside';
 
 export default createComponent({
@@ -32,9 +33,18 @@ export default createComponent({
     ClickOutside,
   },
   setup(props, ctx) {
+    const state = {
+      searchValue: '',
+    };
+
     const moveLeft = () => {
+      if (!ctx.refs.placeholder && !ctx.refs.text && !ctx.refs.input) {
+        return;
+      }
+
       ctx.refs.placeholder.style.width = '11rem';
       ctx.refs.text.style.opacity = '0';
+
       setTimeout(
         () => {
           ctx.refs.input.focus();
@@ -43,14 +53,33 @@ export default createComponent({
     };
 
     const moveDefault = () => {
-      ctx.refs.placeholder.style.width = '100%';
-      ctx.refs.text.style.opacity = '100';
+      if (state.searchValue.length === 0) {
+        ctx.refs.placeholder.style.width = '100%';
+        ctx.refs.text.style.opacity = '100';
+      }
     };
+
+    const searchProduct = () => {
+      ctx.root.$router.push({ query: { search: state.searchValue } });
+    };
+
+    watch(() => {
+      const searchString = ctx.root.$route.query.search;
+      if (searchString) {
+        moveLeft();
+        state.searchValue = ctx.root.$route.query.search;
+        if (ctx.refs.input) {
+          ctx.refs.input.value = ctx.root.$route.query.search;
+        }
+      }
+    });
 
     return {
       props,
+      state,
       moveDefault,
       moveLeft,
+      searchProduct,
     };
   },
 

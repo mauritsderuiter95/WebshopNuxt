@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" role="main">
     <nuxt />
   </div>
 </template>
@@ -8,8 +8,8 @@
 
 export default {
   components: {
-  }
-}
+  },
+};
 </script>
 
 
@@ -25,5 +25,3 @@ export default {
   }
 }
 </style>
-
-

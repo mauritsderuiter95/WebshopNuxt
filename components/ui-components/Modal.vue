@@ -52,7 +52,6 @@
                   &minus;
                 </span>
                 <input
-                  id="count"
                   type="text"
                   name="count"
                   class="count"
@@ -73,7 +72,9 @@
             </div>
             <div class="holder">
               <span class="label">Totaal:</span>
-              <span class="price">€{{ (Number(cartProduct.productPrice) * Number(cartProduct.count)).toFixed(2) }}</span>
+              <span class="price">
+                €{{ (Number(cartProduct.productPrice) * Number(cartProduct.count)).toFixed(2) }}
+              </span>
             </div>
             <div class="actions">
               <wr-btn
@@ -113,64 +114,53 @@
 </template>
 
 <script>
-import btn from '@/components/ui-components/Button.vue';
+/* eslint-disable no-param-reassign */
+import cloneDeep from 'lodash/cloneDeep';
+import btn from './Button.vue';
 
 export default {
   components: {
-    'wr-btn': btn
+    'wr-btn': btn,
   },
   props: {
     showModal: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // eslint-disable-next-line vue/require-default-prop
     product: {
-      type: Object
+      type: Object,
     },
+  },
+  data() {
+    return {
+      cartProduct: {
+        count: 0,
+      },
+    };
   },
   computed: {
     getProducts() {
-      if(this.$store.getters['cart/currentCart']) {
-        if (this.$store.getters['cart/currentCart'].products)
-          return this.$store.getters['cart/currentCart'].products.length;
-        else
-          return 0;
-      }
-      else
+      if (this.$store.getters['cart/currentCart']) {
+        if (this.$store.getters['cart/currentCart'].products) { return this.$store.getters['cart/currentCart'].products.length; }
         return 0;
+      }
+      return 0;
     },
     totalPrice() {
-      if(this.$store.getters['cart/currentCart']) {
-        //return this.$store.getters['cart/currentCart'].price;
+      if (this.$store.getters['cart/currentCart']) {
+        // return this.$store.getters['cart/currentCart'].price;
         return this.product.price;
       }
-      else
-        return 0;
+      return 0;
     },
-    cartProduct() {
-      if(this.$store.getters['cart/currentCart']) {
-        if (this.$store.getters['cart/currentCart'].products) {
-          let currentProduct = this.$store.getters['cart/currentCart'].products.filter((cartProduct) => {
-            return cartProduct.productId == this.product.id;
-          })
-          if(currentProduct[0]) {
-            return currentProduct[0];
-          }
-        }
-      }
-      return {
-        count: 0,
-      };
-    }
   },
   mounted() {
-    if(this.$store.getters['cart/currentCart']) {
+    if (this.$store.getters['cart/currentCart']) {
       if (this.$store.getters['cart/currentCart'].products) {
-        let currentProduct = this.$store.getters['cart/currentCart'].products.filter((cartProduct) => {
-          return cartProduct.productId == this.product.id;
-        })
-        if(currentProduct[0]) {
+        const currentProduct = this.$store.getters['cart/currentCart'].products.filter((cartProduct) => cartProduct.productId === this.product.id);
+        if (currentProduct[0]) {
+          // eslint-disable-next-line prefer-destructuring
           this.cartProduct = currentProduct[0];
         }
       }
@@ -187,43 +177,54 @@ export default {
       this.$router.push('/cart/checkout');
     },
     editCart(value, productId) {
-      if(value >= 1) {
-        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-        for (let key in cart.products) {
-          if(cart.products[key].productId === productId)
-            cart.products[key].count = value;
+      if (value >= 1) {
+        const cart = cloneDeep(this.$store.getters['cart/currentCart']);
+
+        cart.products.map((x) => {
+          if (x.productId === productId) {
+            x.count = value;
+          }
+          return x;
+        });
+
+        this.$store.dispatch('cart/editCart', cart);
+      }
+    },
+    addProduct(productId) {
+      const cart = cloneDeep(this.$store.getters['cart/currentCart']);
+
+      cart.products.map((x) => {
+        if (x.productId === productId) {
+          x.count += 1;
         }
-        this.$store.dispatch("cart/editCart", cart);
-      }
+        return x;
+      });
+
+      this.$store.dispatch('cart/editCart', cart);
     },
-    addProduct(productId){
-      let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-      for (let key in cart.products) {
-        if(cart.products[key].productId === productId)
-          cart.products[key].count++;
-      }
-      this.$store.dispatch("cart/editCart", cart);
-    },
-    removeProduct(product){
+    removeProduct(product) {
       if (product.count >= 2) {
-        let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-        for (let key in cart.products) {
-          if(cart.products[key].productId === product.productId)
-            cart.products[key].count--;
-        }
-        this.$store.dispatch("cart/editCart", cart);
-      }
-      else {
+        const cart = cloneDeep(this.$store.getters['cart/currentCart']);
+
+        cart.products.map((x) => {
+          if (x.productId === product.productId) {
+            x.count -= 1;
+          }
+          return x;
+        });
+
+        this.$store.dispatch('cart/editCart', cart);
+      } else {
         this.deleteProduct(product.productId);
       }
     },
-    deleteProduct(productId){
-      let cart = JSON.parse(JSON.stringify(this.$store.getters['cart/currentCart']));
-      cart.products = cart.products.filter(item => item.productId !== productId);
-      this.$store.dispatch("cart/editCart", cart);
+    deleteProduct(productId) {
+      const cart = cloneDeep(this.$store.getters['cart/currentCart']);
+      cart.products = cart.products.filter((item) => item.productId !== productId);
+      this.$store.dispatch('cart/editCart', cart);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

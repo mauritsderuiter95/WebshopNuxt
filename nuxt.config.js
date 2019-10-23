@@ -1,13 +1,20 @@
 module.exports = {
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: 'frontend',
+    htmlAttrs: {
+      lang: 'nl',
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Webshop WRAutomaten' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Webshop WRAutomaten',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -15,17 +22,15 @@ module.exports = {
     ],
   },
   /*
-  ** Customize the progress bar color
-  */
+   ** Customize the progress bar color
+   */
   loading: { color: '#7C0000' },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     // Add exception
-    transpile: [
-      'vee-validate/dist/rules',
-    ],
+    transpile: ['vee-validate/dist/rules'],
   },
   vue: {
     config: {
@@ -36,6 +41,15 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
+    '@nuxtjs/proxy',
+    [
+      '@nuxtjs/google-tag-manager',
+      {
+        id: 'GTM-TFQ2RHZ',
+        layer: 'dataLayer',
+        pageTracking: true,
+      },
+    ],
   ],
   plugins: [
     '~plugins/vue-cookie.ts',
@@ -44,14 +58,11 @@ module.exports = {
     '~plugins/vuelidate.ts',
     '~plugins/composition-api.ts',
     '~plugins/validator.ts',
+    { src: '~/plugins/axe', ssr: false },
   ],
-  css: [
-    '@/assets/scss/style.scss',
-  ],
+  css: ['@/assets/scss/style.scss'],
   styleResources: {
-    scss: [
-      '@/assets/scss/_vars.scss',
-    ],
+    scss: ['@/assets/scss/_vars.scss'],
   },
   layoutTransition: {
     name: 'layout',
@@ -60,7 +71,13 @@ module.exports = {
   axios: {
     baseURL: 'https://backend.wrautomaten.nl/api',
   },
-  buildModules: [
-    '@nuxt/typescript-build',
-  ],
+  proxy: {
+    '/api': {
+      target: 'https://backend.wrautomaten.nl/api',
+      pathRewrite: {
+        '^/api': '/',
+      },
+    },
+  },
+  buildModules: ['@nuxt/typescript-build'],
 };

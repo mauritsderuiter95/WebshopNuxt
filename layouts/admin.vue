@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import Drawer from "~/components/admin/core/Drawer.vue";
-import Toolbar from "~/components/admin/core/Toolbar.vue";
+import Drawer from '../components/admin/core/Drawer.vue';
+import Toolbar from '../components/admin/core/Toolbar.vue';
 
 export default {
   components: {
     Toolbar,
-    Drawer
-  }
-}
+    Drawer,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

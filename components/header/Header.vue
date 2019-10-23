@@ -21,16 +21,16 @@
   </div>
 </template>
 <script>
-import Cart from '~/components/header/Cart.vue';
-import Navbar from '~/components/header/Navbar.vue';
+import Cart from './Cart.vue';
+import Navbar from './Navbar.vue';
 
 export default {
-    components: {
-        Cart,
-        Navbar
-    }
+  components: {
+    Cart,
+    Navbar,
+  },
 
-}
+};
 </script>
 
 <style lang="scss" scoped>
