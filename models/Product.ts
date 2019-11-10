@@ -3,7 +3,7 @@ export default class Product {
 
   productName: string;
 
-  price: Number;
+  price: number;
 
   category: string[];
 
@@ -17,7 +17,7 @@ export default class Product {
 
   constructor(id: string = '',
     productName: string = '',
-    price: Number = 0,
+    price: number = 0,
     category: string[] = [],
     discount: Number = 0,
     shortDescription: string = '',

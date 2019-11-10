@@ -19,6 +19,7 @@ import { createComponent } from '@vue/composition-api';
 import ProductGridView from '../../components/ProductGridView.vue';
 import ProductService from '../../services/product.service';
 import Topbar from '../../components/Topbar.vue';
+import Product from '../../models/Product';
 
 export default createComponent({
   components: {
@@ -32,9 +33,10 @@ export default createComponent({
       .then((res) => {
         let productList = res.data;
         if (query.search) {
-          const filteredList = [];
-          productList.forEach((product) => {
-            if (product.productName.toLowerCase().includes(query.search.toLowerCase())) {
+          const filteredList : Product[] = [];
+          productList.forEach((product : Product) => {
+            const queryString = (query.search as string).toLowerCase();
+            if (product.productName.toLowerCase().includes(queryString)) {
               filteredList.push(product);
             }
             productList = filteredList;
@@ -56,6 +58,6 @@ export default createComponent({
 
 <style lang="scss" scoped>
 .body {
-  margin-top: 5rem;
+  margin-top: 1rem;
 }
 </style>

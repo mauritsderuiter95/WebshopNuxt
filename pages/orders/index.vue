@@ -19,7 +19,7 @@
               </h4>
             </div>
             <div class="second">
-              <h4>{{ order.created }}</h4>
+              <h4>{{ formatDate(order.created) }}</h4>
             </div>
             <h4 class="status">
               {{ order.status }}
@@ -60,6 +60,7 @@
 import {
   createComponent,
 } from '@vue/composition-api';
+import moment from 'moment';
 import Button from '../../components/ui-components/Button.vue';
 import Order from '../../models/Order';
 
@@ -70,6 +71,13 @@ export default createComponent({
   asyncData({ $axios } : any) {
     return $axios.$get(`${$axios.defaults.baseURL}/orders`)
       .then((res : Order[]) => ({ orders: res }));
+  },
+  setup() {
+    const formatDate = (date : any) => moment(date).format('DD MMMM YYYY hh:mm');
+
+    return {
+      formatDate,
+    };
   },
   middleware: 'auth',
 });

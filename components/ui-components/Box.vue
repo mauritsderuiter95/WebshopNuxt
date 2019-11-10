@@ -80,7 +80,6 @@ export default {
 @media screen and (max-width: 1024px) {
   .box {
     padding: 4rem 8rem;
-    margin: 3rem;
     .content {
       margin-right: 0;
     }
@@ -90,7 +89,7 @@ export default {
 @media screen and (max-width: 768px) {
   .box {
     padding: 2rem 4rem;
-    margin: 3rem;
+    margin-bottom: 2rem;
   }
 }
 </style>

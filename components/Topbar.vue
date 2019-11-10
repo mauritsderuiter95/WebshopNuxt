@@ -42,7 +42,7 @@ export default createComponent({
 
 @media screen and (max-width: 1024px) {
   .topbar {
-    margin: 0 6rem 6rem;
+    // margin: 0 6rem 6rem;
     .menu {
       width: 50%;
       margin-right: 3rem;
@@ -69,9 +69,13 @@ export default createComponent({
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 475px) {
   .topbar {
-    margin: 0 3rem 3rem;
+    // margin: 0 3rem 3rem;
+    margin-bottom: 2rem;
+    .searchBar {
+      margin-top: 2rem;
+    }
   }
 }
 </style>

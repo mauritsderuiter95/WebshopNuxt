@@ -1,6 +1,15 @@
 import CartProduct from './CartProduct';
 import User from './User';
 
+interface IAmount {
+  value : string;
+  currency : string
+}
+
+interface IPayment {
+  amount : IAmount;
+}
+
 export default class Order {
   id: string;
 
@@ -12,7 +21,7 @@ export default class Order {
 
   ideal: boolean;
 
-  orderPayment: object;
+  orderPayment: IPayment;
 
   sendingCosts: number;
 

@@ -58,6 +58,7 @@ export default {
   }
   .body-content {
     margin-top: -37rem;
+    // margin: 0 3rem;
   }
 }
 

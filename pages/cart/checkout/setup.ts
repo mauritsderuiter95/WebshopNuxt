@@ -118,16 +118,16 @@ export default function setup(props : never, ctx : SetupContext) {
       });
   }
 
-  function expandCart(cart : HTMLElement, icon : HTMLElement, cartLabel : HTMLElement) {
+  function expandCart() {
     state.cartExpanded = !state.cartExpanded;
     if (state.cartExpanded) {
-      cart.style.display = 'block';
-      icon.classList.add('rotate');
-      cartLabel.textContent = 'Verberg winkelwagen';
+      ctx.refs.cart.style.display = 'block';
+      ctx.refs.icon.classList.add('rotate');
+      ctx.refs.cartLabel.textContent = 'Verberg winkelwagen';
     } else {
-      cart.style.display = 'none';
-      icon.classList.remove('rotate');
-      cartLabel.textContent = 'Bekijk winkelwagen';
+      ctx.refs.cart.style.display = 'none';
+      ctx.refs.icon.classList.remove('rotate');
+      ctx.refs.cartLabel.textContent = 'Bekijk winkelwagen';
     }
   }
 
