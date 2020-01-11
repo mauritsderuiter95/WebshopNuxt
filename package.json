@@ -11,7 +11,7 @@
     "dev": "nuxt-ts --port 8081",
     "build": "nuxt-ts build --port 8081",
     "generate": "nuxt-ts generate --port 8081",
-    "start": "nuxt-ts start --port 8081",
+    "start": "nuxt-ts start",
     "dockerdev": "nuxt-ts"
   },
   "dependencies": {
