@@ -31,6 +31,7 @@
               Bestelling {{ state.order.ordernumber }}
             </h2>
             <wr-btn
+              v-if="false"
               medium
               color="primary"
               dark

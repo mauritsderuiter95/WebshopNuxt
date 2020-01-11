@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { createComponent, watch } from '@vue/composition-api';
-import ClickOutside from 'vue-click-outside';
+const ClickOutside = require('vue-click-outside');
 
 export default createComponent({
   directives: {
@@ -67,9 +67,9 @@ export default createComponent({
       const searchString = ctx.root.$route.query.search;
       if (searchString) {
         moveLeft();
-        state.searchValue = ctx.root.$route.query.search;
+        (state as any).searchValue = ctx.root.$route.query.search;
         if (ctx.refs.input) {
-          ctx.refs.input.value = ctx.root.$route.query.search;
+          (ctx.refs.input as any).value = ctx.root.$route.query.search;
         }
       }
     });

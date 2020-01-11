@@ -132,14 +132,15 @@ import { createComponent } from '@vue/composition-api';
 import moment from 'moment';
 import Button from '../../components/ui-components/Button.vue';
 import Order from '../../models/Order';
+import Response from '../../models/Response';
 
 export default createComponent({
   components: {
     'wr-btn': Button,
   },
   asyncData(ctx : any) {
-    return ctx.$axios.$get(`${ctx.$axios.defaults.baseURL}/orders?limit=3`)
-      .then((res : Array<Order>) => ({ orders: res }));
+    return ctx.$axios.$get(`${ctx.$axios.defaults.baseURL}/orders?take=3`)
+      .then((res : Response<Order>) => ({ orders: res.data }));
   },
   middleware: 'auth',
 

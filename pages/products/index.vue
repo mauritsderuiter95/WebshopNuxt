@@ -46,12 +46,9 @@ export default createComponent({
           productList,
         };
       })
-      .catch((e) => {
-        console.log(e);
-        return {
-          productList: [],
-        };
-      });
+      .catch(() => ({
+        productList: [],
+      }));
   },
 });
 </script>

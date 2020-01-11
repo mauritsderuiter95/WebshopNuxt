@@ -10,6 +10,15 @@ interface IPayment {
   amount : IAmount;
 }
 
+const amount : IAmount = {
+  value: '0',
+  currency: 'eur',
+};
+
+const payment : IPayment = {
+  amount,
+};
+
 export default class Order {
   id: string;
 
@@ -38,7 +47,7 @@ export default class Order {
     cartId: string = '',
     products: Array<CartProduct> = [],
     ideal: boolean = false,
-    orderPayment: object = {},
+    orderPayment: IPayment = payment,
     sendingCosts: number = 0,
     user: User = new User(),
     created: Date = new Date(),

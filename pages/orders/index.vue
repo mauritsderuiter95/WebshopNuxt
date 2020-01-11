@@ -63,6 +63,7 @@ import {
 import moment from 'moment';
 import Button from '../../components/ui-components/Button.vue';
 import Order from '../../models/Order';
+import Response from '../../models/Response';
 
 export default createComponent({
   components: {
@@ -70,7 +71,7 @@ export default createComponent({
   },
   asyncData({ $axios } : any) {
     return $axios.$get(`${$axios.defaults.baseURL}/orders`)
-      .then((res : Order[]) => ({ orders: res }));
+      .then((res : Response<Order>) => ({ orders: res.data }));
   },
   setup() {
     const formatDate = (date : any) => moment(date).format('DD MMMM YYYY hh:mm');
