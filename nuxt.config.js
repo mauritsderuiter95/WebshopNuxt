@@ -81,14 +81,14 @@ module.exports = {
     // baseURL: 'https://localhost:44337/api',
     baseURL: 'https://wrbackend.azurewebsites.net/api',
   },
-  proxy: {
-    '/api': {
-      target: 'https://wrbackend.azurewebsites.net/api',
-      pathRewrite: {
-        '^/api': '/',
-      },
-    },
-  },
+  // proxy: {
+  //   '/api': {
+  //     target: 'https://wrbackend.azurewebsites.net/api',
+  //     pathRewrite: {
+  //       '^/api': '/',
+  //     },
+  //   },
+  // },
   buildModules: ['@nuxt/typescript-build'],
   // sitemap: {
   //   hostname: 'https://www.wrautomaten.nl',
