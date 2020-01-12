@@ -83,7 +83,7 @@ module.exports = {
   },
   proxy: {
     '/api': {
-      target: 'https://backend.wrautomaten.nl/api',
+      target: 'https://wrbackend.azurewebsites.net/api',
       pathRewrite: {
         '^/api': '/',
       },
