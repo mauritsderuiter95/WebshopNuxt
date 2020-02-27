@@ -103,7 +103,6 @@
         <ul class="productList">
           <li class="product">
             <img
-              src="test.jpg"
               alt="test"
             >
           </li>
@@ -115,6 +114,7 @@
 
 <script>
 /* eslint-disable no-param-reassign */
+import { mapGetters } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 import btn from './Button.vue';
 
@@ -127,9 +127,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    // eslint-disable-next-line vue/require-default-prop
     product: {
       type: Object,
+      default: {}
     },
   },
   data() {
@@ -140,33 +140,41 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      currentCart: 'cart/currentCart'
+    }),
     getProducts() {
-      if (this.$store.getters['cart/currentCart']) {
-        if (this.$store.getters['cart/currentCart'].products) { return this.$store.getters['cart/currentCart'].products.length; }
+      if (this.currentCart) {
+        if (this.currentCart.products) { 
+          return this.currentCart.products.length; 
+        }
         return 0;
       }
       return 0;
     },
     totalPrice() {
-      if (this.$store.getters['cart/currentCart']) {
+      if (this.currentCart) {
         // return this.$store.getters['cart/currentCart'].price;
         return this.product.price;
       }
       return 0;
     },
   },
-  mounted() {
-    if (this.$store.getters['cart/currentCart']) {
-      if (this.$store.getters['cart/currentCart'].products) {
-        const currentProduct = this.$store.getters['cart/currentCart'].products.filter((cartProduct) => cartProduct.productId === this.product.id);
-        if (currentProduct[0]) {
-          // eslint-disable-next-line prefer-destructuring
-          this.cartProduct = currentProduct[0];
-        }
-      }
-    }
+  watch: {
+    currentCart: {
+      handler() {
+        this.getCartProduct();
+      },
+      deep: true,
+    },
   },
   methods: {
+    getCartProduct() {
+      if (!this.currentCart) return;
+      if (this.currentCart.products === 0) return;
+      const currentProduct = this.currentCart.products.filter((cartProduct) => cartProduct.productId === this.product.id)[0];
+      if (currentProduct) this.cartProduct = currentProduct;
+    },
     hide() {
       this.$emit('hide');
     },

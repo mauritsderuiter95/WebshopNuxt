@@ -81,14 +81,16 @@ module.exports = {
     // baseURL: 'https://localhost:44337/api',
     // baseURL: 'https://wrbackend.azurewebsites.net/api',
   },
-  // proxy: {
-  //   '/api': {
-  //     target: 'https://wrbackend.azurewebsites.net/api',
-  //     pathRewrite: {
-  //       '^/api': '/',
-  //     },
-  //   },
-  // },
+  proxy: {
+    '/api': {
+      target: () => {
+        return process.env.NODE_ENV === 'production' ? 'https://www.wr-automaten.nl/api/products' : 'http://localhost:44337/api/products';
+      },
+      pathRewrite: {
+        '^/api': '/',
+      },
+    },
+  },
   buildModules: ['@nuxt/typescript-build'],
   sitemap: {
     hostname: 'https://www.wr-automaten.nl',
@@ -96,7 +98,7 @@ module.exports = {
     exclude: ['account'],
     routes() {
       if (process.env.NODE_ENV !== 'production') {
-        axios.defaults.baseURL = 'http://localhost:44337/api/products';
+        axios.defaults.baseURL = 'https://localhost:44337/api/products';
       } else {
         axios.defaults.baseURL = 'https://www.wr-automaten.nl/api/products';
       }

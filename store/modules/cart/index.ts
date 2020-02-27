@@ -5,8 +5,12 @@ import Cart from '../../../models/Cart';
 import Product from '../../../models/Product';
 import CartProduct from '../../../models/CartProduct';
 
-const api = 'https://backend.wrautomaten.nl/api/carts';
-// const api = 'https://localhost:44337/api/carts';
+let api = '';
+if (process.env.NODE_ENV !== 'production') {
+  api = 'https://localhost:44337/api/carts';
+} else {
+  api = 'https://backend.wrautomaten.nl/api/carts';
+}
 
 const state = () => ({
   currentCart: {},

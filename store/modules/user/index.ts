@@ -3,8 +3,12 @@
 import Cookie from 'js-cookie';
 import User from '../../../models/User';
 
-const api = 'https://backend.wrautomaten.nl/api/users';
-// const api = 'https://localhost:44337/api/users';
+let api = '';
+if (process.env.NODE_ENV !== 'production') {
+  api = 'https://localhost:44337/api/carts';
+} else {
+  api = 'https://backend.wrautomaten.nl/api/carts';
+}
 
 const state = () => ({
   user: null,
