@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="notice">
+    <!-- <div class="notice">
       Deze shop is nog in aanbouw. Bestellingen worden geannuleerd.
     </div>
-    <div class="spacer" />
+    <div class="spacer" /> -->
     <nuxt role="main" />
   </div>
 </template>

@@ -22,7 +22,7 @@ const payment : IPayment = {
 export default class Order {
   id: string;
 
-  ordernumber: string;
+  ordernumber: Number;
 
   cartId: string;
 
@@ -43,7 +43,7 @@ export default class Order {
   key: string;
 
   constructor(id: string = '',
-    ordernumber: string = '',
+    ordernumber: Number = 0,
     cartId: string = '',
     products: Array<CartProduct> = [],
     ideal: boolean = false,

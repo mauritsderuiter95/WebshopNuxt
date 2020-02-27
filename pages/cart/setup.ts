@@ -3,7 +3,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import CartProduct from '../../models/CartProduct';
 
 export default function setup(props: any, ctx: SetupContext) {
-  const cart = cloneDeep(ctx.root.$store.getters['cart/currentCart']);
+  let cart = cloneDeep(ctx.root.$store.getters['cart/currentCart']);
+
+  if (!cart) cart = {};
 
   const state = reactive({
     cart,

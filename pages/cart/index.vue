@@ -3,7 +3,7 @@
     <div class="cart">
       <h2>Winkelwagen</h2>
       <span
-        v-if="!state.cart.products[0] || state.cart.products[0].count == 0"
+        v-if="!state.cart.products || !state.cart.products[0] || state.cart.products[0].count == 0"
         class="message"
       >Uw winkelwagen is momenteel leeg</span>
       <table
@@ -68,7 +68,7 @@
         </tbody>
       </table>
       <div
-        v-if="state.cart.products[0] && state.cart.products[0].count >= 1"
+        v-if="!state.cart.products || state.cart.products[0] && state.cart.products[0].count >= 1"
         class="toolbar"
       >
         <div class="checkout">

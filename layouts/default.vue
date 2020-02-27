@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
-    <div class="notice" role="banner">
+    <!-- <div class="notice" role="banner">
       Deze shop is nog in aanbouw. Bestellingen worden geannuleerd.
-    </div>
+    </div> -->
     <Header role="navigation" />
     <div class="body-content" role="main">
       <nuxt />
@@ -30,7 +30,6 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 60px);
-  margin-top: 9rem;
 }
 
 .notice {
@@ -54,7 +53,6 @@ export default {
 @media screen and (max-width: 1024px) {
   .wrapper {
     margin: 0;
-    margin-top: 6rem;
   }
   .body-content {
     margin-top: -37rem;
