@@ -8,21 +8,23 @@
       <nuxt />
     </div>
     <Footer role="contentinfo" />
+    <call-back />
   </div>
 </template>
 
 <script>
 import Header from '../components/header/Header.vue';
 import Footer from '../components/footer/Footer.vue';
+import CallBack from '../components/CallBack.vue';
 
 export default {
   components: {
     Header,
     Footer,
+    CallBack,
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 .wrapper {
@@ -59,5 +61,4 @@ export default {
     // margin: 0 3rem;
   }
 }
-
 </style>

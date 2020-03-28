@@ -10,7 +10,7 @@
             type="email"
             name="email"
             placeholder="E-mailadres"
-          >
+          />
         </div>
         <div class="input">
           <input
@@ -20,20 +20,10 @@
             name="password"
             placeholder="Wachtwoord"
             @keyup.enter="login"
-          >
+          />
         </div>
-        <div
-          ref="error"
-          class="error"
-        />
-        <wr-btn
-          primary
-          block
-          dark
-          color="primary"
-          big
-          @click="() => login($refs['error'])"
-        >
+        <div ref="error" class="error" />
+        <wr-btn primary block dark color="primary" big @click="() => login($refs['error'])">
           Inloggen
         </wr-btn>
       </div>
@@ -41,18 +31,12 @@
     <div class="box small">
       <h2>Registreren</h2>
       <p>
-        Door te registreren kan je sneller winkelen, overzichtelijk je vorige bestellingen zien
-        en de status van je laatste bestelling opvragen.
+        Door te registreren kan je sneller winkelen, overzichtelijk je vorige bestellingen zien en
+        de status van je laatste bestelling opvragen.
       </p>
       <div class="bottom">
         <nuxt-link to="/account/register">
-          <wr-btn
-            primary
-            block
-            dark
-            color="primary"
-            big
-          >
+          <wr-btn primary block dark color="primary" big>
             Registreren
           </wr-btn>
         </nuxt-link>
@@ -61,7 +45,7 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 /* eslint-disable no-param-reassign */
 import { createComponent, reactive } from '@vue/composition-api';
 import Button from '../../../components/ui-components/Button.vue';
@@ -71,16 +55,16 @@ export default createComponent({
     'wr-btn': Button,
   },
   setup(props, ctx) {
-    const email : string = '';
-    const password : string = '';
+    const email: string = '';
+    const password: string = '';
 
     const state = reactive({
       email,
       password,
     });
 
-    function login(error : any) {
-      const auth : Object = {
+    function login(error: any) {
+      const auth: Object = {
         username: state.email,
         password: state.password,
         isLogin: true,
@@ -89,7 +73,9 @@ export default createComponent({
       ctx.root.$store
         .dispatch('user/authenticateUser', auth)
         .then(() => {
-          if (!ctx.root.$route.query.returnpath) { ctx.root.$router.push('/account'); } else ctx.root.$router.push(`/${ctx.root.$route.query.returnpath}`);
+          if (!ctx.root.$route.query.returnpath) {
+            ctx.root.$router.push('/account');
+          } else ctx.root.$router.push(`/${ctx.root.$route.query.returnpath}`);
         })
         .catch(() => {
           state.email = '';
@@ -136,7 +122,8 @@ export default createComponent({
       display: flex;
       flex-direction: column;
       margin-top: 2rem;
-      .input, .title {
+      .input,
+      .title {
         width: 100%;
         margin-bottom: 2rem;
       }

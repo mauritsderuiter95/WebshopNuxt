@@ -8,6 +8,10 @@ module.exports = {
         devDependencies: ['**/test.tsx', '**/test.ts'],
       },
     ],
+    'import/extensions': 0,
+    'import/no-unresolved': 0,
+    'vue/max-attributes-per-line': false,
+    'vue/html-self-closing': false,
   },
   settings: {
     'import/resolver': {

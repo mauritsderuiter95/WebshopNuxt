@@ -1,19 +1,11 @@
 <template>
   <div>
-    <div
-      ref="hamburger"
-      class="icon hamburger"
-      @click="toggleMenu"
-    >
+    <div ref="hamburger" class="icon hamburger" @click="toggleMenu">
       <span />
       <span />
       <span />
     </div>
-    <nav
-      ref="navbar"
-      class="toolbar"
-      @click="toggleMenu"
-    >
+    <nav ref="navbar" class="toolbar" @click="toggleMenu">
       <slot />
     </nav>
   </div>
@@ -23,41 +15,36 @@
 export default {
   data() {
     return {
-      isOpen: false
-    }
+      isOpen: false,
+    };
   },
   methods: {
     toggleMenu() {
       this.isOpen = !this.isOpen;
-      if(this.isOpen) {
-        if(this.$refs.navbar) {
+      if (this.isOpen) {
+        if (this.$refs.navbar) {
           this.$refs.navbar.classList.add('isOpen');
           this.$refs.hamburger.classList.add('open');
         }
+      } else if (this.$refs.navbar) {
+        this.$refs.navbar.classList.add('closing');
+        setTimeout(() => {
+          this.$refs.navbar.classList.remove('isOpen');
+          this.$refs.navbar.classList.remove('closing');
+        }, 500);
+        this.$refs.hamburger.classList.remove('open');
       }
-      else {
-        if(this.$refs.navbar) {
-          this.$refs.navbar.classList.add('closing');
-          setTimeout(() => {
-            this.$refs.navbar.classList.remove('isOpen');
-            this.$refs.navbar.classList.remove('closing');
-          }, 500);
-          this.$refs.hamburger.classList.remove('open');
-        }
-      }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .toolbar {
-    width: 100%;
-    display: flex;
-    //box-shadow: 0px 6px 4px -4px rgba(0,0,0,0.2), 0px 9px 5px -5px rgba(0,0,0,0.14), 0px 10px 10px -10px rgba(0,0,0,0.12);
-    //border-bottom: 3px solid $primary-color;
-    padding: 1rem 1.5rem;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  padding: 1rem 1.5rem;
+  align-items: center;
 }
 
 .hamburger {
@@ -67,9 +54,9 @@ export default {
   height: 6em;
   margin: 2%;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   transition: 0.2s ease-in-out;
   width: 6em;
   -webkit-tap-highlight-color: transparent;
@@ -82,15 +69,15 @@ export default {
     background: #fff;
     border-radius: 2em;
     -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+    backface-visibility: hidden;
     height: 0.8em;
     position: absolute;
     transition: 0.2s ease-in-out;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
     &:nth-child(1) {
-        top: 1em;
-      }
+      top: 1em;
+    }
     &:nth-child(2) {
       top: 2.6em;
     }
@@ -103,14 +90,14 @@ export default {
   span {
     &:nth-child(1) {
       -webkit-transform: rotate(45deg) translate(1.1em, 1.1em);
-              transform: rotate(45deg) translate(1.1em, 1.1em);
+      transform: rotate(45deg) translate(1.1em, 1.1em);
     }
     &:nth-child(2) {
       opacity: 0;
     }
     &:nth-child(3) {
       -webkit-transform: rotate(-45deg) translate(1.1em, -1.1em);
-              transform: rotate(-45deg) translate(1.1em, -1.1em);
+      transform: rotate(-45deg) translate(1.1em, -1.1em);
     }
   }
 }
@@ -124,7 +111,7 @@ export default {
     grid-template-columns: 1fr;
     padding: 7rem 15rem;
     grid-row-gap: 2rem;
-    transition: transform .5s;
+    transition: transform 0.5s;
     position: absolute;
     transform: translateY(-100vh);
     z-index: -1;

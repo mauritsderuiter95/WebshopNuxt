@@ -3,7 +3,7 @@ import https from 'https';
 import Product from '../models/Product';
 
 if (process.env.NODE_ENV !== 'production') {
-  axios.defaults.baseURL = 'https://localhost:44337/api/products';
+  axios.defaults.baseURL = 'https://localhost:5001/api/products';
 } else {
   axios.defaults.baseURL = 'https://backend.wrautomaten.nl/api/products';
 }

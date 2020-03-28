@@ -7,30 +7,21 @@
           <span>Snelle links</span>
           <ul>
             <li>
-              <nuxt-link
-                to="/"
-                class="border-animation"
-              >
+              <nuxt-link to="/" class="border-animation">
                 <div class="inner">
                   Home
                 </div>
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link
-                to="/privacy"
-                class="border-animation"
-              >
+              <nuxt-link to="/privacy" class="border-animation">
                 <div class="inner">
                   Privacy Policy
                 </div>
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link
-                to="/algemene-voorwaarden"
-                class="border-animation"
-              >
+              <nuxt-link to="/algemene-voorwaarden" class="border-animation">
                 <div class="inner">
                   Algemene Voorwaarden
                 </div>
@@ -42,8 +33,16 @@
           <h2><i class="material-icons">public</i></h2>
           <span>Social media</span>
           <ul>
-            <li><a href="linkedin"><img src="/img/linkedin.png"></a></li>
-            <li><a href="facebook"><img src="/img/facebook.png"></a></li>
+            <li>
+              <a href="https://www.linkedin.com/in/wim-de-ruiter-886a6188/">
+                <img src="/img/linkedin.png" />
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/WR-Automaten-347758621904825/">
+                <img src="/img/facebook.png" />
+              </a>
+            </li>
           </ul>
         </section>
       </div>
@@ -52,9 +51,7 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
@@ -98,7 +95,7 @@ export default {
           a {
             display: block;
             align-self: center;
-            font-size: 1.6rem;;
+            font-size: 1.6rem;
             img {
               width: 3.6rem;
               transition: transform 0.2s;
@@ -148,7 +145,6 @@ export default {
   }
 }
 
-
 // Animations
 .border-animation {
   --border-width: 0.1rem;
@@ -171,7 +167,7 @@ export default {
     letter-spacing: 0.05em;
     cursor: pointer;
     padding: 1.3rem 1rem 1rem 1rem;
-    background: #7C0000;
+    background: #7c0000;
     z-index: 1;
     border: solid var(--border-width) transparent;
   }
@@ -287,7 +283,6 @@ export default {
     border-right-color: transparent;
     border-bottom-color: transparent;
     border-left-color: transparent;
-
   }
   66% {
     border-top-color: var(--color);

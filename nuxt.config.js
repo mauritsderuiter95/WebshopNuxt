@@ -51,6 +51,14 @@ module.exports = {
     '@nuxtjs/proxy',
     '@nuxtjs/sitemap',
     [
+      '@nuxtjs/recaptcha',
+      {
+        hideBadge: true, // Hide badge element (v3 & v2 via size=invisible)
+        siteKey: '6LdAyeQUAAAAABchFvhOLAkEbKrTfAeShiXQeFYF', // Site key for requests
+        version: 3, // Version
+      },
+    ],
+    [
       '@nuxtjs/google-tag-manager',
       {
         id: 'GTM-TFQ2RHZ',
@@ -77,15 +85,13 @@ module.exports = {
     mode: 'out-in',
   },
   axios: {
-    baseURL: 'https://backend.wrautomaten.nl/api',
-    // baseURL: 'https://localhost:44337/api',
+    // baseURL: 'https://backend.wrautomaten.nl/api',
+    baseURL: 'https://0.0.0.0:5001/api',
     // baseURL: 'https://wrbackend.azurewebsites.net/api',
   },
   proxy: {
     '/api': {
-      target: () => {
-        return process.env.NODE_ENV === 'production' ? 'https://www.wr-automaten.nl/api/products' : 'http://localhost:44337/api/products';
-      },
+      target: () => (process.env.NODE_ENV === 'production' ? 'https://www.wr-automaten.nl/api/products' : 'http://localhost:5001/api/products'),
       pathRewrite: {
         '^/api': '/',
       },
@@ -98,7 +104,7 @@ module.exports = {
     exclude: ['account'],
     routes() {
       if (process.env.NODE_ENV !== 'production') {
-        axios.defaults.baseURL = 'https://localhost:44337/api/products';
+        axios.defaults.baseURL = 'https://localhost:5001/api/products';
       } else {
         axios.defaults.baseURL = 'https://www.wr-automaten.nl/api/products';
       }

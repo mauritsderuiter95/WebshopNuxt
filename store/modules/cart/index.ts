@@ -7,7 +7,7 @@ import CartProduct from '../../../models/CartProduct';
 
 let api = '';
 if (process.env.NODE_ENV !== 'production') {
-  api = 'https://localhost:44337/api/carts';
+  api = 'https://localhost:5001/api/carts';
 } else {
   api = 'https://backend.wrautomaten.nl/api/carts';
 }

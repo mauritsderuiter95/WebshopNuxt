@@ -5,9 +5,9 @@ import User from '../../../models/User';
 
 let api = '';
 if (process.env.NODE_ENV !== 'production') {
-  api = 'https://localhost:44337/api/carts';
+  api = 'https://localhost:5001/api/users';
 } else {
-  api = 'https://backend.wrautomaten.nl/api/carts';
+  api = 'https://backend.wrautomaten.nl/api/users';
 }
 
 const state = () => ({

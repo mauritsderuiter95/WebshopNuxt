@@ -12,9 +12,9 @@
         <h3 class="headline mb-0">
           {{ machine.machineName }}
         </h3>
-        <p> {{ machine.description }} </p>
+        <p>{{ machine.description }}</p>
       </div>
-      <div class="footer">
+      <div v-if="machine.price > 0" class="footer">
         <span class="price">€{{ Number(machine.price).toFixed(2) }}</span>
       </div>
     </wr-card>
@@ -24,24 +24,22 @@
 <script>
 import img from '@/components/ui-components/Image.vue';
 import card from '@/components/ui-components/Card.vue';
-import btn from '@/components/ui-components/Button.vue';
-import Modal from '~/components/ui-components/Modal.vue';
 
 export default {
-    components: {
-        'wr-img': img,
-        'wr-card': card,
-    },
-    props: {
-        // eslint-disable-next-line
-        machine: Object
-    },
-    data() {
-      return {
-        showModal: false
-      }
-    },
-}
+  components: {
+    'wr-img': img,
+    'wr-card': card,
+  },
+  props: {
+    // eslint-disable-next-line
+    machine: Object,
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -52,10 +50,10 @@ export default {
     margin-bottom: 14rem;
     padding: 0 4rem;
     h3 {
-        font-size: 2rem;
+      font-size: 2rem;
     }
     p {
-        font-size: 1.8rem;
+      font-size: 1.8rem;
     }
   }
   .footer {
@@ -77,7 +75,7 @@ export default {
     .price {
       display: block;
       font-size: 2.4rem;
-      color: #7C0000;
+      color: #7c0000;
       font-weight: 700;
       margin-left: auto;
       margin-right: 2rem;
