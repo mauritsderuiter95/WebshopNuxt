@@ -2,43 +2,36 @@
   <div class="callback">
     <header @click="() => toggleShow()">
       <h3>Gebeld worden?</h3>
-      <span v-if="state.show || state.success" class="material-icons">
-        close
-      </span>
+      <span v-if="state.show || state.success" class="material-icons">close</span>
     </header>
     <div v-if="state.success" class="content">
       <p>Het terugbelverzoek is succesvol verstuurd.</p>
       <p>Wij nemen zo snel mogelijk contact met u op!</p>
     </div>
     <div v-if="state.show" class="content">
-      <p>
-        Mogen wij u vertellen hoe uw bedrijf beter wordt met koffie van WR Automaten?
-      </p>
-      <p>
-        Vul uw naam en telefoonnummer in en laat u overtuigen!
-      </p>
-      <div v-if="state.error" class="error">
-        Naam of telefoonnummer incorrect
-      </div>
+      <p>Mogen wij u vertellen hoe uw bedrijf beter wordt met koffie van WR Automaten?</p>
+      <p>Vul uw naam en telefoonnummer in en laat u overtuigen!</p>
+      <div v-if="state.error" class="error">Naam of telefoonnummer incorrect</div>
       <div class="holder">
         <div class="icon">
-          <span class="material-icons">
-            account_circle
-          </span>
+          <span class="material-icons">account_circle</span>
         </div>
         <input id="name" v-model="state.name" type="text" name="name" placeholder="Jan Smit" />
       </div>
       <div class="holder">
         <div class="icon">
-          <span class="material-icons">
-            phone
-          </span>
+          <span class="material-icons">phone</span>
         </div>
         <input id="phone" v-model="state.phone" type="text" name="phone" placeholder="0180234567" />
       </div>
-      <wr-btn color="primary" dark block medium type="submit" @click="() => sendCallBack()">
-        Bel mij terug!
-      </wr-btn>
+      <wr-btn
+        color="primary"
+        dark
+        block
+        medium
+        type="submit"
+        @click="() => sendCallBack()"
+      >Bel mij terug!</wr-btn>
     </div>
   </div>
 </template>
@@ -52,15 +45,11 @@ export default createComponent({
     'wr-btn': Button,
   },
   setup(props, ctx) {
-    let show: Boolean = true;
+    const show: Boolean = true;
     const success: Boolean = false;
     const error: Boolean = false;
     const name: string = '';
     const phone: string = '';
-
-    if (process.client) {
-      if (window.screen.width < 1024) show = false;
-    }
 
     const state = reactive({
       show,
@@ -72,6 +61,10 @@ export default createComponent({
 
     onMounted(async () => {
       await (ctx.root as any).$recaptcha.init();
+      if (process.client) {
+        const mobile = window.matchMedia('(max-width: 1024px)');
+        if (mobile.matches) state.show = false;
+      }
     });
 
     function toggleShow() {
@@ -189,9 +182,9 @@ export default createComponent({
 
 @media screen and (max-width: 1024px) {
   .callback {
-    width: 90%;
+    max-width: 90%;
+    width: inherit;
     right: 5%;
-    left: 5%;
   }
 }
 </style>

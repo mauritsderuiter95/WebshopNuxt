@@ -1,17 +1,8 @@
 <template>
-  <div
-    v-show="showModal"
-    class="modalBackground"
-    @click.self="hide"
-  >
-    <div
-      class="modal"
-    >
+  <div v-show="showModal" class="modalBackground" @click.self="hide">
+    <div class="modal">
       <div class="close">
-        <i
-          class="material-icons"
-          @click="hide"
-        >
+        <i class="material-icons" @click="hide">
           close
         </i>
       </div>
@@ -26,10 +17,7 @@
             </h3>
           </div>
           <div class="image">
-            <v-lazy-image
-              :src="product.photo.url"
-              :alt="product.photo.alt"
-            />
+            <v-lazy-image :src="product.photo.url" :alt="product.photo.alt" />
           </div>
           <div class="orderSummary">
             <h4>{{ product.productName }}</h4>
@@ -45,10 +33,7 @@
                 Hoeveelheid:
               </span>
               <div class="counter">
-                <span
-                  class="editor minus"
-                  @click="removeProduct(cartProduct)"
-                >
+                <span class="editor minus" @click="removeProduct(cartProduct)">
                   &minus;
                 </span>
                 <input
@@ -57,11 +42,8 @@
                   class="count"
                   :value="cartProduct.count"
                   @input="editCart($event.target.value, cartProduct.productId)"
-                >
-                <span
-                  class="editor plus"
-                  @click="addProduct(cartProduct.productId)"
-                >
+                />
+                <span class="editor plus" @click="addProduct(cartProduct.productId)">
                   +
                 </span>
               </div>
@@ -77,22 +59,10 @@
               </span>
             </div>
             <div class="actions">
-              <wr-btn
-                block
-                medium
-                outline
-                color="primary"
-                @click="goToCart"
-              >
+              <wr-btn block medium outline color="primary" @click="goToCart">
                 Bekijk winkelwagen
               </wr-btn>
-              <wr-btn
-                block
-                medium
-                color="primary"
-                dark
-                @click="goToCheckout"
-              >
+              <wr-btn block medium color="primary" dark @click="goToCheckout">
                 Direct afrekenen
               </wr-btn>
             </div>
@@ -102,9 +72,7 @@
       <div class="row">
         <ul class="productList">
           <li class="product">
-            <img
-              alt="test"
-            >
+            <img alt="test" />
           </li>
         </ul>
       </div>
@@ -117,6 +85,7 @@
 import { mapGetters } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 import btn from './Button.vue';
+import Product from '../../models/Product';
 
 export default {
   components: {
@@ -129,7 +98,7 @@ export default {
     },
     product: {
       type: Object,
-      default: {}
+      default: () => new Product(),
     },
   },
   data() {
@@ -141,12 +110,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentCart: 'cart/currentCart'
+      currentCart: 'cart/currentCart',
     }),
     getProducts() {
       if (this.currentCart) {
-        if (this.currentCart.products) { 
-          return this.currentCart.products.length; 
+        if (this.currentCart.products) {
+          return this.currentCart.products.length;
         }
         return 0;
       }
@@ -172,7 +141,9 @@ export default {
     getCartProduct() {
       if (!this.currentCart) return;
       if (this.currentCart.products === 0) return;
-      const currentProduct = this.currentCart.products.filter((cartProduct) => cartProduct.productId === this.product.id)[0];
+      const currentProduct = this.currentCart.products.filter(
+        (cartProduct) => cartProduct.productId === this.product.id,
+      )[0];
       if (currentProduct) this.cartProduct = currentProduct;
     },
     hide() {
@@ -243,13 +214,13 @@ export default {
   left: 0;
   right: 0;
   display: flex;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   overflow-y: auto;
   .modal {
     background: #fff;
     border-radius: $border-radius;
-    box-shadow: 0 2px 0 0 rgba(0,0,0,0.5);
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.5);
     padding: 4rem;
     margin: auto;
     max-width: 100rem;
@@ -274,7 +245,7 @@ export default {
       }
       .col {
         width: 100%;
-        border-right: solid 1px rgba(0,0,0,0.2);
+        border-right: solid 1px rgba(0, 0, 0, 0.2);
         padding: 0 4rem;
         &:last-of-type {
           border-right: none;
@@ -336,7 +307,7 @@ export default {
               input {
                 text-align: center;
                 padding: 1.6rem;
-                background: rgba(0,0,0,0.05);
+                background: rgba(0, 0, 0, 0.05);
                 border: none;
                 border-radius: $border-radius;
                 font-size: 1.6rem;
@@ -350,10 +321,10 @@ export default {
                 padding: 0.5rem 2rem;
                 font-size: 3rem;
                 font-weight: 200;
-                color: rgba(0,0,0,0.2);
+                color: rgba(0, 0, 0, 0.2);
                 cursor: pointer;
                 &:hover {
-                  color: rgba(0,0,0,0.9);
+                  color: rgba(0, 0, 0, 0.9);
                 }
               }
               .minus {

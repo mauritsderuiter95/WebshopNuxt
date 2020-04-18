@@ -85,8 +85,8 @@ module.exports = {
     mode: 'out-in',
   },
   axios: {
-    // baseURL: 'https://backend.wrautomaten.nl/api',
-    baseURL: 'https://0.0.0.0:5001/api',
+    baseURL: 'https://backend.wrautomaten.nl/api',
+    // baseURL: 'https://0.0.0.0:5001/api',
     // baseURL: 'https://wrbackend.azurewebsites.net/api',
   },
   proxy: {

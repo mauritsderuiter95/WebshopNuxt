@@ -1,3 +1,5 @@
+import Photo from './Photo';
+
 export default class Product {
   id: string;
 
@@ -13,16 +15,18 @@ export default class Product {
 
   longDescription: string;
 
-  photo: object;
+  photo: Photo;
 
-  constructor(id: string = '',
+  constructor(
+    id: string = '',
     productName: string = '',
     price: number = 0,
     category: string[] = [],
     discount: Number = 0,
     shortDescription: string = '',
     longDescription: string = '',
-    photo: object = {}) {
+    photo: Photo = new Photo(),
+  ) {
     this.id = id;
     this.productName = productName;
     this.price = price;

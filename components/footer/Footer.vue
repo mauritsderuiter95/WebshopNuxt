@@ -114,7 +114,7 @@ export default {};
   .sticky {
     .bottom {
       clip-path: none;
-      padding: 1rem 0 5rem;
+      padding: 1rem 0 10rem;
       .content {
         padding: 0;
         .information {

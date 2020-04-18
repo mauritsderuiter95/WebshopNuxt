@@ -1,98 +1,68 @@
 <template>
-  <div class="wrapper">
-    <Modal
-      :show-modal="state.showModal"
-      :product="product"
-      @hide="state.showModal = false"
-    />
+  <div class="wrapper" @click="goToPage">
     <wr-card>
-      <nuxt-link :to="`/products/${product.id}`">
-        <wr-img
-          :src="product.photo.url"
-          :aspect-ratio="1"
-          :alt="product.photo.alt"
-          :title="product.photo.title"
-        />
-      </nuxt-link>
+      <wr-img
+        :src="product.photo.url"
+        :aspect-ratio="2"
+        :alt="product.photo.alt"
+        :title="product.photo.title"
+      />
 
       <div class="content">
-        <nuxt-link :to="`/products/${product.id}`">
-          <h3 class="headline mb-0">
-            {{ product.productName }}
-          </h3>
-        </nuxt-link>
-        <p> {{ product.shortDescription }} </p>
+        <wr-btn
+          flat
+          big
+          outline
+          color="white"
+          text-color="text-primary"
+          class="buy"
+          @click.stop="addToCart"
+        >
+          <i class="material-icons" data-v-de1b67a6="" data-v-966372d2="">shopping_cart</i>
+        </wr-btn>
+        <h3 class="headline mb-0">
+          {{ product.productName }}
+        </h3>
+        <p>{{ product.shortDescription }}</p>
       </div>
 
       <div class="footer">
         <span class="price">€{{ Number(product.price).toFixed(2) }}</span>
-        <div class="buttons">
-          <nuxt-link
-            :to="`/products/${product.id}`"
-            class="info-btn"
-          >
-            <wr-btn
-              flat
-              block
-              big
-            >
-              Info
-            </wr-btn>
-          </nuxt-link>
-          <wr-btn
-            block
-            flat
-            big
-            dark
-            color="primary"
-            @click="addToCart"
-          >
-            Bestellen
-          </wr-btn>
-        </div>
       </div>
     </wr-card>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  createComponent, reactive,
-} from '@vue/composition-api';
+import { createComponent } from '@vue/composition-api';
 import img from './ui-components/Image.vue';
 import card from './ui-components/Card.vue';
 import btn from './ui-components/Button.vue';
-import Modal from './ui-components/Modal.vue';
 
 export default createComponent({
   components: {
     'wr-img': img,
     'wr-card': card,
     'wr-btn': btn,
-    Modal,
   },
   props: {
     // eslint-disable-next-line
-        product: Object
+    product: Object,
   },
   setup(props, ctx) {
-    const state = reactive({
-      showModal: false,
-    });
-
     const addToCart = () => {
-      state.showModal = true;
       ctx.root.$store.dispatch('cart/addToCart', props.product);
+      ctx.emit('added', props.product);
     };
-
-    const hide = () => {
-      state.showModal = false;
+    const goToPage = () => {
+      if (props.product) {
+        ctx.root.$router.push(`/products/${props.product.id}`);
+      }
     };
 
     return {
-      state,
       addToCart,
-      hide,
+      goToPage,
     };
   },
 });
@@ -101,15 +71,42 @@ export default createComponent({
 <style lang="scss" scoped>
 .wrapper {
   height: 100%;
+  cursor: pointer;
   .content {
-    margin-top: 4rem;
-    margin-bottom: 14rem;
+    margin-top: 1rem;
+    margin-bottom: 9rem;
     padding: 0 4rem;
+    position: relative;
+    z-index: 1;
     h3 {
-        font-size: 2rem;
+      font-size: 2rem;
     }
     p {
-        font-size: 1.8rem;
+      font-size: 1.8rem;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+    .buy {
+      display: block;
+      top: -8rem;
+      right: 3rem;
+      z-index: 2;
+      width: 7rem;
+      height: 7rem;
+      position: absolute;
+    }
+    &::before {
+      content: '';
+      width: 200%;
+      height: 100px;
+      position: absolute;
+      display: block;
+      background-color: #fff;
+      -webkit-transform: rotate(-8deg);
+      transform: rotate(-8deg);
+      top: -5rem;
+      left: -10%;
+      z-index: -1;
     }
   }
   .footer {
@@ -119,23 +116,14 @@ export default createComponent({
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    .buttons {
-      display: flex;
-      width: 100%;
-      .info-btn {
-        margin-right: 1rem;
-        display: block;
-        width: 100%;
-      }
-    }
     .price {
       display: block;
       font-size: 2.4rem;
-      color: #7C0000;
+      color: #7c0000;
       font-weight: 700;
       margin-left: auto;
-      margin-right: 2rem;
-      margin-bottom: 2rem;
+      margin-right: 4rem;
+      margin-bottom: 4rem;
     }
   }
 }

@@ -12,6 +12,8 @@ if (process.env.NODE_ENV !== 'production') {
   api = 'https://backend.wrautomaten.nl/api/carts';
 }
 
+api = 'https://backend.wrautomaten.nl/api/carts';
+
 const state = () => ({
   currentCart: {},
 });

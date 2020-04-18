@@ -8,12 +8,9 @@
       De variant Strong is een streling op de tong voor dé koffieliefhebber."
     />
     <section class="content">
-      <ul class="productList">
-        <li
-          v-for="machine in machineList"
-          :key="machine.id"
-        >
-          <MachineGridView :machine="machine" />
+      <ul>
+        <li v-for="machine in machineList" :key="machine.id">
+          <Machine :machine="machine" />
         </li>
       </ul>
     </section>
@@ -22,21 +19,26 @@
 
 <script lang="ts">
 import { createComponent } from '@vue/composition-api';
-import MachineGridView from '../../components/MachineGridView.vue';
+import Machine from '../../components/product/Machine.vue';
 import Box from '../../components/ui-components/Box.vue';
 
 export default createComponent({
   components: {
     Box,
-    MachineGridView,
+    Machine,
   },
-  asyncData({ $axios } : any) {
-    return $axios.$get(`${$axios.defaults.baseURL}/machines?type=coffee`)
-      .then((res : []) => ({ machineList: res }));
+  asyncData({ $axios }: any) {
+    return $axios
+      .$get(`${$axios.defaults.baseURL}/machines?type=coffee`)
+      .then((res: []) => ({ machineList: res }));
   },
-
 });
 </script>
 
 <style lang="scss" scoped>
+ul {
+  li {
+    list-style-type: none;
+  }
+}
 </style>
