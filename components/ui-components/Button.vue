@@ -34,6 +34,7 @@ export default {
     submit: String,
     medium: Boolean,
     outline: Boolean,
+    // eslint-disable-next-line
     textColor: String,
   },
   methods: {

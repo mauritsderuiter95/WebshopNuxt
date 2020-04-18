@@ -2,16 +2,18 @@
   <div class="callback">
     <header @click="() => toggleShow()">
       <h3>Gebeld worden?</h3>
-      <span v-if="state.show || state.success" class="material-icons">close</span>
+      <span v-if="show || state.success" class="material-icons">close</span>
     </header>
     <div v-if="state.success" class="content">
       <p>Het terugbelverzoek is succesvol verstuurd.</p>
       <p>Wij nemen zo snel mogelijk contact met u op!</p>
     </div>
-    <div v-if="state.show" class="content">
+    <div v-if="show" class="content">
       <p>Mogen wij u vertellen hoe uw bedrijf beter wordt met koffie van WR Automaten?</p>
       <p>Vul uw naam en telefoonnummer in en laat u overtuigen!</p>
-      <div v-if="state.error" class="error">Naam of telefoonnummer incorrect</div>
+      <div v-if="state.error" class="error">
+        Naam of telefoonnummer incorrect
+      </div>
       <div class="holder">
         <div class="icon">
           <span class="material-icons">account_circle</span>
@@ -24,20 +26,16 @@
         </div>
         <input id="phone" v-model="state.phone" type="text" name="phone" placeholder="0180234567" />
       </div>
-      <wr-btn
-        color="primary"
-        dark
-        block
-        medium
-        type="submit"
-        @click="() => sendCallBack()"
-      >Bel mij terug!</wr-btn>
+      <wr-btn color="primary" dark block medium type="submit" @click="() => sendCallBack()">
+        Bel mij terug!
+      </wr-btn>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { createComponent, reactive, onMounted } from '@vue/composition-api';
+// eslint-disable-next-line object-curly-newline
+import { createComponent, reactive, onMounted, computed } from '@vue/composition-api';
 import Button from './ui-components/Button.vue';
 
 export default createComponent({
@@ -45,14 +43,14 @@ export default createComponent({
     'wr-btn': Button,
   },
   setup(props, ctx) {
-    const show: Boolean = true;
-    const success: Boolean = false;
-    const error: Boolean = false;
-    const name: string = '';
-    const phone: string = '';
+    const show = computed(() => ctx.root.$store.getters['user/showCallback']);
+    const user: any = computed(() => ctx.root.$store.getters['user/user']);
+    const success = false;
+    const error = false;
+    const name = '';
+    const phone = '';
 
     const state = reactive({
-      show,
       name,
       phone,
       success,
@@ -63,13 +61,20 @@ export default createComponent({
       await (ctx.root as any).$recaptcha.init();
       if (process.client) {
         const mobile = window.matchMedia('(max-width: 1024px)');
-        if (mobile.matches) state.show = false;
+        if (mobile.matches) ctx.root.$store.dispatch('user/showCallback', false);
+      }
+      if (user && user.firstName) {
+        state.name = `${user.firstName} ${user.lastName}`;
+        state.phone = user.phone;
       }
     });
 
     function toggleShow() {
       if (!state.success) {
-        state.show = !state.show;
+        ctx.root.$store.dispatch(
+          'user/showCallback',
+          !ctx.root.$store.getters['user/showCallback'],
+        );
       }
       state.success = false;
     }
@@ -91,7 +96,7 @@ export default createComponent({
             token,
           },
         );
-        state.show = false;
+        ctx.root.$store.dispatch('user/showCallback', false);
         state.success = true;
       } catch {
         state.error = true;
@@ -101,6 +106,7 @@ export default createComponent({
     return {
       props,
       ctx,
+      show,
       state,
       toggleShow,
       sendCallBack,

@@ -10,21 +10,31 @@ if (process.env.NODE_ENV !== 'production') {
   api = 'https://backend.wrautomaten.nl/api/users';
 }
 
-const state = () => ({
+interface IUserState {
+  user: User | null,
+  token: string | null,
+  showCallback: boolean,
+}
+
+const state = () : IUserState => ({
   user: null,
   token: null,
+  showCallback: true,
 });
 
 const mutations = ({
-  setToken(state: any, token: string) {
+  setToken(state: IUserState, token: string) {
     state.token = token;
   },
-  setUser(state: any, user: User) {
+  setUser(state: IUserState, user: User) {
     state.user = user;
   },
-  clearUser(state: any) {
+  clearUser(state: IUserState) {
     state.user = null;
     state.token = null;
+  },
+  showCallback(state : IUserState, showCallback: boolean) {
+    state.showCallback = showCallback;
   },
 });
 
@@ -117,17 +127,41 @@ const actions = {
     commit('setUser', user);
     Cookie.set('guest', user, { expires: 7 });
   },
+  initCallback({ commit }: any, req: any) {
+    if (!req) return;
+
+    if (!req.headers.cookie) return;
+
+    let showCallback = req.headers.cookie
+      .split(';')
+      .find((c: string) => c.trim().startsWith('showCallback='));
+
+    if (!showCallback) return;
+
+    [, showCallback] = showCallback.split('=');
+
+    showCallback = showCallback === 'true';
+
+    commit('showCallback', showCallback);
+  },
+  showCallback({ commit }: any, showCallback: boolean) {
+    commit('showCallback', showCallback);
+    Cookie.set('showCallback', String(showCallback));
+  },
 };
 
 const getters = {
-  isAuthenticated(state: any) {
+  isAuthenticated(state: IUserState) {
     return state.token != null;
   },
-  currentUser(state: any) {
+  currentUser(state: IUserState) {
     return state.user;
   },
-  token(state: any) {
+  token(state: IUserState) {
     return state.token;
+  },
+  showCallback(state: IUserState) {
+    return state.showCallback;
   },
 };
 

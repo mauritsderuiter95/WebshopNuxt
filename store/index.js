@@ -5,6 +5,7 @@ const actions = {
   async nuxtServerInit({ dispatch }, { req }) {
     await dispatch('user/initAuth', req);
     await dispatch('cart/getCart', req);
+    dispatch('user/initCallback', req);
   },
 };
 
